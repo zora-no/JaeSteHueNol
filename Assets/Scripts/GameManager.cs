@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,11 +18,29 @@ public class GameManager : MonoBehaviour
     public static event GameDelegate OnGameOverConfirmed;
     
     private bool gameOver = false;
+    public int scoreP1 = 1;
+    public int scoreP2 = 0;
+    public TextMeshPro scoreText; // reference to UI score text component
     
     void Awake()
     {
         Instance = this;
     }
+
+    void Start()
+    {
+        setScoreText();
+    }
+    void Update()
+    {
+        //OnPlayerScored("P1");
+        //setScoreText();
+    }
+    
+    public bool GameOver { get { return gameOver; } } 
+    
+    public int ScoreP1 { get { return scoreP1; } }
+    public int ScoreP2 { get { return scoreP2; } }
     
     enum PageState
         // the four page states
@@ -29,6 +49,11 @@ public class GameManager : MonoBehaviour
         Start,
         GameOver,
         Countdown
+    }
+
+    void setScoreText()
+    {
+        scoreText.text = scoreP1.ToString() + " : " + scoreP2.ToString();
     }
     
     void OnCountdownFinished()
@@ -48,11 +73,21 @@ public class GameManager : MonoBehaviour
         // ...
     }
 
-    void OnPlayerScored()
+    void OnPlayerScored(string player)
         // manages score on screen
     {
-        // ...
+        if (player == "P1")
+        {
+            scoreP1++;
+        }
+        else
+        {
+            scoreP2++;
+        }
+
+        setScoreText();
     }
+    
     
 
     void SetPageState(PageState state)
