@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    // common variables
+    private float [] _xSpawn = { -12f, 13f }; // x spawn range
+    private float [] _zSpawn = { -18f, 9f }; // z spawn range
+    private float _ySpawn = 45f; // y spawn point: arena height
+    
     // power up 1: freeze enemy player
     private bool _freezeCanSpawn = true;
-    private float _freezeX = 4.5f; // x spawn range
-    private float _freezeZ = 4.5f; // z spawn range
     [SerializeField] private float _freezeRate = 5f; // in seconds
     
     // power up 2: higher shooting frequency
     private bool _freqCanSpawn = true;
-    private float _freqX = 4.5f;
-    private float _freqZ = 4.5f; 
     [SerializeField] private float _freqRate = 5f;
 
     
@@ -32,10 +33,10 @@ public class SpawnManager : MonoBehaviour
             GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Freeze PowerUp");
             if (newPowerUp != null)
             {
-                newPowerUp.transform.position = new Vector3(
-                    Random.Range(-_freezeX, _freezeX),
-                    10, 
-                    Random.Range(-_freezeZ, _freezeZ));
+                newPowerUp.transform.position = new Vector3 (
+                    Random.Range(_xSpawn[0], _xSpawn[1]),
+                    _ySpawn, 
+                    Random.Range(_zSpawn[0], _zSpawn[1]) );
                 newPowerUp.transform.rotation = Quaternion.identity;
                 newPowerUp.SetActive(true);
             }
@@ -52,10 +53,10 @@ public class SpawnManager : MonoBehaviour
             GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Frequency PowerUp");
             if (newPowerUp != null)
             {
-                newPowerUp.transform.position = new Vector3(
-                    Random.Range(-_freqX, _freqX),
-                    10, 
-                    Random.Range(-_freqZ, _freqZ));
+                newPowerUp.transform.position = new Vector3 (
+                    Random.Range(_xSpawn[0], _xSpawn[1]),
+                    _ySpawn, 
+                    Random.Range(_zSpawn[0], _zSpawn[1]) );
                 newPowerUp.transform.rotation = Quaternion.identity;
                 newPowerUp.SetActive(true);
             }

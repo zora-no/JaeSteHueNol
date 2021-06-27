@@ -4816,9 +4816,10 @@ GameObject:
   - component: {fileID: 1805993603382343840}
   - component: {fileID: 5801861361592780597}
   - component: {fileID: 3254405796948110249}
+  - component: {fileID: 3187225412521887790}
   m_Layer: 0
-  m_Name: PowerUp01
-  m_TagString: Untagged
+  m_Name: PowerUpFreeze
+  m_TagString: Freeze PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4902,6 +4903,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3187225412521887790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7919494511106801767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b78a544420d8a45bec61e1013e18e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerUpSpeed: 7
 --- !u!1 &8662025153193313277
 GameObject:
   m_ObjectHideFlags: 0
