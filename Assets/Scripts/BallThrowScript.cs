@@ -8,8 +8,8 @@ public class BallThrowScript : MonoBehaviour
     public float throwVelocity;
     private GameObject throwPoint;
     private GameObject ball;
-    public float speedX;
-    public float speedY;
+    public float speedForward;
+    public float speedUp;
     private string throwButton;
     private int playerNumber;
     private float throwCooldown = 2.0f;
@@ -23,13 +23,13 @@ public class BallThrowScript : MonoBehaviour
             playerNumber = 1;
             throwPoint = gameObject.transform.Find("ThrowPoint1").gameObject;
             ball = GameObject.Find("Ball1");
+            speedForward = -speedForward;
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
             throwPoint = gameObject.transform.Find("ThrowPoint2").gameObject;
             ball = GameObject.Find("Ball2");
-            speedX = -speedX;
         }
     }
 
@@ -57,6 +57,6 @@ public class BallThrowScript : MonoBehaviour
     void Throw()
     {
         ball.transform.position = throwPoint.transform.position;
-        ball.GetComponent<Rigidbody>().velocity = new Vector3(speedX, speedY, 0.0f).normalized * throwVelocity;
+        ball.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, speedUp, speedForward).normalized * throwVelocity;
     }
 }

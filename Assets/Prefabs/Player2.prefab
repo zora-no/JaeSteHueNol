@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 4767705983556506796}
   - component: {fileID: 4767705983556506799}
   - component: {fileID: 4767705983556506798}
-  - component: {fileID: 4767705983556506794}
   - component: {fileID: 4767705983556506833}
   - component: {fileID: 4767705983556506795}
+  - component: {fileID: 1775902950617986794}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -184,18 +184,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4767705983556506794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767705983556506832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8acdffdb9b265ce4fa335a975edf53c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &4767705983556506833
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -225,8 +213,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwVelocity: 30
-  speedX: 10
-  speedY: 3
+  speedForward: 0
+  speedUp: 0
+--- !u!114 &1775902950617986794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767705983556506832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96668deb56be8748bd399147fe08416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4767705983779636889
 GameObject:
   m_ObjectHideFlags: 0

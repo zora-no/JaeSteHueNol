@@ -173,7 +173,7 @@ PrefabInstance:
     - target: {fileID: 3909745419347147144, guid: 8567df4c0533e1f45949e04545235c0f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 45.3
+      value: 39.43
       objectReference: {fileID: 0}
     - target: {fileID: 3909745419347147144, guid: 8567df4c0533e1f45949e04545235c0f,
         type: 3}
@@ -420,7 +420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &710347889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +655,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0
       objectReference: {fileID: 0}
+    - target: {fileID: 7037586288392063776, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 7037586288392063778, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
         type: 3}
       propertyPath: m_RootOrder
@@ -714,6 +719,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037586288392063791, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
+        type: 3}
+      propertyPath: speedUp
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037586288392063791, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
+        type: 3}
+      propertyPath: speedForward
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037586288392063791, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
+        type: 3}
+      propertyPath: throwVelocity
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e, type: 3}
@@ -1131,6 +1151,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 4767705983556506795, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
+        type: 3}
+      propertyPath: speedUp
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767705983556506795, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
+        type: 3}
+      propertyPath: speedForward
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767705983556506795, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
+        type: 3}
+      propertyPath: throwVelocity
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4767705983556506797, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
         type: 3}
       propertyPath: m_RootOrder
@@ -1190,6 +1225,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767705983556506833, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fad0e4a4c4047e5429d4b79b9c1ffffb, type: 3}
