@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
+    private GameManager game;
+    
+    public delegate void PlayerDelegate();
+    public static event PlayerDelegate OnPlayerDied;
+    public static event PlayerDelegate OnPlayerScored;
+    
+    
     Rigidbody rb;
     private float moveSpeed = 10.0f;
     private int playerNumber;
@@ -12,6 +19,8 @@ public class PlayerMovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        game = GameManager.Instance;
+        
         rb = GetComponent<Rigidbody>();
         if (this.name == "Player1")
         {
@@ -29,12 +38,19 @@ public class PlayerMovementScript : MonoBehaviour
     {
         Move();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    void OnEnable()
     {
-        
+        GameManager.OnGameStarted += OnGameStarted;
+        GameManager.OnGameOverConfirmed += OnGameOverConfirmed;
     }
+
+    void onDisenable()
+    {
+        GameManager.OnGameStarted -= OnGameStarted;
+        GameManager.OnGameOverConfirmed -= OnGameOverConfirmed;
+    }
+
     void Move()
     {
         float speedHorizontal = 0;
@@ -81,4 +97,24 @@ public class PlayerMovementScript : MonoBehaviour
             rb.velocity = new Vector3((float)(speedHorizontal), (float)(speedVertical), (float)(speedForward)).normalized * moveSpeed;
         }
     }
+    
+    
+    void OnGameStarted()
+    {
+        // ...
+    }
+
+    void OnGameOverConfirmed() 
+    {
+        // ...
+    }
+    
+    void OnTriggerEnter(Collider other)
+        // check for collision with other game objects
+    {
+        OnPlayerDied();
+        OnPlayerScored();
+    }
+    
+    
 }
