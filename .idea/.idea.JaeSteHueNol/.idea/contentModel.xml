@@ -11,7 +11,6 @@
           <e p="BallThrowScript.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="ObjectPool.cs" t="Include" />
-          <e p="Player.cs" t="Include" />
           <e p="Player2MovementScript.cs" t="Include" />
           <e p="PlayerMovementScript.cs" t="Include" />
           <e p="PowerUp.cs" t="Include" />

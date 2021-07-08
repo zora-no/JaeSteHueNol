@@ -11,6 +11,13 @@ public class PlayerMovementScript : MonoBehaviour
     public static event PlayerDelegate OnPlayerScored;
     
     
+    [SerializeField] private float _powerupTimeout = 5f;
+    private bool _p1IsPowerUpOn = false;
+    private PowerUpType _p1PowerUpType;
+    private bool _p2IsPowerUpOn = false;
+    private PowerUpType _p2PowerUpType;
+    
+    
     Rigidbody rb;
     private float moveSpeed = 10.0f;
     private int playerNumber;
@@ -37,6 +44,7 @@ public class PlayerMovementScript : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        DefensiveOn();
     }
     
     void OnEnable()
@@ -96,6 +104,83 @@ public class PlayerMovementScript : MonoBehaviour
             }
             rb.velocity = new Vector3((float)(speedHorizontal), (float)(speedVertical), (float)(speedForward)).normalized * moveSpeed;
         }
+    }
+    
+    void DefensiveOn()
+    {
+        if (_p1IsPowerUpOn)
+        {
+            switch (_p1PowerUpType)
+            {
+                case PowerUpType.Freeze:
+                    //
+                    _p1IsPowerUpOn = false;
+                    break;
+                case PowerUpType.ShootFreq:
+                    //
+                    _p1IsPowerUpOn = false;
+                    break;
+                case PowerUpType.Shield:
+                    //
+                    _p1IsPowerUpOn = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (_p2IsPowerUpOn)
+        {
+            switch (_p2PowerUpType)
+            {
+                case PowerUpType.Freeze:
+                    //
+                    _p2IsPowerUpOn = false;
+                    break;
+                case PowerUpType.ShootFreq:
+                    //
+                    _p2IsPowerUpOn = false;
+                    break;
+                case PowerUpType.Shield:
+                    //
+                    _p2IsPowerUpOn = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    
+    public void ActivatePowerUp(PowerUpType type, int player)
+    {
+        if (player == 1)
+        {
+            _p1PowerUpType = type;
+            _p1IsPowerUpOn = true;
+            StartCoroutine(DeactivatePowerUp(1));
+        }
+        if (player == 2)
+        {
+            _p2PowerUpType = type;
+            _p2IsPowerUpOn = true;
+            StartCoroutine(DeactivatePowerUp(2));
+        }
+            
+    }
+
+    IEnumerator DeactivatePowerUp(int player)
+    {
+        if (player == 1)
+        {
+            yield return new WaitForSeconds(_powerupTimeout);
+            _p1IsPowerUpOn = false;
+        }
+        if (player == 2)
+        {
+            yield return new WaitForSeconds(_powerupTimeout);
+            _p2IsPowerUpOn = false;
+        }
+            
     }
     
     
