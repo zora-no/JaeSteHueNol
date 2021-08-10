@@ -35,7 +35,7 @@ public class ObjectPool : MonoBehaviour
         foreach (ObjectPoolItem item in itemsToPool) {
             for (int i = 0; i < item.amountToPool; i++) {
                 GameObject obj = (GameObject)Instantiate(item.objectToPool);
-                obj.transform.parent = transform;
+                obj.transform.parent = GameObject.Find("SpawnManager").transform;
                 obj.SetActive(false);
                 pooledObjects.Add(obj);
             }

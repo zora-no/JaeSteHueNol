@@ -10,51 +10,87 @@ public class BallThrowScript : MonoBehaviour
     private GameObject ball;
     public float speedForward;
     public float speedUp;
-    private string throwButton;
     private int playerNumber;
-    private float throwCooldown = 2.0f;
+    private float throwCooldown = 1.0f; // how many seconds between each throw (min.)
     private float timeTillThrow = 0.0f;
-
+    
     private Rigidbody rb; // rigidbody of the ball
+    
+    private float _zDisappear; // z coordinate where the balls disappear
 
-    // Start is called before the first frame update
     void Start()
     {
+
         if (this.name == "Player1")
         {
             playerNumber = 1;
             throwPoint = gameObject.transform.Find("ThrowPoint1").gameObject;
-            ball = GameObject.Find("Ball1");
             speedForward = -speedForward;
+            _zDisappear = -45f; // behind player 2
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
             throwPoint = gameObject.transform.Find("ThrowPoint2").gameObject;
-            ball = GameObject.Find("Ball2");
+            _zDisappear = 35f; // behind player 1
         }
-        rb = ball.GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if ((playerNumber == 1) && Time.time > timeTillThrow)
         {
-            if (Input.GetKey(KeyCode.Space))
+            //if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                ball = ObjectPool.SharedInstance.GetPooledObjects("Ball1");
+                if (ball != null)
+                {
+                    ball.SetActive(true);
+                }
+                rb = ball.GetComponent<Rigidbody>();
                 Throw();
                 timeTillThrow = Time.time + throwCooldown;
             }
         }
         else if ((playerNumber == 2) && Time.time > timeTillThrow)
         {
-            if (Input.GetKey(KeyCode.Keypad0))
+            //if (Input.GetKey(KeyCode.Keypad0))
+            if (Input.GetKeyDown(KeyCode.Keypad0))
             {
+                ball = ObjectPool.SharedInstance.GetPooledObjects("Ball2");
+
+                if (ball != null)
+                {
+                    ball.SetActive(true);
+                }
+                rb = ball.GetComponent<Rigidbody>();
                 Throw();
                 timeTillThrow = Time.time + throwCooldown;
             }
         }
+
+        // set ball inactive once it left arena 
+        if (ball != null)
+        {
+            if (this.name == "Player1")
+            {
+                if (ball.transform.position.z < _zDisappear)
+                {
+                    ball.SetActive(false); 
+                }
+            }
+            else if (this.name == "Player2")
+            {
+                if (ball.transform.position.z > _zDisappear)
+                {
+                    ball.SetActive(false); 
+                }
+            }
+        }
+
     }
 
     void Throw()
@@ -62,4 +98,5 @@ public class BallThrowScript : MonoBehaviour
         ball.transform.position = throwPoint.transform.position;
         rb.velocity = new Vector3(0.0f, speedUp, speedForward).normalized * throwVelocity;
     }
+    
 }
