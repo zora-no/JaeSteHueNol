@@ -15,6 +15,8 @@ public class BallThrowScript : MonoBehaviour
     private float throwCooldown = 2.0f;
     private float timeTillThrow = 0.0f;
 
+    private Rigidbody rb; // rigidbody of the ball
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class BallThrowScript : MonoBehaviour
             throwPoint = gameObject.transform.Find("ThrowPoint2").gameObject;
             ball = GameObject.Find("Ball2");
         }
+        rb = ball.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -57,6 +60,6 @@ public class BallThrowScript : MonoBehaviour
     void Throw()
     {
         ball.transform.position = throwPoint.transform.position;
-        ball.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, speedUp, speedForward).normalized * throwVelocity;
+        rb.velocity = new Vector3(0.0f, speedUp, speedForward).normalized * throwVelocity;
     }
 }

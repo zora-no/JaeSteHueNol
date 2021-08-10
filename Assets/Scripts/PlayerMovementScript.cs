@@ -19,6 +19,8 @@ public class PlayerMovementScript : MonoBehaviour
     
     
     Rigidbody rb;
+    Rigidbody rb1;
+    Rigidbody rb2;
     private float moveSpeed = 10.0f;
     private int playerNumber;
 
@@ -28,23 +30,27 @@ public class PlayerMovementScript : MonoBehaviour
     {
         game = GameManager.Instance;
         
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>(); // rb of this player
         if (this.name == "Player1")
         {
             playerNumber = 1;
-;
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
         }
+        
+        // rigidbodies of both players (for power ups)
+        rb1 = GameObject.Find("Player1").GetComponent<Rigidbody>();
+        rb2 = GameObject.Find("Player1").GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Move();
-        DefensiveOn();
+        PowerUpEffect();
     }
     
     void OnEnable()
@@ -106,39 +112,42 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
-    void DefensiveOn()
+    void PowerUpEffect()
     {
         if (_p1IsPowerUpOn)
         {
             switch (_p1PowerUpType)
             {
                 case PowerUpType.Freeze:
-                    //
-                    _p1IsPowerUpOn = false;
+                    // fix position of other player
+                    rb2.constraints = RigidbodyConstraints.FreezePosition;
                     break;
                 case PowerUpType.ShootFreq:
-                    //
-                    _p1IsPowerUpOn = false;
+                    // increase shooting frequency
                     break;
                 case PowerUpType.Shield:
-                    //
-                    _p1IsPowerUpOn = false;
+                    // activate shield - lass bälle abprallen
+                    _p1IsPowerUpOn = false; // shield should only be instantiated once
                     break;
                 default:
                     break;
             }
+        }
+        else
+        {
+            // unfreeze player
+            rb2.constraints = RigidbodyConstraints.None;
         }
         if (_p2IsPowerUpOn)
         {
             switch (_p2PowerUpType)
             {
                 case PowerUpType.Freeze:
-                    //
-                    _p2IsPowerUpOn = false;
+                    // freeze position of other player
+                    rb1.constraints = RigidbodyConstraints.FreezePosition;
                     break;
                 case PowerUpType.ShootFreq:
                     //
-                    _p2IsPowerUpOn = false;
                     break;
                 case PowerUpType.Shield:
                     //
@@ -147,6 +156,11 @@ public class PlayerMovementScript : MonoBehaviour
                 default:
                     break;
             }
+        }
+        else
+        {
+            // unfreeze player
+            rb1.constraints = RigidbodyConstraints.None;
         }
     }
     

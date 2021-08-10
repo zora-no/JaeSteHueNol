@@ -581,6 +581,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball1
       objectReference: {fileID: 0}
+    - target: {fileID: 6240535003217573830, guid: 4531438fe30f85e4697b53111061b494,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball1
+      objectReference: {fileID: 0}
     - target: {fileID: 6240535003217573837, guid: 4531438fe30f85e4697b53111061b494,
         type: 3}
       propertyPath: m_RootOrder
@@ -1253,6 +1258,11 @@ PrefabInstance:
     - target: {fileID: 825747279551400890, guid: 661cc623b178e7947b2d05e5d9a08bdb,
         type: 3}
       propertyPath: m_Name
+      value: Ball2
+      objectReference: {fileID: 0}
+    - target: {fileID: 825747279551400890, guid: 661cc623b178e7947b2d05e5d9a08bdb,
+        type: 3}
+      propertyPath: m_TagString
       value: Ball2
       objectReference: {fileID: 0}
     - target: {fileID: 825747279551400893, guid: 661cc623b178e7947b2d05e5d9a08bdb,
