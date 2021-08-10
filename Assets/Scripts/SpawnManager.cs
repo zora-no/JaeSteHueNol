@@ -23,8 +23,8 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnRoutineFreeze());
         StartCoroutine(SpawnRoutineFrequency());
     }
-
-
+    
+    
     IEnumerator SpawnRoutineFreeze()
     {
         // while spawning is active, spawn a new freeze power up according to its spawn rate

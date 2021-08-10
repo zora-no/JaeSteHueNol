@@ -11,7 +11,16 @@ public class PlayerMovementScript : MonoBehaviour
     public static event PlayerDelegate OnPlayerScored;
     
     
+    [SerializeField] private float _powerupTimeout = 5f;
+    private bool _p1IsPowerUpOn = false;
+    private PowerUpType _p1PowerUpType;
+    private bool _p2IsPowerUpOn = false;
+    private PowerUpType _p2PowerUpType;
+    
+    
     Rigidbody rb;
+    Rigidbody rb1;
+    Rigidbody rb2;
     private float moveSpeed = 10.0f;
     private int playerNumber;
 
@@ -21,22 +30,27 @@ public class PlayerMovementScript : MonoBehaviour
     {
         game = GameManager.Instance;
         
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>(); // rb of this player
         if (this.name == "Player1")
         {
             playerNumber = 1;
-;
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
         }
+        
+        // rigidbodies of both players (for power ups)
+        rb1 = GameObject.Find("Player1").GetComponent<Rigidbody>();
+        rb2 = GameObject.Find("Player1").GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Move();
+        PowerUpEffect();
     }
     
     void OnEnable()
@@ -96,6 +110,91 @@ public class PlayerMovementScript : MonoBehaviour
             }
             rb.velocity = new Vector3((float)(speedHorizontal), (float)(speedVertical), (float)(speedForward)).normalized * moveSpeed;
         }
+    }
+    
+    void PowerUpEffect()
+    {
+        if (_p1IsPowerUpOn)
+        {
+            switch (_p1PowerUpType)
+            {
+                case PowerUpType.Freeze:
+                    // fix position of other player
+                    rb2.constraints = RigidbodyConstraints.FreezePosition;
+                    break;
+                case PowerUpType.ShootFreq:
+                    // increase shooting frequency
+                    break;
+                case PowerUpType.Shield:
+                    // activate shield - lass bälle abprallen
+                    _p1IsPowerUpOn = false; // shield should only be instantiated once
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            // unfreeze player
+            rb2.constraints = RigidbodyConstraints.None;
+        }
+        if (_p2IsPowerUpOn)
+        {
+            switch (_p2PowerUpType)
+            {
+                case PowerUpType.Freeze:
+                    // freeze position of other player
+                    rb1.constraints = RigidbodyConstraints.FreezePosition;
+                    break;
+                case PowerUpType.ShootFreq:
+                    //
+                    break;
+                case PowerUpType.Shield:
+                    //
+                    _p2IsPowerUpOn = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            // unfreeze player
+            rb1.constraints = RigidbodyConstraints.None;
+        }
+    }
+    
+    
+    public void ActivatePowerUp(PowerUpType type, int player)
+    {
+        if (player == 1)
+        {
+            _p1PowerUpType = type;
+            _p1IsPowerUpOn = true;
+            StartCoroutine(DeactivatePowerUp(1));
+        }
+        if (player == 2)
+        {
+            _p2PowerUpType = type;
+            _p2IsPowerUpOn = true;
+            StartCoroutine(DeactivatePowerUp(2));
+        }
+            
+    }
+
+    IEnumerator DeactivatePowerUp(int player)
+    {
+        if (player == 1)
+        {
+            yield return new WaitForSeconds(_powerupTimeout);
+            _p1IsPowerUpOn = false;
+        }
+        if (player == 2)
+        {
+            yield return new WaitForSeconds(_powerupTimeout);
+            _p2IsPowerUpOn = false;
+        }
+            
     }
     
     
