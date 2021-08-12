@@ -5,10 +5,7 @@ using UnityEngine;
 public class PlayerMovementScript : MonoBehaviour
 {
     private GameManager game;
-    
-    public delegate void PlayerDelegate();
-    public static event PlayerDelegate OnPlayerDied;
-    public static event PlayerDelegate OnPlayerScored;
+    [SerializeField] private SpawnManager _spawnManager;
     
     
     [SerializeField] private float _powerupTimeout = 5f;
@@ -23,6 +20,8 @@ public class PlayerMovementScript : MonoBehaviour
     Rigidbody rb2;
     private float moveSpeed = 10.0f;
     private int playerNumber;
+    private string _otherBallName; // tag of the ball that can hit this player
+    private int _otherPlayerNumber;
 
 
     // Start is called before the first frame update
@@ -34,10 +33,15 @@ public class PlayerMovementScript : MonoBehaviour
         if (this.name == "Player1")
         {
             playerNumber = 1;
+            _otherBallName = "Ball2";
+            _otherPlayerNumber = 2;
+
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
+            _otherBallName = "Ball1";
+            _otherPlayerNumber = 1;
         }
         
         // rigidbodies of both players (for power ups)
@@ -207,12 +211,57 @@ public class PlayerMovementScript : MonoBehaviour
     {
         // ...
     }
+
+    void Damage()
+    {
+        if (playerNumber == 1)
+        {
+            game.OnPlayerScored(2); // if this player is hit, the other one scores 
+        }
+        else if (playerNumber == 2)
+        {
+            game.OnPlayerScored(2);
+        }
+
+        game.SetScoreText(); 
+        
+        // if dead:
+        // game.OnPlayerDied(1);
+        // game.OnPlayerDied(2);
+
+        //////////////////////////////////////////////////
+        // on game over: when does our game end? adapt this section accordingly:
+
+        /*
+        if (_lives == 0)
+        {
+            if (_spawnManager != null)
+            {
+                Destroy(_spawnManager.gameObject); // destroy all the viruses flying around
+                _spawnManager.onPlayerDeath();
+            }
+            else
+            {
+                Debug.LogError("SpawnManager not assigned!");
+            }
+            _uiManager.ShowGameOver();
+            Destroy(this.gameObject);
+        }
+        */
+        //////////////////////////////////////////////////
+    }
     
     void OnTriggerEnter(Collider other)
-        // check for collision with other game objects
     {
-        OnPlayerDied();
-        OnPlayerScored();
+        // if other object is ball from the other player, damage/ destroy this player and deactivate ball
+        if (other.CompareTag(_otherBallName))
+        {
+            Damage(); 
+            other.gameObject.SetActive(false); // deactivate ball
+        }
+
+        // OnPlayerDied();
+        // OnPlayerScored();
     }
     
     

@@ -26,7 +26,7 @@ public class PowerUp : MonoBehaviour
         }
     }
     
-    public PowerUpType GetType()
+    public PowerUpType GetPowerUpType()
     {
         return _type;
     }
@@ -55,5 +55,6 @@ public class PowerUp : MonoBehaviour
             other.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 2);
             this.gameObject.SetActive(false);
         }
+
     }
 }

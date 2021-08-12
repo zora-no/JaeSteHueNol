@@ -13,11 +13,12 @@ public class GameManager : MonoBehaviour
     
     public static GameManager Instance;
 
+
     public delegate void GameDelegate();
     public static event GameDelegate OnGameStarted;
     public static event GameDelegate OnGameOverConfirmed;
     
-    private bool gameOver = false;
+    private bool _gameOver = false;
     public int scoreP1 = 1;
     public int scoreP2 = 0;
     public TextMeshPro scoreText; // reference to UI score text component
@@ -26,10 +27,10 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
-
+    
     void Start()
     {
-        setScoreText();
+        SetScoreText();
     }
     void Update()
     {
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
         //setScoreText();
     }
     
-    public bool GameOver { get { return gameOver; } } 
+    public bool GameOver { get { return _gameOver; } } 
     
     public int ScoreP1 { get { return scoreP1; } }
     public int ScoreP2 { get { return scoreP2; } }
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
         Countdown
     }
 
-    void setScoreText()
+    public void SetScoreText()
     {
         scoreText.text = scoreP1.ToString() + " : " + scoreP2.ToString();
     }
@@ -60,32 +61,32 @@ public class GameManager : MonoBehaviour
         // once countdown is finished, get everything ready for game start
     {
         SetPageState(PageState.None);
-        gameOver = false;
+        _gameOver = false;
         OnGameStarted(); // event sent to Player
         //score = 0;
         // ...
     }
     
-    void OnPlayerDied()
+    public void OnPlayerDied(int player)
     {
-        gameOver = true;
+        _gameOver = true;
         SetPageState(PageState.GameOver);
         // ...
     }
 
-    void OnPlayerScored(string player)
+    public void OnPlayerScored(int player)
         // manages score on screen
     {
-        if (player == "P1")
+        if (player == 1)
         {
             scoreP1++;
         }
-        else
+        else if (player == 2)
         {
             scoreP2++;
         }
 
-        setScoreText();
+        SetScoreText();
     }
     
     
