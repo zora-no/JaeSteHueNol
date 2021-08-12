@@ -11,7 +11,7 @@ public class BallThrowScript : MonoBehaviour
     public float speedForward;
     public float speedUp;
     private int playerNumber;
-    private float throwCooldown = 1.0f; // how many seconds between each throw (min.)
+    public float throwCooldown = 1.0f; // min. number of seconds between each throw
     private float timeTillThrow = 0.0f;
     
     private Rigidbody rb; // rigidbody of the ball

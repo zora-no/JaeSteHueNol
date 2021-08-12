@@ -6,8 +6,8 @@ public class PlayerMovementScript : MonoBehaviour
 {
     private GameManager game;
     [SerializeField] private SpawnManager _spawnManager;
-    
-    
+    private BallThrowScript ballscript;
+
     [SerializeField] private float _powerupTimeout = 5f;
     private bool _p1IsPowerUpOn = false;
     private PowerUpType _p1PowerUpType;
@@ -28,6 +28,7 @@ public class PlayerMovementScript : MonoBehaviour
     void Start()
     {
         game = GameManager.Instance;
+        ballscript = gameObject.GetComponent<BallThrowScript>();
         
         rb = GetComponent<Rigidbody>(); // rb of this player
         if (this.name == "Player1")
@@ -116,6 +117,30 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
+    IEnumerator Unfreeze(int player, float delayTime)
+        // unfreeze player after X seconds
+    {
+        yield return new WaitForSeconds(delayTime);
+        
+        if (player == 1)
+        {
+            rb1.constraints = RigidbodyConstraints.None;
+        }
+        else if (player == 2)
+        {
+            rb2.constraints = RigidbodyConstraints.None;
+        }
+    }
+    
+    IEnumerator NormalizeShootFreq(float delayTime) 
+        // reduce shooting frequency back to normal value after X seconds
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        ballscript.throwCooldown /= 3f;
+    }
+    
+    
     void PowerUpEffect()
     {
         if (_p1IsPowerUpOn)
@@ -125,9 +150,14 @@ public class PlayerMovementScript : MonoBehaviour
                 case PowerUpType.Freeze:
                     // fix position of other player
                     rb2.constraints = RigidbodyConstraints.FreezePosition;
+                    StartCoroutine(Unfreeze(2, 5f));
+                    _p1IsPowerUpOn = false;
                     break;
                 case PowerUpType.ShootFreq:
                     // increase shooting frequency
+                    ballscript.throwCooldown *= 3f;
+                    StartCoroutine(NormalizeShootFreq(5f));
+                    _p1IsPowerUpOn = false;
                     break;
                 case PowerUpType.Shield:
                     // activate shield - lass bälle abprallen
@@ -137,11 +167,6 @@ public class PlayerMovementScript : MonoBehaviour
                     break;
             }
         }
-        else
-        {
-            // unfreeze player
-            rb2.constraints = RigidbodyConstraints.None;
-        }
         if (_p2IsPowerUpOn)
         {
             switch (_p2PowerUpType)
@@ -149,9 +174,13 @@ public class PlayerMovementScript : MonoBehaviour
                 case PowerUpType.Freeze:
                     // freeze position of other player
                     rb1.constraints = RigidbodyConstraints.FreezePosition;
+                    StartCoroutine(Unfreeze(1, 5f));
+                    _p2IsPowerUpOn = false;
                     break;
                 case PowerUpType.ShootFreq:
-                    //
+                    ballscript.throwCooldown *= 3f;
+                    StartCoroutine(NormalizeShootFreq(5f));
+                    _p2IsPowerUpOn = false;
                     break;
                 case PowerUpType.Shield:
                     //
