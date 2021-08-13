@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4767705982156406198}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4.615, y: 0.96000004, z: 0}
+  m_LocalPosition: {x: -0.2, y: 0.96000004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4767705983556506797}
@@ -95,12 +95,12 @@ GameObject:
   - component: {fileID: 4767705983556506796}
   - component: {fileID: 4767705983556506799}
   - component: {fileID: 4767705983556506798}
-  - component: {fileID: 4767705983556506794}
   - component: {fileID: 4767705983556506833}
   - component: {fileID: 4767705983556506795}
+  - component: {fileID: 1775902950617986794}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Untagged
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,24 +178,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4767705983556506832}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4767705983556506794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767705983556506832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8acdffdb9b265ce4fa335a975edf53c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &4767705983556506833
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -210,7 +198,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 114
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &4767705983556506795
 MonoBehaviour:
@@ -224,9 +212,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bcf4a7ea888f04691c2fd2a2dc8e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwVelocity: 30
-  speedX: 10
-  speedY: 3
+  throwVelocity: 40
+  speedForward: 10
+  speedUp: 3
+--- !u!114 &1775902950617986794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767705983556506832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96668deb56be8748bd399147fe08416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnManager: {fileID: 0}
+  _powerupTimeout: 5
 --- !u!1 &4767705983779636889
 GameObject:
   m_ObjectHideFlags: 0
