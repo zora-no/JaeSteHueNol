@@ -138,6 +138,7 @@ public class PlayerMovementScript : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
 
         ballscript.throwCooldown /= 3f;
+        
     }
     
     
@@ -190,11 +191,7 @@ public class PlayerMovementScript : MonoBehaviour
                     break;
             }
         }
-        else
-        {
-            // unfreeze player
-            rb1.constraints = RigidbodyConstraints.None;
-        }
+
     }
     
     
