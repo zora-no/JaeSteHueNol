@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6961a5f2029874b45b682724a5a9a90e
+guid: d4f2ceb2b5cafb1459b2d268c5674763
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,13 +7,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_balck_matt
+      name: mat_backwall_frame
+    second: {fileID: 2100000, guid: f7eb35340fd3d824f8da402b197aa013, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_balck_window
+    second: {fileID: 2100000, guid: fe15becaaabc8d64388e247127beebe5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_black_matt
     second: {fileID: 2100000, guid: acd3bcf1a7f7367499bb2aa81fd17eeb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_balck_matt.011
-    second: {fileID: 2100000, guid: acd3bcf1a7f7367499bb2aa81fd17eeb, type: 2}
+      name: mat_boarder_emission
+    second: {fileID: 2100000, guid: 3108458192824fe4d9b299bc7bc43d70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_metal_mesh
+    second: {fileID: 2100000, guid: 43f859661b3d6434db51946c302f34e8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -55,7 +70,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
