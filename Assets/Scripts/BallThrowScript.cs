@@ -52,6 +52,7 @@ public class BallThrowScript : MonoBehaviour
                 }
                 rb = ball.GetComponent<Rigidbody>();
                 Throw();
+                FindObjectOfType<AudioManager>().Play("Shot");
                 timeTillThrow = Time.time + throwCooldown;
             }
         }
@@ -68,6 +69,7 @@ public class BallThrowScript : MonoBehaviour
                 }
                 rb = ball.GetComponent<Rigidbody>();
                 Throw();
+                FindObjectOfType<AudioManager>().Play("Shot");
                 timeTillThrow = Time.time + throwCooldown;
             }
         }
