@@ -4833,7 +4833,7 @@ Transform:
   m_GameObject: {fileID: 7919494511106801767}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4496559156517113317}
   - {fileID: 3244941762340166013}
@@ -4916,6 +4916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerUpSpeed: 7
+  _type: 0
+  _spawnRandomType: 1
 --- !u!1 &8662025153193313277
 GameObject:
   m_ObjectHideFlags: 0
