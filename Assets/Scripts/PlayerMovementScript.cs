@@ -77,6 +77,9 @@ public class PlayerMovementScript : MonoBehaviour
         float speedForward = 0;
         if (playerNumber == 1)
         {
+            //limits player movement 
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), 22.52f);
+            
             if (Input.GetKey(KeyCode.A))
             {
                 speedHorizontal = moveSpeed;
@@ -94,9 +97,13 @@ public class PlayerMovementScript : MonoBehaviour
                 speedVertical = moveSpeed;
             }
             rb.velocity = new Vector3((float)(speedHorizontal), (float)(speedVertical), (float)(speedForward)).normalized * moveSpeed;
+
         }
         else if (playerNumber == 2)
         {
+            //limits player movement 
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), -31.12f);
+            
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 speedHorizontal = -moveSpeed;
@@ -114,6 +121,7 @@ public class PlayerMovementScript : MonoBehaviour
                 speedVertical = moveSpeed;
             }
             rb.velocity = new Vector3((float)(speedHorizontal), (float)(speedVertical), (float)(speedForward)).normalized * moveSpeed;
+
         }
     }
     
