@@ -97,6 +97,7 @@ public class BallThrowScript : MonoBehaviour
     {
         ball.transform.position = throwPoint.transform.position;
         rb.velocity = new Vector3(0.0f, speedUp, speedForward).normalized * throwVelocity;
+        FindObjectOfType<AudioManager>().Play("Shot");
     }
     
 }
