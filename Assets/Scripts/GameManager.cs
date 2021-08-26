@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
     {
         //scoreP1text = scoreP1.ToString();
         //scoreP2text = scoreP2.ToString();
-        Debug.Log("SetscoreP1: " + scoreP1);
-        Debug.Log("SetscoreP2: " + scoreP2);
         //scoreP2text.color = new Color32(0, 255, 33, 255);
         //scoreP1text.color = new Color32(255, 0, 14, 255);
         scoreP1text.text = scoreP1.ToString();
@@ -97,8 +95,6 @@ public class GameManager : MonoBehaviour
         {
             scoreP2++;
         }
-        Debug.Log("UpdatescoreP1: " + scoreP1);
-        Debug.Log("UpdatescoreP2: " + scoreP2);
         SetScoreText();
     }
     
