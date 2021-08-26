@@ -160,7 +160,6 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 case PowerUpType.Freeze:
                     // fix position of other player
-                    Debug.Log("This should freeze player 2");
                     rb2.constraints = RigidbodyConstraints.FreezePosition;
                     _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(2, 5f));
@@ -168,13 +167,7 @@ public class PlayerMovementScript : MonoBehaviour
                     break;
                 case PowerUpType.ShootFreq:
                     // increase shooting frequency
-                    Debug.Log("This should increase freq of player 1: " + ballscript.throwCooldown);
-                    
                     ballscript.throwCooldown /= 3f;
-                    
-                    Debug.Log("increased: " + ballscript.throwCooldown);
-
-                    
                     StartCoroutine(NormalizeShootFreq(5f));
                     _p1IsPowerUpOn = false;
                     break;
@@ -192,8 +185,6 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 case PowerUpType.Freeze:
                     // freeze position of other player
-                    Debug.Log("This should freeze player 2");
-
                     rb1.constraints = RigidbodyConstraints.FreezePosition;
                     _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(1, 5f));

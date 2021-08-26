@@ -58,7 +58,6 @@ public class PowerUp : MonoBehaviour
                 player1.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 1);
                 gameObject.SetActive(false);
                 other.gameObject.SetActive(false);
-                Debug.Log("Player that hit PU: 1");
             }
             
         }
@@ -69,7 +68,6 @@ public class PowerUp : MonoBehaviour
                 player2.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 2);
                 gameObject.SetActive(false);
                 other.gameObject.SetActive(false);
-                Debug.Log("Player that hit PU: 2");
 
             }
             
