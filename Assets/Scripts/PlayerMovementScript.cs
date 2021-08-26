@@ -7,6 +7,7 @@ public class PlayerMovementScript : MonoBehaviour
     private GameManager game;
     [SerializeField] private SpawnManager _spawnManager;
     private BallThrowScript ballscript;
+    private AudioManager _audioManager;
 
     [SerializeField] private float _powerupTimeout = 5f;
     private bool _p1IsPowerUpOn = false;
@@ -27,6 +28,7 @@ public class PlayerMovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _audioManager = FindObjectOfType<AudioManager>();
         game = GameManager.Instance;
         ballscript = gameObject.GetComponent<BallThrowScript>();
         
@@ -47,7 +49,7 @@ public class PlayerMovementScript : MonoBehaviour
         
         // rigidbodies of both players (for power ups)
         rb1 = GameObject.Find("Player1").GetComponent<Rigidbody>();
-        rb2 = GameObject.Find("Player1").GetComponent<Rigidbody>();
+        rb2 = GameObject.Find("Player2").GetComponent<Rigidbody>();
         
     }
 
@@ -145,7 +147,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
 
-        ballscript.throwCooldown /= 3f;
+        ballscript.throwCooldown *= 3f;
         
     }
     
@@ -158,14 +160,21 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 case PowerUpType.Freeze:
                     // fix position of other player
+                    Debug.Log("This should freeze player 2");
                     rb2.constraints = RigidbodyConstraints.FreezePosition;
-                    FindObjectOfType<AudioManager>().Play("Freeze");
+                    _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(2, 5f));
                     _p1IsPowerUpOn = false;
                     break;
                 case PowerUpType.ShootFreq:
                     // increase shooting frequency
-                    ballscript.throwCooldown *= 3f;
+                    Debug.Log("This should increase freq of player 1: " + ballscript.throwCooldown);
+                    
+                    ballscript.throwCooldown /= 3f;
+                    
+                    Debug.Log("increased: " + ballscript.throwCooldown);
+
+                    
                     StartCoroutine(NormalizeShootFreq(5f));
                     _p1IsPowerUpOn = false;
                     break;
@@ -183,13 +192,15 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 case PowerUpType.Freeze:
                     // freeze position of other player
+                    Debug.Log("This should freeze player 2");
+
                     rb1.constraints = RigidbodyConstraints.FreezePosition;
-                    FindObjectOfType<AudioManager>().Play("Freeze");
+                    _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(1, 5f));
                     _p2IsPowerUpOn = false;
                     break;
                 case PowerUpType.ShootFreq:
-                    ballscript.throwCooldown *= 3f;
+                    ballscript.throwCooldown /= 3f;
                     StartCoroutine(NormalizeShootFreq(5f));
                     _p2IsPowerUpOn = false;
                     break;
@@ -248,7 +259,7 @@ public class PlayerMovementScript : MonoBehaviour
         // ...
     }
 
-    void Damage()
+    void ScorePoint()
     {
         if (playerNumber == 1)
         {
@@ -261,30 +272,6 @@ public class PlayerMovementScript : MonoBehaviour
 
         game.SetScoreText(); 
         
-        // if dead:
-        // game.OnPlayerDied(1);
-        // game.OnPlayerDied(2);
-
-        //////////////////////////////////////////////////
-        // on game over: when does our game end? adapt this section accordingly:
-
-        /*
-        if (_lives == 0)
-        {
-            if (_spawnManager != null)
-            {
-                Destroy(_spawnManager.gameObject); // destroy all the viruses flying around
-                _spawnManager.onPlayerDeath();
-            }
-            else
-            {
-                Debug.LogError("SpawnManager not assigned!");
-            }
-            _uiManager.ShowGameOver();
-            Destroy(this.gameObject);
-        }
-        */
-        //////////////////////////////////////////////////
     }
     
     void OnTriggerEnter(Collider other)
@@ -292,8 +279,8 @@ public class PlayerMovementScript : MonoBehaviour
         // if other object is ball from the other player, damage/ destroy this player and deactivate ball
         if (other.CompareTag(_otherBallName))
         {
-            Damage();
-            FindObjectOfType<AudioManager>().Play("Punch");
+            ScorePoint();
+            _audioManager.Play("Punch");
             other.gameObject.SetActive(false); // deactivate ball
         }
 
