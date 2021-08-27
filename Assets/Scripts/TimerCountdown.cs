@@ -29,7 +29,6 @@ public class TimerCountdown : MonoBehaviour
         if (secondsLeft == 0)
         {
             timeOut = true;
-            Debug.Log(timeOut);
             GameManager.OnTimeIsOver();
         }
     }
