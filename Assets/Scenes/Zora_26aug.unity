@@ -839,6 +839,8 @@ MonoBehaviour:
   scoreP1text: {fileID: 1473424083}
   scoreP2text: {fileID: 1728065107}
   scoreText: {fileID: 0}
+  scorePointsP1: 1
+  scorePointsP2: 1
 --- !u!4 &1012935054
 Transform:
   m_ObjectHideFlags: 0
@@ -1190,7 +1192,7 @@ PrefabInstance:
     - target: {fileID: 6240535003217573837, guid: 4531438fe30f85e4697b53111061b494,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.5
+      value: 4.68
       objectReference: {fileID: 0}
     - target: {fileID: 6240535003217573837, guid: 4531438fe30f85e4697b53111061b494,
         type: 3}
@@ -1435,7 +1437,7 @@ PrefabInstance:
     - target: {fileID: 7037586288392063778, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.78
+      value: 12.6
       objectReference: {fileID: 0}
     - target: {fileID: 7037586288392063778, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
         type: 3}
@@ -1445,7 +1447,7 @@ PrefabInstance:
     - target: {fileID: 7037586288392063778, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.52
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 7037586288392063778, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
         type: 3}
@@ -1501,7 +1503,7 @@ GameObject:
   - component: {fileID: 1473424084}
   - component: {fileID: 1473424083}
   m_Layer: 5
-  m_Name: ScoreP1
+  m_Name: ScoreP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2027,7 +2029,7 @@ GameObject:
   - component: {fileID: 1728065108}
   - component: {fileID: 1728065107}
   m_Layer: 5
-  m_Name: ScoreP2
+  m_Name: ScoreP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2221,6 +2223,9 @@ MonoBehaviour:
   - amountToPool: 10
     objectToPool: {fileID: 1277970332191433790, guid: 328a4c9f460306146b04307f10c64e0d,
       type: 3}
+  - amountToPool: 10
+    objectToPool: {fileID: 3122584009117056428, guid: 86fe2391bdfe3bf47a11f89f5ea06508,
+      type: 3}
   - amountToPool: 30
     objectToPool: {fileID: 6240535003217573830, guid: 4531438fe30f85e4697b53111061b494,
       type: 3}
@@ -2242,6 +2247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _freezeRate: 2
   _freqRate: 2
+  _scoreRate: 5
 --- !u!4 &1861926926
 Transform:
   m_ObjectHideFlags: 0

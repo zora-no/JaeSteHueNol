@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     public TextMeshPro scoreP1text;
     public TextMeshPro scoreP2text;
     public TextMeshPro scoreText; // reference to UI score text component
+
+    public int scorePointsP1 = 1; // how many points player scores when they hit the other player
+    public int scorePointsP2 = 1;
+    
     
     void Awake()
     {
@@ -56,15 +60,8 @@ public class GameManager : MonoBehaviour
 
     public void SetScoreText()
     {
-        //scoreP1text = scoreP1.ToString();
-        //scoreP2text = scoreP2.ToString();
-        //scoreP2text.color = new Color32(0, 255, 33, 255);
-        //scoreP1text.color = new Color32(255, 0, 14, 255);
         scoreP1text.text = scoreP1.ToString();
         scoreP2text.text = scoreP2.ToString();
-        //scoreText.text = scoreP1text + " : " + scoreP2text;
-        // scoreText.text = scoreP1.ToString() + " : " + scoreP2.ToString();
-        
     }
     
     void OnCountdownFinished()
@@ -84,16 +81,16 @@ public class GameManager : MonoBehaviour
         // ...
     }
 
-    public void OnPlayerScored(int player)
+    public void OnPlayerScored(string player)
         // manages score on screen
     {
-        if (player == 1)
+        if (player == "Player1")
         {
-            scoreP1++;
+            scoreP1 += scorePointsP1;
         }
-        else if (player == 2)
+        else if (player == "Player2")
         {
-            scoreP2++;
+            scoreP2 += scorePointsP2;
         }
         SetScoreText();
     }

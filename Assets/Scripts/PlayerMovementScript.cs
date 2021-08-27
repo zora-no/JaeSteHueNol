@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class PlayerMovementScript : MonoBehaviour
     private BallThrowScript ballscript;
     private AudioManager _audioManager;
 
-    [SerializeField] private float _powerupTimeout = 5f;
     private bool _p1IsPowerUpOn = false;
     private PowerUpType _p1PowerUpType;
     private bool _p2IsPowerUpOn = false;
@@ -22,8 +22,6 @@ public class PlayerMovementScript : MonoBehaviour
     private float moveSpeed = 10.0f;
     private int playerNumber;
     private string _otherBallName; // tag of the ball that can hit this player
-    private int _otherPlayerNumber;
-
 
     // Start is called before the first frame update
     void Start()
@@ -37,14 +35,11 @@ public class PlayerMovementScript : MonoBehaviour
         {
             playerNumber = 1;
             _otherBallName = "Ball2";
-            _otherPlayerNumber = 2;
-
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
             _otherBallName = "Ball1";
-            _otherPlayerNumber = 1;
         }
         
         // rigidbodies of both players (for power ups)
@@ -150,6 +145,19 @@ public class PlayerMovementScript : MonoBehaviour
         ballscript.throwCooldown *= 3f;
         
     }
+
+    IEnumerator NormalizeScoring(int player, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        if (player == 1)
+        {
+            game.scorePointsP1 /= 2;
+        }
+        else if (player == 2)
+        {
+            game.scorePointsP2 /= 2;
+        }
+    }
     
     
     void PowerUpEffect()
@@ -175,6 +183,12 @@ public class PlayerMovementScript : MonoBehaviour
                     // activate shield - lass bälle abprallen
                     _p1IsPowerUpOn = false; // shield should only be instantiated once
                     break;
+                case PowerUpType.DoubleScore:
+                    // player scores double for certain time
+                    game.scorePointsP1 *= 2;
+                    StartCoroutine(NormalizeScoring(1, 5f));
+                    _p1IsPowerUpOn = false;
+                    break;
                 default:
                     break;
             }
@@ -199,6 +213,12 @@ public class PlayerMovementScript : MonoBehaviour
                     //
                     _p2IsPowerUpOn = false;
                     break;
+                case PowerUpType.DoubleScore:
+                    // player scores double for certain time
+                    game.scorePointsP2 *= 2;
+                    StartCoroutine(NormalizeScoring(2, 5f));
+                    _p2IsPowerUpOn = false;
+                    break;
                 default:
                     break;
             }
@@ -213,33 +233,15 @@ public class PlayerMovementScript : MonoBehaviour
         {
             _p1PowerUpType = type;
             _p1IsPowerUpOn = true;
-            StartCoroutine(DeactivatePowerUp(1));
         }
         if (player == 2)
         {
             _p2PowerUpType = type;
             _p2IsPowerUpOn = true;
-            StartCoroutine(DeactivatePowerUp(2));
         }
             
     }
 
-    IEnumerator DeactivatePowerUp(int player)
-    {
-        if (player == 1)
-        {
-            yield return new WaitForSeconds(_powerupTimeout);
-            _p1IsPowerUpOn = false;
-        }
-        if (player == 2)
-        {
-            yield return new WaitForSeconds(_powerupTimeout);
-            _p2IsPowerUpOn = false;
-        }
-            
-    }
-    
-    
     void OnGameStarted()
     {
         // ...
@@ -250,27 +252,25 @@ public class PlayerMovementScript : MonoBehaviour
         // ...
     }
 
-    void ScorePoint()
+    void ScorePoint(string player)
+    // add points for the player who scored
     {
-        if (playerNumber == 1)
-        {
-            game.OnPlayerScored(2); // if this player is hit, the other one scores 
-        }
-        else if (playerNumber == 2)
-        {
-            game.OnPlayerScored(2);
-        }
-
-        game.SetScoreText(); 
-        
+        game.OnPlayerScored(player);
     }
     
     void OnTriggerEnter(Collider other)
     {
-        // if other object is ball from the other player, damage/ destroy this player and deactivate ball
+        // if other object is ball from the other player, other player scores and deactivate ball
         if (other.CompareTag(_otherBallName))
         {
-            ScorePoint();
+            if (_otherBallName == "Ball1")
+            {
+                ScorePoint("Player1");
+            }
+            else if (_otherBallName == "Ball2")
+            {
+                ScorePoint("Player2");
+            }
             _audioManager.Play("Punch");
             other.gameObject.SetActive(false); // deactivate ball
         }

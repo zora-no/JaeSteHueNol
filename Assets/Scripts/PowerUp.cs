@@ -6,7 +6,8 @@ public enum PowerUpType
 {
     Freeze = 0,
     ShootFreq = 1,
-    Shield = 2
+    Shield = 2,
+    DoubleScore = 3
 }
 public class PowerUp : MonoBehaviour
 {
