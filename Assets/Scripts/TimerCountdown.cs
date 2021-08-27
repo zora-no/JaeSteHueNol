@@ -7,21 +7,30 @@ using UnityEngine.UI;
 public class TimerCountdown : MonoBehaviour
 {
     public TMP_Text counter;
-    public int secondsLeft = 300;
-    public bool takingAway = false;
-    
+    public int secondsLeft;
+    private bool takingAway = false;
+    private bool timeOut = false;
+    public GameManager GameManager;
     
     void Start()
     {
         counter.SetText(secondsLeft.ToString());
     }
 
-// Update is called once per frame
+
     void Update()
     {
+        // counting down to 0
         if (takingAway == false && secondsLeft > 0)
         {
             StartCoroutine(CountingDown());
+        }
+        // no time left anymore
+        if (secondsLeft == 0)
+        {
+            timeOut = true;
+            Debug.Log(timeOut);
+            GameManager.OnTimeIsOver();
         }
     }
 
@@ -33,4 +42,14 @@ public class TimerCountdown : MonoBehaviour
         counter.SetText(secondsLeft.ToString());
         takingAway = false;
     }
+
+    public void TimeOver()
+    {
+         if (secondsLeft == 0)
+         {
+            Debug.Log("yes");
+         }
+    }
+    
+   
 }

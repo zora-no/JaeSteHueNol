@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject startPage;
     public GameObject gameOverPage;
     public GameObject countdownPage;
+    public GameObject timer;
+    private TimerCountdown gameTimer;
     
     public static GameManager Instance;
 
@@ -82,6 +84,13 @@ public class GameManager : MonoBehaviour
         _gameOver = true;
         SetPageState(PageState.GameOver);
         // ...
+    }
+    public void OnTimeIsOver()
+    {
+        _gameOver = true;
+        SetPageState(PageState.GameOver);
+        // state whi won
+        // deactivate Powerups, Shooting and movement
     }
 
     public void OnPlayerScored(int player)
