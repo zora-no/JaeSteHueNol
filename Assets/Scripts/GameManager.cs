@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,8 +9,10 @@ public class GameManager : MonoBehaviour
 {
     
     public GameObject startPage;
-    public GameObject gameOverPage;
+    public GameObject gameOverPageP1;
+    public GameObject gameOverPageP2;
     public GameObject countdownPage;
+    private TimerCountdown gameTimer;
     
     public static GameManager Instance;
 
@@ -24,6 +27,10 @@ public class GameManager : MonoBehaviour
     public TextMeshPro scoreP1text;
     public TextMeshPro scoreP2text;
     public TextMeshPro scoreText; // reference to UI score text component
+
+    public int scorePointsP1 = 1; // how many points player scores when they hit the other player
+    public int scorePointsP2 = 1;
+    
     
     void Awake()
     {
@@ -56,15 +63,8 @@ public class GameManager : MonoBehaviour
 
     public void SetScoreText()
     {
-        //scoreP1text = scoreP1.ToString();
-        //scoreP2text = scoreP2.ToString();
-        //scoreP2text.color = new Color32(0, 255, 33, 255);
-        //scoreP1text.color = new Color32(255, 0, 14, 255);
         scoreP1text.text = scoreP1.ToString();
         scoreP2text.text = scoreP2.ToString();
-        //scoreText.text = scoreP1text + " : " + scoreP2text;
-        // scoreText.text = scoreP1.ToString() + " : " + scoreP2.ToString();
-        
     }
     
     void OnCountdownFinished()
@@ -77,23 +77,49 @@ public class GameManager : MonoBehaviour
         // ...
     }
     
-    public void OnPlayerDied(int player)
+    // not used because player does't die
+    //public void OnPlayerDied(int player)
+    //{
+    //    _gameOver = true;
+    //    SetPageState(PageState.GameOver);
+        // ...
+    //}
+    
+    public void OnTimeIsOver()
     {
         _gameOver = true;
         SetPageState(PageState.GameOver);
-        // ...
+        
+        // state who won
+        if (scoreP1 > scoreP2)
+        {
+            gameOverPageP1.GetComponent<TMP_Text>().SetText("Game Over ! You won !");
+            gameOverPageP2.GetComponent<TMP_Text>().SetText("<color=red>Game Over ! You lost !</color> ");
+        }
+        else if (scoreP1 == scoreP2)
+        {
+            gameOverPageP1.GetComponent<TMP_Text>().SetText("Game Over ! It's a tie !");
+            gameOverPageP2.GetComponent<TMP_Text>().SetText("Game Over ! It's a tie !");
+        }
+        else
+        {
+            gameOverPageP1.GetComponent<TMP_Text>().SetText("<color=red>Game Over ! You lost !</color> ");
+            gameOverPageP2.GetComponent<TMP_Text>().SetText("Game Over ! You won !");
+        }
+
+        // deactivate Powerups, Shooting and movement missing
     }
 
-    public void OnPlayerScored(int player)
+    public void OnPlayerScored(string player)
         // manages score on screen
     {
-        if (player == 1)
+        if (player == "Player1")
         {
-            scoreP1++;
+            scoreP1 += scorePointsP1;
         }
-        else if (player == 2)
+        else if (player == "Player2")
         {
-            scoreP2++;
+            scoreP2 += scorePointsP2;
         }
         SetScoreText();
     }
@@ -107,22 +133,26 @@ public class GameManager : MonoBehaviour
         {
             case PageState.None:
                 startPage.SetActive(false);
-                gameOverPage.SetActive(false);
+                gameOverPageP1.SetActive(false);
+                gameOverPageP2.SetActive(false);
                 countdownPage.SetActive(false);
                 break;
             case PageState.Start:
                 startPage.SetActive(true);
-                gameOverPage.SetActive(false);
+                gameOverPageP1.SetActive(false);
+                gameOverPageP2.SetActive(false);
                 countdownPage.SetActive(false);
                 break;
             case PageState.GameOver:
                 startPage.SetActive(false);
-                gameOverPage.SetActive(true);
+                gameOverPageP1.SetActive(true);
+                gameOverPageP2.SetActive(true);
                 countdownPage.SetActive(false);
                 break;
             case PageState.Countdown:
                 startPage.SetActive(false);
-                gameOverPage.SetActive(false);
+                gameOverPageP1.SetActive(false);
+                gameOverPageP2.SetActive(false);
                 countdownPage.SetActive(true);
                 break;
         }

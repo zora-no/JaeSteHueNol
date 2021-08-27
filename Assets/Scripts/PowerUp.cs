@@ -6,7 +6,8 @@ public enum PowerUpType
 {
     Freeze = 0,
     ShootFreq = 1,
-    Shield = 2
+    Shield = 2,
+    DoubleScore = 3
 }
 public class PowerUp : MonoBehaviour
 {
@@ -17,9 +18,15 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private bool _spawnRandomType = true;
 
     private float _yFloor = -10f; // y coordinate where the power ups disappear
+
+    private GameObject player1;
+    private GameObject player2;
     
     void Start()
     {
+        player1 = GameObject.FindWithTag("Player1");
+        player2 = GameObject.FindWithTag("Player2");
+        
         if (_spawnRandomType)
         {
             _type = (PowerUpType) Random.Range(0, System.Enum.GetValues(typeof(PowerUpType)).Length);
@@ -44,16 +51,27 @@ public class PowerUp : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
+        // if it collides with ball from player, set power up and ball inactive & activate power up
         if (other.CompareTag("Ball1"))
         {
-            other.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 1);
-            this.gameObject.SetActive(false);
+            if (other.gameObject != null)
+            {
+                player1.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 1);
+                gameObject.SetActive(false);
+                other.gameObject.SetActive(false);
+            }
+            
         }
-        
         else if (other.CompareTag("Ball2"))
         {
-            other.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 2);
-            this.gameObject.SetActive(false);
+            if (other.gameObject != null)
+            {
+                player2.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 2);
+                gameObject.SetActive(false);
+                other.gameObject.SetActive(false);
+
+            }
+            
         }
 
     }
