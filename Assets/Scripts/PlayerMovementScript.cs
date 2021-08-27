@@ -19,6 +19,7 @@ public class PlayerMovementScript : MonoBehaviour
     Rigidbody rb;
     Rigidbody rb1;
     Rigidbody rb2;
+    private float originalMoveSpeed = 10.0f;
     private float moveSpeed = 10.0f;
     private int playerNumber;
     private string _otherBallName; // tag of the ball that can hit this player
@@ -54,7 +55,37 @@ public class PlayerMovementScript : MonoBehaviour
         Move();
         PowerUpEffect();
     }
-    
+
+    void OnTriggerEnter(Collider other)
+    {
+        // if other object is a slowfield, player is slowed
+        if (other.gameObject.tag == "slowfield")
+        {
+            moveSpeed = originalMoveSpeed * 0.6f;
+        }
+
+
+        // if other object is ball from the other player, damage/ destroy this player and deactivate ball
+        if (other.CompareTag(_otherBallName))
+        {
+            Damage();
+            FindObjectOfType<AudioManager>().Play("Punch");
+            other.gameObject.SetActive(false); // deactivate ball
+        }
+
+        // OnPlayerDied();
+        // OnPlayerScored();
+    }
+
+    // Executes when player leaves a field
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "slowfield")
+        {
+            ResetMovespeed();
+        }
+    }
+
     void OnEnable()
     {
         GameManager.OnGameStarted += OnGameStarted;
@@ -66,7 +97,11 @@ public class PlayerMovementScript : MonoBehaviour
         GameManager.OnGameStarted -= OnGameStarted;
         GameManager.OnGameOverConfirmed -= OnGameOverConfirmed;
     }
-
+    
+    public void ResetMovespeed()
+    {
+        moveSpeed = originalMoveSpeed;
+    }
     void Move()
     {
         float speedHorizontal = 0;
