@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         if (scoreP1 > scoreP2)
         {
             gameOverPageP1.GetComponent<TMP_Text>().SetText("Game Over ! You won !");
-            gameOverPageP2.GetComponent<TMP_Text>().SetText("Game Over ! You lost !");
+            gameOverPageP2.GetComponent<TMP_Text>().SetText("<color=red>Game Over ! You lost !</color> ");
         }
         else if (scoreP1 == scoreP2)
         {
@@ -106,11 +106,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            gameOverPageP1.GetComponent<TMP_Text>().SetText("Game Over ! You lost !");
+            gameOverPageP1.GetComponent<TMP_Text>().SetText("<color=red>Game Over ! You lost !</color> ");
             gameOverPageP2.GetComponent<TMP_Text>().SetText("Game Over ! You won !");
         }
 
-        // deactivate Powerups, Shooting and movement
+        // deactivate Powerups, Shooting and movement missing
     }
 
     public void OnPlayerScored(int player)
