@@ -77,6 +77,9 @@ public class PlayerMovementScript : MonoBehaviour
         float speedForward = 0;
         if (playerNumber == 1)
         {
+            //limits player movement 
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), 22.52f);
+            
             if (Input.GetKey(KeyCode.A))
             {
                 speedHorizontal = moveSpeed;
@@ -94,9 +97,13 @@ public class PlayerMovementScript : MonoBehaviour
                 speedVertical = moveSpeed;
             }
             rb.velocity = new Vector3((float)(speedHorizontal), (float)(speedVertical), (float)(speedForward)).normalized * moveSpeed;
+
         }
         else if (playerNumber == 2)
         {
+            //limits player movement 
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), -31.12f);
+            
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 speedHorizontal = -moveSpeed;
@@ -114,6 +121,7 @@ public class PlayerMovementScript : MonoBehaviour
                 speedVertical = moveSpeed;
             }
             rb.velocity = new Vector3((float)(speedHorizontal), (float)(speedVertical), (float)(speedForward)).normalized * moveSpeed;
+
         }
     }
     
@@ -151,6 +159,7 @@ public class PlayerMovementScript : MonoBehaviour
                 case PowerUpType.Freeze:
                     // fix position of other player
                     rb2.constraints = RigidbodyConstraints.FreezePosition;
+                    FindObjectOfType<AudioManager>().Play("Freeze");
                     StartCoroutine(Unfreeze(2, 5f));
                     _p1IsPowerUpOn = false;
                     break;
@@ -175,6 +184,7 @@ public class PlayerMovementScript : MonoBehaviour
                 case PowerUpType.Freeze:
                     // freeze position of other player
                     rb1.constraints = RigidbodyConstraints.FreezePosition;
+                    FindObjectOfType<AudioManager>().Play("Freeze");
                     StartCoroutine(Unfreeze(1, 5f));
                     _p2IsPowerUpOn = false;
                     break;
@@ -282,7 +292,8 @@ public class PlayerMovementScript : MonoBehaviour
         // if other object is ball from the other player, damage/ destroy this player and deactivate ball
         if (other.CompareTag(_otherBallName))
         {
-            Damage(); 
+            Damage();
+            FindObjectOfType<AudioManager>().Play("Punch");
             other.gameObject.SetActive(false); // deactivate ball
         }
 
