@@ -836,8 +836,8 @@ MonoBehaviour:
   countdownPage: {fileID: 1023096935}
   scoreP1: 1
   scoreP2: 0
-  scoreP1text: {fileID: 1473424083}
-  scoreP2text: {fileID: 1728065107}
+  scoreP1text: {fileID: 1728065107}
+  scoreP2text: {fileID: 1473424083}
   scoreText: {fileID: 0}
   scorePointsP1: 1
   scorePointsP2: 1
