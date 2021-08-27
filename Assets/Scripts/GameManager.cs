@@ -91,20 +91,24 @@ public class GameManager : MonoBehaviour
         SetPageState(PageState.GameOver);
         
         // state who won
+
+        TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
+        TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
+        
         if (scoreP1 > scoreP2)
         {
-            gameOverPageP1.GetComponent<TMP_Text>().SetText("Game Over ! You won !");
-            gameOverPageP2.GetComponent<TMP_Text>().SetText("<color=red>Game Over ! You lost !</color> ");
+            textP1.SetText("Game Over ! You won !");
+            textP2.SetText("<color=red>Game Over ! You lost !</color> ");
         }
         else if (scoreP1 == scoreP2)
         {
-            gameOverPageP1.GetComponent<TMP_Text>().SetText("Game Over ! It's a tie !");
-            gameOverPageP2.GetComponent<TMP_Text>().SetText("Game Over ! It's a tie !");
+            textP1.SetText("Game Over ! It's a tie !");
+            textP2.SetText("Game Over ! It's a tie !");
         }
         else
         {
-            gameOverPageP1.GetComponent<TMP_Text>().SetText("<color=red>Game Over ! You lost !</color> ");
-            gameOverPageP2.GetComponent<TMP_Text>().SetText("Game Over ! You won !");
+            textP1.SetText("<color=red>Game Over ! You lost !</color> ");
+            textP2.SetText("Game Over ! You won !");
         }
 
         // deactivate Powerups, Shooting and movement missing

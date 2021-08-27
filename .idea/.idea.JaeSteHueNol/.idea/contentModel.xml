@@ -16,6 +16,7 @@
           <e p="PowerUp.cs" t="Include" />
           <e p="Sound.cs" t="Include" />
           <e p="SpawnManager.cs" t="Include" />
+          <e p="TileScript.cs" t="Include" />
           <e p="TimerCountdown.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
