@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    // common variables
-    
-    //private float[] _xSpawn = {-12f, 13f}; // x spawn range
-    //private float[] _zSpawn = {-18f, 9f}; // z spawn range
-    private float _ySpawn = 45f; // y spawn point: arena height
-    
-    private float[] _xSpawn = {1f, 2f, 3f, 4f, 5f, 6f, 7f};
-    private float[] _zSpawn = {1f, 2f, 3f, 4f, 5f};
-    
-    
+    // list with the transforms of the ceiling hatches 
+    private Transform[] hatches;
+
     // power up 0: freeze enemy player
     private bool _freezeCanSpawn = true;
     [SerializeField] private float _freezeRate = 5f; // in seconds
@@ -30,6 +23,9 @@ public class SpawnManager : MonoBehaviour
     
     void Start()
     {
+        // this also includes the parent's transform at index 0
+        hatches = (Transform[]) GameObject.Find("ceiling_hatches").gameObject.GetComponentsInChildren<Transform>();
+        
         StartCoroutine(SpawnRoutineFreeze());
         StartCoroutine(SpawnRoutineFrequency());
         StartCoroutine(SpawnRoutineScore());
@@ -44,14 +40,7 @@ public class SpawnManager : MonoBehaviour
             GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Freeze PowerUp");
             if (newPowerUp != null)
             {
-                newPowerUp.transform.position = new Vector3 (
-                    //Random.Range(_xSpawn[0], _xSpawn[1]),
-                    _xSpawn[Random.Range(0,_xSpawn.Length)],
-                    
-                    _ySpawn, 
-                    
-                    //Random.Range(_zSpawn[0], _zSpawn[1]) );
-                    _zSpawn[Random.Range(0,_zSpawn.Length)] );
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
                 newPowerUp.transform.rotation = Quaternion.identity;
                 newPowerUp.SetActive(true);
             }
@@ -68,14 +57,7 @@ public class SpawnManager : MonoBehaviour
             GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Frequency PowerUp");
             if (newPowerUp != null)
             {
-                newPowerUp.transform.position = new Vector3 (
-                    //Random.Range(_xSpawn[0], _xSpawn[1]),
-                    _xSpawn[Random.Range(0,_xSpawn.Length)],
-                    
-                    _ySpawn, 
-                    
-                    //Random.Range(_zSpawn[0], _zSpawn[1]) );
-                    _zSpawn[Random.Range(0,_zSpawn.Length)] );
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
                 newPowerUp.transform.rotation = Quaternion.identity;
                 newPowerUp.SetActive(true);
             }
@@ -92,14 +74,7 @@ public class SpawnManager : MonoBehaviour
             GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Score PowerUp");
             if (newPowerUp != null)
             {
-                newPowerUp.transform.position = new Vector3 (
-                    //Random.Range(_xSpawn[0], _xSpawn[1]),
-                    _xSpawn[Random.Range(0,_xSpawn.Length)],
-                    
-                    _ySpawn, 
-                    
-                    //Random.Range(_zSpawn[0], _zSpawn[1]) );
-                    _zSpawn[Random.Range(0,_zSpawn.Length)] );
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
                 newPowerUp.transform.rotation = Quaternion.identity;
                 newPowerUp.SetActive(true);
             }
