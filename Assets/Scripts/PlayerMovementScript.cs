@@ -45,7 +45,9 @@ public class PlayerMovementScript : MonoBehaviour
         
         // rigidbodies of both players (for power ups)
         rb1 = GameObject.Find("Player1").GetComponent<Rigidbody>();
+        rb1.constraints = RigidbodyConstraints.FreezeRotation;
         rb2 = GameObject.Find("Player2").GetComponent<Rigidbody>();
+        rb2.constraints = RigidbodyConstraints.FreezeRotation;
         
     }
 
@@ -54,29 +56,10 @@ public class PlayerMovementScript : MonoBehaviour
     {
         Move();
         PowerUpEffect();
+        rb1.constraints = RigidbodyConstraints.FreezeRotation;
+        rb2.constraints = RigidbodyConstraints.FreezeRotation;
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        // if other object is a slowfield, player is slowed
-        if (other.gameObject.tag == "slowfield")
-        {
-            moveSpeed = originalMoveSpeed * 0.6f;
-        }
-
-
-        // if other object is ball from the other player, damage/ destroy this player and deactivate ball
-        if (other.CompareTag(_otherBallName))
-        {
-            Damage();
-            FindObjectOfType<AudioManager>().Play("Punch");
-            other.gameObject.SetActive(false); // deactivate ball
-        }
-
-        // OnPlayerDied();
-        // OnPlayerScored();
-    }
-
+    
     // Executes when player leaves a field
     void OnTriggerExit(Collider other)
     {
@@ -295,6 +278,12 @@ public class PlayerMovementScript : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
+        // if other object is a slowfield, player is slowed
+        if (other.gameObject.tag == "slowfield")
+        {
+            moveSpeed = originalMoveSpeed * 0.6f;
+        }
+        
         // if other object is ball from the other player, other player scores and deactivate ball
         if (other.CompareTag(_otherBallName))
         {
