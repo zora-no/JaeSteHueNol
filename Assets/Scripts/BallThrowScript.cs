@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BallThrowScript : MonoBehaviour
 {
+    private AudioManager _audioManager;
 
     public float throwVelocity;
     private GameObject throwPoint;
@@ -16,23 +17,20 @@ public class BallThrowScript : MonoBehaviour
     
     private Rigidbody rb; // rigidbody of the ball
     
-    private float _zDisappear; // z coordinate where the balls disappear
-
     void Start()
     {
+        _audioManager = FindObjectOfType<AudioManager>();
 
         if (this.name == "Player1")
         {
             playerNumber = 1;
             throwPoint = gameObject.transform.Find("ThrowPoint1").gameObject;
             speedForward = -speedForward;
-            _zDisappear = -45f; // behind player 2
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
             throwPoint = gameObject.transform.Find("ThrowPoint2").gameObject;
-            _zDisappear = 35f; // behind player 1
         }
         
     }
@@ -42,7 +40,6 @@ public class BallThrowScript : MonoBehaviour
     {
         if ((playerNumber == 1) && Time.time > timeTillThrow)
         {
-            //if (Input.GetKey(KeyCode.Space))
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 ball = ObjectPool.SharedInstance.GetPooledObjects("Ball1");
@@ -57,8 +54,8 @@ public class BallThrowScript : MonoBehaviour
         }
         else if ((playerNumber == 2) && Time.time > timeTillThrow)
         {
-            //if (Input.GetKey(KeyCode.Keypad0))
             if (Input.GetKeyDown(KeyCode.Keypad0))
+            //if (Input.GetKeyDown(KeyCode.P))
             {
                 ball = ObjectPool.SharedInstance.GetPooledObjects("Ball2");
 
@@ -73,20 +70,26 @@ public class BallThrowScript : MonoBehaviour
         }
 
         // set ball inactive once it left arena 
-        if (ball != null)
+
+        if (this.name == "Player1")
         {
-            if (this.name == "Player1")
-            {
-                if (ball.transform.position.z < _zDisappear)
+            List<GameObject> activeBalls1 = ObjectPool.SharedInstance.GetActivePooledObjects("Ball1");
+            foreach (GameObject ball1 in activeBalls1) {
+                if (ball1.transform.position.z < -36f)
                 {
-                    ball.SetActive(false); 
+                    ball1.SetActive(false); 
                 }
             }
-            else if (this.name == "Player2")
-            {
-                if (ball.transform.position.z > _zDisappear)
+        }
+
+        if (this.name == "Player2")
+        {
+            List<GameObject> activeBalls2 = ObjectPool.SharedInstance.GetActivePooledObjects("Ball2");
+                
+            foreach (GameObject ball2 in activeBalls2) {
+                if (ball2.transform.position.z > 30f)
                 {
-                    ball.SetActive(false); 
+                    ball2.SetActive(false); 
                 }
             }
         }
@@ -97,7 +100,8 @@ public class BallThrowScript : MonoBehaviour
     {
         ball.transform.position = throwPoint.transform.position;
         rb.velocity = new Vector3(0.0f, speedUp, speedForward).normalized * throwVelocity;
-        FindObjectOfType<AudioManager>().Play("Shot");
+        //FindObjectOfType<AudioManager>().Play("Shot");
+        _audioManager.Play("Shot");
     }
     
 }

@@ -53,5 +53,19 @@ public class ObjectPool : MonoBehaviour
         
         return null;
     }
-    
+
+    public List<GameObject> GetActivePooledObjects(string tag)
+    {
+        List<GameObject> activeObjects = new List<GameObject>();
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            if (pooledObjects[i].tag == tag && pooledObjects[i].activeInHierarchy)
+            {
+                activeObjects.Add(pooledObjects[i]);
+            }
+        }
+
+        return activeObjects;
+    }
+
 }

@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerMovementScript : MonoBehaviour
 {
     private GameManager game;
     [SerializeField] private SpawnManager _spawnManager;
     private BallThrowScript ballscript;
+    private AudioManager _audioManager;
+    
+    public GameObject shieldPrefab1;
+    public GameObject shieldPrefab2;
 
-    [SerializeField] private float _powerupTimeout = 5f;
     private bool _p1IsPowerUpOn = false;
-    private PowerUpType _p1PowerUpType;
+    private string _p1PowerUpType;
     private bool _p2IsPowerUpOn = false;
-    private PowerUpType _p2PowerUpType;
+    private string _p2PowerUpType;
     
     
     Rigidbody rb;
@@ -22,12 +27,25 @@ public class PlayerMovementScript : MonoBehaviour
     private float moveSpeed = 10.0f;
     private int playerNumber;
     private string _otherBallName; // tag of the ball that can hit this player
-    private int _otherPlayerNumber;
 
+
+    private void Awake()
+    {
+        // null reference check for prefabs
+        if (shieldPrefab1 == null)
+        {
+            Debug.LogError("Shield1 Prefab is missing!");
+        }
+        if (shieldPrefab2 == null)
+        {
+            Debug.LogError("Shield2 Prefab is missing!");
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        _audioManager = FindObjectOfType<AudioManager>();
         game = GameManager.Instance;
         ballscript = gameObject.GetComponent<BallThrowScript>();
         
@@ -36,19 +54,18 @@ public class PlayerMovementScript : MonoBehaviour
         {
             playerNumber = 1;
             _otherBallName = "Ball2";
-            _otherPlayerNumber = 2;
-
         }
         else if (this.name == "Player2")
         {
             playerNumber = 2;
             _otherBallName = "Ball1";
-            _otherPlayerNumber = 1;
         }
         
         // rigidbodies of both players (for power ups)
         rb1 = GameObject.Find("Player1").GetComponent<Rigidbody>();
-        rb2 = GameObject.Find("Player1").GetComponent<Rigidbody>();
+        rb1.constraints = RigidbodyConstraints.FreezeRotation;
+        rb2 = GameObject.Find("Player2").GetComponent<Rigidbody>();
+        rb2.constraints = RigidbodyConstraints.FreezeRotation;
         
     }
 
@@ -57,33 +74,14 @@ public class PlayerMovementScript : MonoBehaviour
     {
         Move();
         PowerUpEffect();
+        rb1.constraints = RigidbodyConstraints.FreezeRotation;
+        rb2.constraints = RigidbodyConstraints.FreezeRotation;
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        // if other object is a slowfield, player is slowed
-        if (other.gameObject.tag == "slowfield")
-        {
-            moveSpeed = originalMoveSpeed * 0.6f;
-        }
-
-
-        // if other object is ball from the other player, damage/ destroy this player and deactivate ball
-        if (other.CompareTag(_otherBallName))
-        {
-            Damage();
-            FindObjectOfType<AudioManager>().Play("Punch");
-            other.gameObject.SetActive(false); // deactivate ball
-        }
-
-        // OnPlayerDied();
-        // OnPlayerScored();
-    }
-
+    
     // Executes when player leaves a field
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "slowfield")
+        if (other.gameObject.CompareTag("slowfield"))
         {
             ResetMovespeed();
         }
@@ -160,6 +158,9 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
+    ////////// PowerUp Stuff START //////////
+    
+    
     IEnumerator Unfreeze(int player, float delayTime)
         // unfreeze player after X seconds
     {
@@ -180,33 +181,71 @@ public class PlayerMovementScript : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
 
-        ballscript.throwCooldown /= 3f;
+        ballscript.throwCooldown *= 3f;
         
     }
+
+    IEnumerator NormalizeScoring(int player, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        if (player == 1)
+        {
+            game.scorePointsP1 /= 2;
+        }
+        else if (player == 2)
+        {
+            game.scorePointsP2 /= 2;
+        }
+    }
     
+    IEnumerator NormalizeSpeed(int player, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        moveSpeed = originalMoveSpeed;
+    }
+
+    IEnumerator RemoveShield(int player, float delayTime, GameObject shield)
+    {
+        yield return new WaitForSeconds(delayTime);
+        shield.gameObject.SetActive(false);
+    }
     
     void PowerUpEffect()
     {
         if (_p1IsPowerUpOn)
         {
+            _p1IsPowerUpOn = false;
             switch (_p1PowerUpType)
             {
-                case PowerUpType.Freeze:
+                case "Freeze PowerUp":
                     // fix position of other player
                     rb2.constraints = RigidbodyConstraints.FreezePosition;
-                    FindObjectOfType<AudioManager>().Play("Freeze");
+                    _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(2, 5f));
-                    _p1IsPowerUpOn = false;
                     break;
-                case PowerUpType.ShootFreq:
+                case "Frequency PowerUp":
                     // increase shooting frequency
-                    ballscript.throwCooldown *= 3f;
+                    ballscript.throwCooldown /= 3f;
                     StartCoroutine(NormalizeShootFreq(5f));
-                    _p1IsPowerUpOn = false;
                     break;
-                case PowerUpType.Shield:
-                    // activate shield - lass bälle abprallen
-                    _p1IsPowerUpOn = false; // shield should only be instantiated once
+                case "Shield PowerUp":
+                    Debug.Log("Shield should appear");
+                    // activate shield
+                    GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield1");
+                    shieldObject.SetActive(true);
+                    shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y,
+                        this.gameObject.transform.position.z + shieldObject.GetComponent<Shield>().zDiff);
+                    StartCoroutine(RemoveShield(1, 5f, shieldObject));
+                    break;
+                case "Score PowerUp":
+                    // player scores double for certain time
+                    game.scorePointsP1 *= 2;
+                    StartCoroutine(NormalizeScoring(1, 5f));
+                    break;
+                case "Speed PowerUp":
+                    moveSpeed *= 2;
+                    StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
                 default:
                     break;
@@ -214,23 +253,36 @@ public class PlayerMovementScript : MonoBehaviour
         }
         if (_p2IsPowerUpOn)
         {
+            _p2IsPowerUpOn = false;
             switch (_p2PowerUpType)
             {
-                case PowerUpType.Freeze:
+                case "Freeze PowerUp":
                     // freeze position of other player
                     rb1.constraints = RigidbodyConstraints.FreezePosition;
-                    FindObjectOfType<AudioManager>().Play("Freeze");
+                    _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(1, 5f));
-                    _p2IsPowerUpOn = false;
                     break;
-                case PowerUpType.ShootFreq:
-                    ballscript.throwCooldown *= 3f;
+                case "Frequency PowerUp":
+                    ballscript.throwCooldown /= 3f;
                     StartCoroutine(NormalizeShootFreq(5f));
-                    _p2IsPowerUpOn = false;
                     break;
-                case PowerUpType.Shield:
-                    //
-                    _p2IsPowerUpOn = false;
+                case "Shield PowerUp":
+                    // activate shield - lass bälle abprallen
+                    GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield2");
+                    shieldObject.SetActive(true);
+                    shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y,
+                        this.gameObject.transform.position.z + shieldObject.GetComponent<Shield>().zDiff);
+                    StartCoroutine(RemoveShield(1, 5f, shieldObject));
+                    break;
+                case "Score PowerUp":
+                    // player scores double for certain time
+                    game.scorePointsP2 *= 2;
+                    StartCoroutine(NormalizeScoring(2, 5f));
+                    break;
+                case "Speed PowerUp":
+                    moveSpeed *= 2;
+                    StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
                 default:
                     break;
@@ -240,39 +292,22 @@ public class PlayerMovementScript : MonoBehaviour
     }
     
     
-    public void ActivatePowerUp(PowerUpType type, int player)
+    public void ActivatePowerUp(string type, int player)
     {
         if (player == 1)
         {
             _p1PowerUpType = type;
             _p1IsPowerUpOn = true;
-            StartCoroutine(DeactivatePowerUp(1));
         }
         if (player == 2)
         {
             _p2PowerUpType = type;
             _p2IsPowerUpOn = true;
-            StartCoroutine(DeactivatePowerUp(2));
         }
             
     }
+    ////////// PowerUp Stuff END //////////
 
-    IEnumerator DeactivatePowerUp(int player)
-    {
-        if (player == 1)
-        {
-            yield return new WaitForSeconds(_powerupTimeout);
-            _p1IsPowerUpOn = false;
-        }
-        if (player == 2)
-        {
-            yield return new WaitForSeconds(_powerupTimeout);
-            _p2IsPowerUpOn = false;
-        }
-            
-    }
-    
-    
     void OnGameStarted()
     {
         // ...
@@ -283,42 +318,38 @@ public class PlayerMovementScript : MonoBehaviour
         // ...
     }
 
-    void Damage()
+    void ScorePoint(string player)
+    // add points for the player who scored
     {
-        if (playerNumber == 1)
-        {
-            game.OnPlayerScored(2); // if this player is hit, the other one scores 
-        }
-        else if (playerNumber == 2)
-        {
-            game.OnPlayerScored(2);
-        }
-
-        game.SetScoreText(); 
-        
-        // if dead:
-        // game.OnPlayerDied(1);
-        // game.OnPlayerDied(2);
-
-        //////////////////////////////////////////////////
-        // on game over: when does our game end? adapt this section accordingly:
-
-        /*
-        if (_lives == 0)
-        {
-            if (_spawnManager != null)
-            {
-                Destroy(_spawnManager.gameObject); // destroy all the viruses flying around
-                _spawnManager.onPlayerDeath();
-            }
-            else
-            {
-                Debug.LogError("SpawnManager not assigned!");
-            }
-            _uiManager.ShowGameOver();
-            Destroy(this.gameObject);
-        }
-        */
-        //////////////////////////////////////////////////
+        game.OnPlayerScored(player);
     }
+    
+    void OnTriggerEnter(Collider other)
+    {
+        // if other object is a slowfield, player is slowed
+        if (other.gameObject.tag == "slowfield")
+        {
+            moveSpeed = originalMoveSpeed * 0.6f;
+        }
+        
+        // if other object is ball from the other player, other player scores and deactivate ball
+        if (other.CompareTag(_otherBallName))
+        {
+            if (_otherBallName == "Ball1")
+            {
+                ScorePoint("Player1");
+            }
+            else if (_otherBallName == "Ball2")
+            {
+                ScorePoint("Player2");
+            }
+            _audioManager.Play("Punch");
+            other.gameObject.SetActive(false); // deactivate ball
+        }
+
+        // OnPlayerDied();
+        // OnPlayerScored();
+    }
+    
+    
 }
