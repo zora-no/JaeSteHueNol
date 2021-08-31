@@ -9,26 +9,34 @@ public class SpawnManager : MonoBehaviour
 
     // power up 0: freeze enemy player
     private bool _freezeCanSpawn = true;
-    [SerializeField] private float _freezeRate = 5f; // in seconds
+    [SerializeField] private float _freezeRate = 6f; // in seconds
     
     // power up 1: higher shooting frequency
     private bool _freqCanSpawn = true;
-    [SerializeField] private float _freqRate = 5f;
+    [SerializeField] private float _freqRate = 6f;
 
     // power up 2: shield
+    private bool _shieldCanSpawn = true;
+    [SerializeField] private float _shieldRate = 6f;
     
     // power up 3: double score points 
     private bool _scoreCanSpawn = true;
-    [SerializeField] private float _scoreRate = 5f;
+    [SerializeField] private float _scoreRate = 6f;
+    
+    // power up 4: shield
+    private bool _speedCanSpawn = true;
+    [SerializeField] private float _speedRate = 6f;
     
     void Start()
     {
-        // this also includes the parent's transform at index 0
+        // this array also includes the parent's transform at index 0 --> exclude it when spawning
         hatches = (Transform[]) GameObject.Find("ceiling_hatches").gameObject.GetComponentsInChildren<Transform>();
         
         StartCoroutine(SpawnRoutineFreeze());
         StartCoroutine(SpawnRoutineFrequency());
         StartCoroutine(SpawnRoutineScore());
+        StartCoroutine(SpawnRoutineShield());
+        StartCoroutine(SpawnRoutineSpeed());
     }
     
     
@@ -80,6 +88,40 @@ public class SpawnManager : MonoBehaviour
             }
             
             yield return new WaitForSeconds(_scoreRate);
+        }
+    }
+    
+    IEnumerator SpawnRoutineShield()
+    {
+        // while spawning is active, spawn a new double shield power up according to its spawn rate
+        while (_shieldCanSpawn)
+        {
+            GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Shield PowerUp");
+            if (newPowerUp != null)
+            {
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
+                newPowerUp.transform.rotation = Quaternion.identity;
+                newPowerUp.SetActive(true);
+            }
+            
+            yield return new WaitForSeconds(_shieldRate);
+        }
+    }
+    
+    IEnumerator SpawnRoutineSpeed()
+    {
+        // while spawning is active, spawn a new speed power up according to its spawn rate
+        while (_speedCanSpawn)
+        {
+            GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Speed PowerUp");
+            if (newPowerUp != null)
+            {
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
+                newPowerUp.transform.rotation = Quaternion.identity;
+                newPowerUp.SetActive(true);
+            }
+            
+            yield return new WaitForSeconds(_speedRate);
         }
     }
     

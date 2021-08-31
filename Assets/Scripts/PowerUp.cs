@@ -2,21 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PowerUpType
-{
-    Freeze = 0,
-    ShootFreq = 1,
-    Shield = 2,
-    DoubleScore = 3
-}
+
 public class PowerUp : MonoBehaviour
 {
     
     [SerializeField] private float _powerUpSpeed = 7f;
     
-    [SerializeField] private PowerUpType _type = PowerUpType.Freeze;
-    [SerializeField] private bool _spawnRandomType = true;
-
+    [SerializeField] private string _type;
+    
     private float _yFloor = -10f; // y coordinate where the power ups disappear
 
     private GameObject player1;
@@ -26,16 +19,8 @@ public class PowerUp : MonoBehaviour
     {
         player1 = GameObject.FindWithTag("Player1");
         player2 = GameObject.FindWithTag("Player2");
-        
-        if (_spawnRandomType)
-        {
-            _type = (PowerUpType) Random.Range(0, System.Enum.GetValues(typeof(PowerUpType)).Length);
-        }
-    }
-    
-    public PowerUpType GetPowerUpType()
-    {
-        return _type;
+
+        _type = this.gameObject.tag;
     }
     
     void Update()
@@ -69,7 +54,6 @@ public class PowerUp : MonoBehaviour
                 player2.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 2);
                 gameObject.SetActive(false);
                 other.gameObject.SetActive(false);
-
             }
             
         }
