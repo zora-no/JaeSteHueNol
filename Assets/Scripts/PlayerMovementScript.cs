@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,14 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private SpawnManager _spawnManager;
     private BallThrowScript ballscript;
     private AudioManager _audioManager;
+    
+    public GameObject shieldPrefab1;
+    public GameObject shieldPrefab2;
 
     private bool _p1IsPowerUpOn = false;
-    private PowerUpType _p1PowerUpType;
+    private string _p1PowerUpType;
     private bool _p2IsPowerUpOn = false;
-    private PowerUpType _p2PowerUpType;
+    private string _p2PowerUpType;
     
     
     Rigidbody rb;
@@ -23,6 +27,20 @@ public class PlayerMovementScript : MonoBehaviour
     private float moveSpeed = 10.0f;
     private int playerNumber;
     private string _otherBallName; // tag of the ball that can hit this player
+
+
+    private void Awake()
+    {
+        // null reference check for prefabs
+        if (shieldPrefab1 == null)
+        {
+            Debug.LogError("Shield1 Prefab is missing!");
+        }
+        if (shieldPrefab2 == null)
+        {
+            Debug.LogError("Shield2 Prefab is missing!");
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +81,7 @@ public class PlayerMovementScript : MonoBehaviour
     // Executes when player leaves a field
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "slowfield")
+        if (other.gameObject.CompareTag("slowfield"))
         {
             ResetMovespeed();
         }
@@ -140,6 +158,9 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
+    ////////// PowerUp Stuff START //////////
+    
+    
     IEnumerator Unfreeze(int player, float delayTime)
         // unfreeze player after X seconds
     {
@@ -177,35 +198,54 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
+    IEnumerator NormalizeSpeed(int player, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        moveSpeed = originalMoveSpeed;
+    }
+
+    IEnumerator RemoveShield(int player, float delayTime, GameObject shield)
+    {
+        yield return new WaitForSeconds(delayTime);
+        shield.gameObject.SetActive(false);
+    }
     
     void PowerUpEffect()
     {
         if (_p1IsPowerUpOn)
         {
+            _p1IsPowerUpOn = false;
             switch (_p1PowerUpType)
             {
-                case PowerUpType.Freeze:
+                case "Freeze PowerUp":
                     // fix position of other player
                     rb2.constraints = RigidbodyConstraints.FreezePosition;
                     _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(2, 5f));
-                    _p1IsPowerUpOn = false;
                     break;
-                case PowerUpType.ShootFreq:
+                case "Frequency PowerUp":
                     // increase shooting frequency
                     ballscript.throwCooldown /= 3f;
                     StartCoroutine(NormalizeShootFreq(5f));
-                    _p1IsPowerUpOn = false;
                     break;
-                case PowerUpType.Shield:
-                    // activate shield - lass bälle abprallen
-                    _p1IsPowerUpOn = false; // shield should only be instantiated once
+                case "Shield PowerUp":
+                    Debug.Log("Shield should appear");
+                    // activate shield
+                    GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield1");
+                    shieldObject.SetActive(true);
+                    shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y,
+                        this.gameObject.transform.position.z + shieldObject.GetComponent<Shield>().zDiff);
+                    StartCoroutine(RemoveShield(1, 5f, shieldObject));
                     break;
-                case PowerUpType.DoubleScore:
+                case "Score PowerUp":
                     // player scores double for certain time
                     game.scorePointsP1 *= 2;
                     StartCoroutine(NormalizeScoring(1, 5f));
-                    _p1IsPowerUpOn = false;
+                    break;
+                case "Speed PowerUp":
+                    moveSpeed *= 2;
+                    StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
                 default:
                     break;
@@ -213,29 +253,36 @@ public class PlayerMovementScript : MonoBehaviour
         }
         if (_p2IsPowerUpOn)
         {
+            _p2IsPowerUpOn = false;
             switch (_p2PowerUpType)
             {
-                case PowerUpType.Freeze:
+                case "Freeze PowerUp":
                     // freeze position of other player
                     rb1.constraints = RigidbodyConstraints.FreezePosition;
                     _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(1, 5f));
-                    _p2IsPowerUpOn = false;
                     break;
-                case PowerUpType.ShootFreq:
+                case "Frequency PowerUp":
                     ballscript.throwCooldown /= 3f;
                     StartCoroutine(NormalizeShootFreq(5f));
-                    _p2IsPowerUpOn = false;
                     break;
-                case PowerUpType.Shield:
-                    //
-                    _p2IsPowerUpOn = false;
+                case "Shield PowerUp":
+                    // activate shield - lass bälle abprallen
+                    GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield2");
+                    shieldObject.SetActive(true);
+                    shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y,
+                        this.gameObject.transform.position.z + shieldObject.GetComponent<Shield>().zDiff);
+                    StartCoroutine(RemoveShield(1, 5f, shieldObject));
                     break;
-                case PowerUpType.DoubleScore:
+                case "Score PowerUp":
                     // player scores double for certain time
                     game.scorePointsP2 *= 2;
                     StartCoroutine(NormalizeScoring(2, 5f));
-                    _p2IsPowerUpOn = false;
+                    break;
+                case "Speed PowerUp":
+                    moveSpeed *= 2;
+                    StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
                 default:
                     break;
@@ -245,7 +292,7 @@ public class PlayerMovementScript : MonoBehaviour
     }
     
     
-    public void ActivatePowerUp(PowerUpType type, int player)
+    public void ActivatePowerUp(string type, int player)
     {
         if (player == 1)
         {
@@ -259,6 +306,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
             
     }
+    ////////// PowerUp Stuff END //////////
 
     void OnGameStarted()
     {

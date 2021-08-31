@@ -14,6 +14,7 @@
           <e p="Player2MovementScript.cs" t="Include" />
           <e p="PlayerMovementScript.cs" t="Include" />
           <e p="PowerUp.cs" t="Include" />
+          <e p="Shield.cs" t="Include" />
           <e p="Sound.cs" t="Include" />
           <e p="SpawnManager.cs" t="Include" />
           <e p="TileScript.cs" t="Include" />
