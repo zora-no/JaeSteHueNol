@@ -38,7 +38,24 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnRoutineShield());
         StartCoroutine(SpawnRoutineSpeed());
     }
-    
+
+    public void activateSpawning()
+    {
+        _freezeCanSpawn = true;
+        _freqCanSpawn = true;
+        _shieldCanSpawn = true;
+        _scoreCanSpawn = true;
+        _speedCanSpawn = true;
+    }
+
+    public void deactivateSpawning()
+    {
+        _freezeCanSpawn = false;
+        _freqCanSpawn = false;
+        _shieldCanSpawn = false;
+        _scoreCanSpawn = false;
+        _speedCanSpawn = false;
+    }
     
     IEnumerator SpawnRoutineFreeze()
     {

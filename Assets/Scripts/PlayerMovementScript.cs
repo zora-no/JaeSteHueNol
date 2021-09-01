@@ -66,7 +66,8 @@ public class PlayerMovementScript : MonoBehaviour
         rb1.constraints = RigidbodyConstraints.FreezeRotation;
         rb2 = GameObject.Find("Player2").GetComponent<Rigidbody>();
         rb2.constraints = RigidbodyConstraints.FreezeRotation;
-        
+
+        resetPosition();
     }
 
     // Update is called once per frame
@@ -229,7 +230,6 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(NormalizeShootFreq(5f));
                     break;
                 case "Shield PowerUp":
-                    Debug.Log("Shield should appear");
                     // activate shield
                     GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield1");
                     shieldObject.SetActive(true);
@@ -308,14 +308,34 @@ public class PlayerMovementScript : MonoBehaviour
     }
     ////////// PowerUp Stuff END //////////
 
-    void OnGameStarted()
+    void resetPosition()
     {
-        // ...
+        if (this.name == "Player1")
+        {
+            this.gameObject.transform.position = new Vector3(0,27.37f,8.5f);
+        }
+        else if (this.name == "Player2")
+        {
+            this.gameObject.transform.position = new Vector3(0f,27.37f,-31.12f);
+        }
+    }
+    
+    void OnGameStarted()
+    { 
+        // unfreeze player
+       rb.constraints = RigidbodyConstraints.None;
+       // allow shooting
+       ballscript.activateShooting();
+       // reset position
+       resetPosition();
     }
 
     void OnGameOverConfirmed() 
     {
-        // ...
+        // freeze player
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+        // stop shooting
+        ballscript.deactivateShooting();
     }
 
     void ScorePoint(string player)
@@ -346,9 +366,7 @@ public class PlayerMovementScript : MonoBehaviour
             _audioManager.Play("Punch");
             other.gameObject.SetActive(false); // deactivate ball
         }
-
-        // OnPlayerDied();
-        // OnPlayerScored();
+        
     }
     
     

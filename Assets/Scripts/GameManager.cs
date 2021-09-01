@@ -12,17 +12,17 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPageP1;
     public GameObject gameOverPageP2;
     public GameObject countdownPage;
+    public SpawnManager spawnmanager;
     private TimerCountdown gameTimer;
     
     public static GameManager Instance;
-
-
+    
     public delegate void GameDelegate();
     public static event GameDelegate OnGameStarted;
     public static event GameDelegate OnGameOverConfirmed;
     
     private bool _gameOver = false;
-    public int scoreP1 = 1;
+    public int scoreP1 = 0;
     public int scoreP2 = 0;
     public TextMeshPro scoreP1text;
     public TextMeshPro scoreP2text;
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        spawnmanager = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>();
         SetScoreText();
     }
     void Update()
@@ -67,24 +68,39 @@ public class GameManager : MonoBehaviour
         scoreP2text.text = scoreP2.ToString();
     }
     
+    public void OnReplay()
+        // activated when replay button is hit
+    {
+        SetPageState(PageState.Start);
+    }
+    
+    /// START COUNTDOWN 3 2 1 ///
+    public void OnCountdownStart()
+    {
+        SetPageState(PageState.Countdown);
+    }
+    
+    /// GAME START FUNCTION ///
     void OnCountdownFinished()
-        // once countdown is finished, get everything ready for game start
     {
         SetPageState(PageState.None);
         _gameOver = false;
-        OnGameStarted(); // event sent to Player
-        //score = 0;
-        // ...
+        
+        // reset score
+        scoreP1 = 0;
+        scoreP2 = 0;
+        SetScoreText();
+        
+        // unfreeze player & enable shooting
+        OnGameStarted();
+        
+        // start spawning power ups
+        spawnmanager.activateSpawning(); 
+        
     }
     
-    // not used because player does't die
-    //public void OnPlayerDied(int player)
-    //{
-    //    _gameOver = true;
-    //    SetPageState(PageState.GameOver);
-        // ...
-    //}
     
+    /// GAME OVER FUNCTION ///
     public void OnTimeIsOver()
     {
         _gameOver = true;
@@ -111,7 +127,16 @@ public class GameManager : MonoBehaviour
             textP2.SetText("Game Over ! You won !");
         }
 
-        // deactivate Powerups, Shooting and movement missing
+        // freeze players & stop shooting
+        OnGameOverConfirmed(); 
+        
+        // stop spawning power ups
+        spawnmanager.deactivateSpawning();
+        
+        // deactivate active power ups and balls
+        foreach (Transform child in spawnmanager.transform)
+            child.gameObject.SetActive(false);
+
     }
 
     public void OnPlayerScored(string player)
@@ -161,20 +186,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
-    public void ConfirmGameOver()
-        // activated when replay button is hit
-    {
-        OnGameOverConfirmed(); // event sent to Player
-        SetPageState(PageState.Start);
-        // ...
-    }
-
-    public void StartGame()
-        // activated when play button is hit
-    {
-        SetPageState(PageState.Countdown);
-    }
+    
 
     
 }
