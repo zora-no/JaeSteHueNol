@@ -26,7 +26,19 @@ public class SpawnManager : MonoBehaviour
     // power up 4: shield
     private bool _speedCanSpawn = true;
     [SerializeField] private float _speedRate = 6f;
-    
+
+    // tile power up 0: inhibitor
+    private bool _tileInhibitorCanSpawn = true;
+    [SerializeField] private float _tileInhibitorRate = 6f;
+
+    // tile power up 1: slow
+    private bool _tileSlowCanSpawn = true;
+    [SerializeField] private float _tileSlowRate = 6f;
+
+    // tile power up 2: clouded
+    private bool _tileCloudedCanSpawn = true;
+    [SerializeField] private float _tileCloudedRate = 6f;
+
     void Start()
     {
         // this array also includes the parent's transform at index 0 --> exclude it when spawning
@@ -37,6 +49,9 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnRoutineScore());
         StartCoroutine(SpawnRoutineShield());
         StartCoroutine(SpawnRoutineSpeed());
+        StartCoroutine(SpawnRoutineTileInhibitor());
+        StartCoroutine(SpawnRoutineTileSlow());
+        StartCoroutine(SpawnRoutineTileClouded());
     }
     
     
@@ -124,5 +139,56 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(_speedRate);
         }
     }
-    
+
+    IEnumerator SpawnRoutineTileInhibitor()
+    {
+        // while spawning is active, spawn a new inhibitor tile power up according to its spawn rate
+        while (_tileInhibitorCanSpawn)
+        {
+            GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Inhibitor TilePowerUp");
+            if (newPowerUp != null)
+            {
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
+                newPowerUp.transform.rotation = Quaternion.identity;
+                newPowerUp.SetActive(true);
+            }
+
+            yield return new WaitForSeconds(_tileInhibitorRate);
+        }
+    }
+
+    IEnumerator SpawnRoutineTileSlow()
+    {
+        // while spawning is active, spawn a new slow tile power up according to its spawn rate
+        while (_tileSlowCanSpawn)
+        {
+            GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Slow TilePowerUp");
+            if (newPowerUp != null)
+            {
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
+                newPowerUp.transform.rotation = Quaternion.identity;
+                newPowerUp.SetActive(true);
+            }
+
+            yield return new WaitForSeconds(_tileSlowRate);
+        }
+    }
+
+    IEnumerator SpawnRoutineTileClouded()
+    {
+        // while spawning is active, spawn a new clouded tile power up according to its spawn rate
+        while (_tileCloudedCanSpawn)
+        {
+            GameObject newPowerUp = ObjectPool.SharedInstance.GetPooledObjects("Clouded TilePowerUp");
+            if (newPowerUp != null)
+            {
+                newPowerUp.transform.position = hatches[Random.Range(1, hatches.Length)].position;
+                newPowerUp.transform.rotation = Quaternion.identity;
+                newPowerUp.SetActive(true);
+            }
+
+            yield return new WaitForSeconds(_tileCloudedRate);
+        }
+    }
+
 }

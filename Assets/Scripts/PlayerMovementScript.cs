@@ -18,6 +18,7 @@ public class PlayerMovementScript : MonoBehaviour
     private string _p1PowerUpType;
     private bool _p2IsPowerUpOn = false;
     private string _p2PowerUpType;
+    public int tileEffectType = 3;
     
     
     Rigidbody rb;
@@ -85,6 +86,10 @@ public class PlayerMovementScript : MonoBehaviour
         {
             ResetMovespeed();
         }
+        if (other.gameObject.CompareTag("cloudedviewfield"))
+        {
+            ResetVision();
+        }
     }
 
     void OnEnable()
@@ -98,10 +103,26 @@ public class PlayerMovementScript : MonoBehaviour
         GameManager.OnGameStarted -= OnGameStarted;
         GameManager.OnGameOverConfirmed -= OnGameOverConfirmed;
     }
-    
+    // Resets movespeed to hardcoded original movespeed
     public void ResetMovespeed()
     {
         moveSpeed = originalMoveSpeed;
+    }
+    // Activates vision impairment
+    public void ActivateVisionImpairment()
+    {
+        transform.Find("PlayerCamera").transform.Find("Vision Impairment").gameObject.SetActive(true);
+    }
+
+    // Deactivates vision impairment
+    public void ResetVision()
+    {
+        transform.Find("PlayerCamera").transform.Find("Vision Impairment").gameObject.SetActive(false);
+    }
+
+    public void ResetTileEffectType()
+    {
+        tileEffectType = 3;
     }
     void Move()
     {
@@ -247,6 +268,15 @@ public class PlayerMovementScript : MonoBehaviour
                     moveSpeed *= 2;
                     StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
+                case "Inhibitor TilePowerUp":
+                    tileEffectType = 0;
+                    break;
+                case "Slow TilePowerUp":
+                    tileEffectType = 1;
+                    break;
+                case "Clouded TilePowerUp":
+                    tileEffectType = 2;
+                    break;
                 default:
                     break;
             }
@@ -330,6 +360,12 @@ public class PlayerMovementScript : MonoBehaviour
         if (other.gameObject.tag == "slowfield")
         {
             moveSpeed = originalMoveSpeed * 0.6f;
+        }
+
+        // if other object is a vision impairment field, player is visually impaired
+        if (other.gameObject.tag == "cloudedviewfield")
+        {
+            ActivateVisionImpairment();
         }
         
         // if other object is ball from the other player, other player scores and deactivate ball
