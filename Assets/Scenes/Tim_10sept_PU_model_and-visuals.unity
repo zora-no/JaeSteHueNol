@@ -722,7 +722,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -1145,7 +1145,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -2298,10 +2298,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemsToPool:
   - amountToPool: 10
-    objectToPool: {fileID: 7919494511106801767, guid: 59afe52a6db84df4f81692457fa5664b,
+    objectToPool: {fileID: 7919494511106801767, guid: e2dd6a06e8c175d4ab44e9b8c651bf35,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 1277970332191433790, guid: 328a4c9f460306146b04307f10c64e0d,
+    objectToPool: {fileID: 7919494511106801767, guid: 213d72c3b89e7b947808dab7933be69a,
       type: 3}
   - amountToPool: 10
     objectToPool: {fileID: 7026444951835673381, guid: 180f3828dc9473940a417240df6ea390,
