@@ -46,11 +46,23 @@ public class PlayerMovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _audioManager = FindObjectOfType<AudioManager>();
         game = GameManager.Instance;
         ballscript = gameObject.GetComponent<BallThrowScript>();
-        
+        if (ballscript == null)
+        {
+            Debug.LogError("BallThrowScript missing!");
+        }
+        _audioManager = FindObjectOfType<AudioManager>();
+        if (_audioManager == null)
+        {
+            Debug.LogError("AudioManager missing!");
+        }
         rb = GetComponent<Rigidbody>(); // rb of this player
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody of player missing!");
+        }
+        
         if (this.name == "Player1")
         {
             playerNumber = 1;
@@ -92,19 +104,8 @@ public class PlayerMovementScript : MonoBehaviour
             ResetVision();
         }
     }
-
-    void OnEnable()
-    {
-        GameManager.OnGameStarted += OnGameStarted;
-        GameManager.OnGameOverConfirmed += OnGameOverConfirmed;
-    }
-
-    void onDisenable()
-    {
-        GameManager.OnGameStarted -= OnGameStarted;
-        GameManager.OnGameOverConfirmed -= OnGameOverConfirmed;
-    }
-    // Resets movespeed to hardcoded original movespeed
+    
+    
     public void ResetMovespeed()
     {
         moveSpeed = originalMoveSpeed;
@@ -350,7 +351,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
-    void OnGameStarted()
+    public void OnGameStarted()
     { 
         // unfreeze player
        rb.constraints = RigidbodyConstraints.None;
@@ -360,7 +361,7 @@ public class PlayerMovementScript : MonoBehaviour
        resetPosition();
     }
 
-    void OnGameOverConfirmed() 
+    public void OnGameOverConfirmed() 
     {
         // freeze player
         rb.constraints = RigidbodyConstraints.FreezePosition;

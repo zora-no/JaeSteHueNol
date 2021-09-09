@@ -12,14 +12,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPageP1;
     public GameObject gameOverPageP2;
     public GameObject countdownPage;
-    public SpawnManager spawnmanager;
+    public GameObject spawnmanager;
     private TimerCountdown gameTimer;
     
     public static GameManager Instance;
-    
-    public delegate void GameDelegate();
-    public static event GameDelegate OnGameStarted;
-    public static event GameDelegate OnGameOverConfirmed;
     
     private bool _gameOver = false;
     public int scoreP1 = 0;
@@ -30,7 +26,9 @@ public class GameManager : MonoBehaviour
 
     public int scorePointsP1 = 1; // how many points player scores when they hit the other player
     public int scorePointsP2 = 1;
-    
+
+    private PlayerMovementScript player1;
+    private PlayerMovementScript player2;
     
     void Awake()
     {
@@ -39,7 +37,16 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        spawnmanager = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>();
+        SetPageState(PageState.None);
+            
+        player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
+        player2 = GameObject.FindWithTag("Player2").GetComponent<PlayerMovementScript>();
+
+        spawnmanager = GameObject.FindWithTag("SpawnManager");
+        if (spawnmanager == null)
+        {
+            Debug.LogError("Spawnmanager object not found!");
+        }
         SetScoreText();
     }
     void Update()
@@ -92,10 +99,11 @@ public class GameManager : MonoBehaviour
         SetScoreText();
         
         // unfreeze player & enable shooting
-        OnGameStarted();
+        player1.OnGameStarted();
+        player2.OnGameStarted();
         
         // start spawning power ups
-        spawnmanager.activateSpawning(); 
+        spawnmanager.GetComponent<SpawnManager>().activateSpawning();
         
     }
     
@@ -127,16 +135,15 @@ public class GameManager : MonoBehaviour
             textP2.SetText("Game Over ! You won !");
         }
 
-        // freeze players & stop shooting
-        OnGameOverConfirmed(); 
+        player1.OnGameOverConfirmed();
+        player2.OnGameOverConfirmed();
         
         // stop spawning power ups
-        spawnmanager.deactivateSpawning();
+        spawnmanager.GetComponent<SpawnManager>().deactivateSpawning();
         
         // deactivate active power ups and balls
         foreach (Transform child in spawnmanager.transform)
             child.gameObject.SetActive(false);
-
     }
 
     public void OnPlayerScored(string player)

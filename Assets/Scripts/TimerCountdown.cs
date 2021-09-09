@@ -15,6 +15,7 @@ public class TimerCountdown : MonoBehaviour
     void Start()
     {
         counter.SetText(secondsLeft.ToString());
+        GameManager = GameManager.Instance;
     }
 
 
@@ -30,6 +31,7 @@ public class TimerCountdown : MonoBehaviour
         {
             timeOut = true;
             GameManager.OnTimeIsOver();
+
         }
     }
 

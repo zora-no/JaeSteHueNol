@@ -835,7 +835,8 @@ MonoBehaviour:
   gameOverPageP1: {fileID: 0}
   gameOverPageP2: {fileID: 0}
   countdownPage: {fileID: 1023096935}
-  scoreP1: 1
+  spawnmanager: {fileID: 0}
+  scoreP1: 0
   scoreP2: 0
   scoreP1text: {fileID: 1728065107}
   scoreP2text: {fileID: 1473424083}
@@ -1430,6 +1431,18 @@ PrefabInstance:
       propertyPath: _spawnManager
       value: 
       objectReference: {fileID: 1861926925}
+    - target: {fileID: 7037586288392063777, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
+        type: 3}
+      propertyPath: shieldPrefab1
+      value: 
+      objectReference: {fileID: 1254542641185700049, guid: 783535f2e5db6414cbeab35ee6cc2f44,
+        type: 3}
+    - target: {fileID: 7037586288392063777, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
+        type: 3}
+      propertyPath: shieldPrefab2
+      value: 
+      objectReference: {fileID: 2697147747999032911, guid: fb043d8852697fb4491ad7ba224c758d,
+        type: 3}
     - target: {fileID: 7037586288392063778, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
         type: 3}
       propertyPath: m_RootOrder
@@ -2317,7 +2330,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _freezeRate: 2
   _freqRate: 2
+  _shieldRate: 6
   _scoreRate: 5
+  _speedRate: 6
 --- !u!4 &1861926926
 Transform:
   m_ObjectHideFlags: 0
@@ -2339,6 +2354,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1775902950617986794, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
+        type: 3}
+      propertyPath: _spawnManager
+      value: 
+      objectReference: {fileID: 1861926925}
+    - target: {fileID: 1775902950617986794, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
+        type: 3}
+      propertyPath: shieldPrefab1
+      value: 
+      objectReference: {fileID: 1254542641185700049, guid: 783535f2e5db6414cbeab35ee6cc2f44,
+        type: 3}
+    - target: {fileID: 1775902950617986794, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
+        type: 3}
+      propertyPath: shieldPrefab2
+      value: 
+      objectReference: {fileID: 2697147747999032911, guid: fb043d8852697fb4491ad7ba224c758d,
+        type: 3}
     - target: {fileID: 4767705983556506797, guid: fad0e4a4c4047e5429d4b79b9c1ffffb,
         type: 3}
       propertyPath: m_RootOrder
@@ -2431,7 +2463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 300
+  secondsLeft: 5
   GameManager: {fileID: 0}
 --- !u!4 &1944535385
 Transform:
