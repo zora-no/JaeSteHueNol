@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3187225412521887790}
   m_Layer: 0
   m_Name: PowerUpDoublePoints_filled
-  m_TagString: Freeze PowerUp
+  m_TagString: Score PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

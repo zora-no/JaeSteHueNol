@@ -6,7 +6,7 @@ public class TileScript : MonoBehaviour
 {
 
 
-    [SerializeField] private float effectDuration = 5f;
+    [SerializeField] private float effectDuration = 10f;
     [SerializeField] private int effectType = 3;
     private bool effectIsActive = false;
     GameObject affectedPlayerObject;
@@ -91,7 +91,7 @@ public class TileScript : MonoBehaviour
                 effectIsActive = false;
                 break;
             case 1:
-                Debug.Log("Deactivating slow...");
+                //Debug.Log("Deactivating slow...");
                 gameObject.transform.Find("SlowField").gameObject.SetActive(false);
                 effectIsActive = false;
                 affectedPlayerObject.GetComponent<PlayerMovementScript>().ResetMovespeed();

@@ -2449,19 +2449,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemsToPool:
   - amountToPool: 10
-    objectToPool: {fileID: 7919494511106801767, guid: 1c619ac925876854bb2e0bf8e174dd46,
+    objectToPool: {fileID: 7919494511106801767, guid: 2693cfc9890bf4a45ae6ce58f5a7f23d,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 1277970332191433790, guid: 328a4c9f460306146b04307f10c64e0d,
+    objectToPool: {fileID: 7919494511106801767, guid: 213d72c3b89e7b947808dab7933be69a,
       type: 3}
   - amountToPool: 10
     objectToPool: {fileID: 7026444951835673381, guid: 180f3828dc9473940a417240df6ea390,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 6351568630548134782, guid: c8ed06159be88fb4baadc82b481f9f35,
+    objectToPool: {fileID: 7919494511106801767, guid: a8db89060d38aeb44b1dbcded63faede,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 3122584009117056428, guid: 86fe2391bdfe3bf47a11f89f5ea06508,
+    objectToPool: {fileID: 7919494511106801767, guid: 76ede19cefc1add409d284c3a008950e,
       type: 3}
   - amountToPool: 30
     objectToPool: {fileID: 6240535003217573830, guid: 4531438fe30f85e4697b53111061b494,
@@ -2476,13 +2476,13 @@ MonoBehaviour:
     objectToPool: {fileID: 2697147747999032911, guid: fb043d8852697fb4491ad7ba224c758d,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 6351568630548134782, guid: 6fb26516be55f924f8475ed5d2408323,
+    objectToPool: {fileID: 7919494511106801767, guid: f36f5f4c418ba294ebea3076a2721abe,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 6351568630548134782, guid: c8b97440397cdc640a6fe4edc40f0463,
+    objectToPool: {fileID: 7919494511106801767, guid: e2dd6a06e8c175d4ab44e9b8c651bf35,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 6351568630548134782, guid: bd02443adf619e44c8f3985a568437e6,
+    objectToPool: {fileID: 7919494511106801767, guid: b47db226a89fd4f4282c6ac593cee123,
       type: 3}
   pooledObjects: []
 --- !u!114 &1861926925
@@ -2497,6 +2497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10fad9d3ebaae5d428be86df2fbbef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _powerUpRate: 5
+  _firstWait: 5
 --- !u!4 &1861926926
 Transform:
   m_ObjectHideFlags: 0
@@ -2633,7 +2635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
   secondsLeft: 300
-  GameManager: {fileID: 0}
+  GameManager: {fileID: 1012935053}
 --- !u!4 &1944535385
 Transform:
   m_ObjectHideFlags: 0

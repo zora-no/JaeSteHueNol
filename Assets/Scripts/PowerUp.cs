@@ -6,7 +6,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     
-    [SerializeField] private float _powerUpSpeed = 7f;
+    [SerializeField] private float _powerUpSpeed = 6f;
     
     [SerializeField] private string _type;
     
