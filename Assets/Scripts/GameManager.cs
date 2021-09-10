@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        _gameOver = false;
         SetPageState(PageState.None);
             
         player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
@@ -144,6 +145,11 @@ public class GameManager : MonoBehaviour
         // deactivate active power ups and balls
         foreach (Transform child in spawnmanager.transform)
             child.gameObject.SetActive(false);
+    }
+
+    public bool getGameOver()
+    {
+        return _gameOver;
     }
 
     public void OnPlayerScored(string player)

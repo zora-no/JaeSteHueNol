@@ -90,6 +90,11 @@ public class PlayerMovementScript : MonoBehaviour
         PowerUpEffect();
         rb1.constraints = RigidbodyConstraints.FreezeRotation;
         rb2.constraints = RigidbodyConstraints.FreezeRotation;
+        if (game.getGameOver())
+        {
+            rb1.constraints = RigidbodyConstraints.FreezePosition;
+            rb2.constraints = RigidbodyConstraints.FreezePosition;
+        }
     }
     
     // Executes when player leaves a field

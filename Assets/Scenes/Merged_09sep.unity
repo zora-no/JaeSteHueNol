@@ -2497,14 +2497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10fad9d3ebaae5d428be86df2fbbef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _freezeRate: 2
-  _freqRate: 2
-  _shieldRate: 6
-  _scoreRate: 5
-  _speedRate: 6
-  _tileInhibitorRate: 6
-  _tileSlowRate: 6
-  _tileCloudedRate: 6
 --- !u!4 &1861926926
 Transform:
   m_ObjectHideFlags: 0
@@ -2640,7 +2632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 5
+  secondsLeft: 300
   GameManager: {fileID: 0}
 --- !u!4 &1944535385
 Transform:
