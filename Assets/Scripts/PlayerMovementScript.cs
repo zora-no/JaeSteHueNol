@@ -46,11 +46,23 @@ public class PlayerMovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _audioManager = FindObjectOfType<AudioManager>();
         game = GameManager.Instance;
         ballscript = gameObject.GetComponent<BallThrowScript>();
-        
+        if (ballscript == null)
+        {
+            Debug.LogError("BallThrowScript missing!");
+        }
+        _audioManager = FindObjectOfType<AudioManager>();
+        if (_audioManager == null)
+        {
+            Debug.LogError("AudioManager missing!");
+        }
         rb = GetComponent<Rigidbody>(); // rb of this player
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody of player missing!");
+        }
+        
         if (this.name == "Player1")
         {
             playerNumber = 1;
@@ -67,7 +79,8 @@ public class PlayerMovementScript : MonoBehaviour
         rb1.constraints = RigidbodyConstraints.FreezeRotation;
         rb2 = GameObject.Find("Player2").GetComponent<Rigidbody>();
         rb2.constraints = RigidbodyConstraints.FreezeRotation;
-        
+
+        resetPosition();
     }
 
     // Update is called once per frame
@@ -77,6 +90,11 @@ public class PlayerMovementScript : MonoBehaviour
         PowerUpEffect();
         rb1.constraints = RigidbodyConstraints.FreezeRotation;
         rb2.constraints = RigidbodyConstraints.FreezeRotation;
+        if (game.getGameOver())
+        {
+            rb1.constraints = RigidbodyConstraints.FreezePosition;
+            rb2.constraints = RigidbodyConstraints.FreezePosition;
+        }
     }
     
     // Executes when player leaves a field
@@ -91,19 +109,8 @@ public class PlayerMovementScript : MonoBehaviour
             ResetVision();
         }
     }
-
-    void OnEnable()
-    {
-        GameManager.OnGameStarted += OnGameStarted;
-        GameManager.OnGameOverConfirmed += OnGameOverConfirmed;
-    }
-
-    void onDisenable()
-    {
-        GameManager.OnGameStarted -= OnGameStarted;
-        GameManager.OnGameOverConfirmed -= OnGameOverConfirmed;
-    }
-    // Resets movespeed to hardcoded original movespeed
+    
+    
     public void ResetMovespeed()
     {
         moveSpeed = originalMoveSpeed;
@@ -250,7 +257,6 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(NormalizeShootFreq(5f));
                     break;
                 case "Shield PowerUp":
-                    Debug.Log("Shield should appear");
                     // activate shield
                     GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield1");
                     shieldObject.SetActive(true);
@@ -338,14 +344,34 @@ public class PlayerMovementScript : MonoBehaviour
     }
     ////////// PowerUp Stuff END //////////
 
-    void OnGameStarted()
+    void resetPosition()
     {
-        // ...
+        if (this.name == "Player1")
+        {
+            this.gameObject.transform.position = new Vector3(0,27.37f,8.5f);
+        }
+        else if (this.name == "Player2")
+        {
+            this.gameObject.transform.position = new Vector3(0f,27.37f,-31.12f);
+        }
+    }
+    
+    public void OnGameStarted()
+    { 
+        // unfreeze player
+       rb.constraints = RigidbodyConstraints.None;
+       // allow shooting
+       ballscript.activateShooting();
+       // reset position
+       resetPosition();
     }
 
-    void OnGameOverConfirmed() 
+    public void OnGameOverConfirmed() 
     {
-        // ...
+        // freeze player
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+        // stop shooting
+        ballscript.deactivateShooting();
     }
 
     void ScorePoint(string player)
@@ -382,9 +408,7 @@ public class PlayerMovementScript : MonoBehaviour
             _audioManager.Play("Punch");
             other.gameObject.SetActive(false); // deactivate ball
         }
-
-        // OnPlayerDied();
-        // OnPlayerScored();
+        
     }
     
     

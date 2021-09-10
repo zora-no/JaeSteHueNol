@@ -9,12 +9,12 @@ public class TimerCountdown : MonoBehaviour
     public TMP_Text counter;
     public int secondsLeft;
     private bool takingAway = false;
-    private bool timeOut = false;
     public GameManager GameManager;
     
     void Start()
     {
         counter.SetText(secondsLeft.ToString());
+        GameManager = GameManager.Instance;
     }
 
 
@@ -28,8 +28,8 @@ public class TimerCountdown : MonoBehaviour
         // no time left anymore
         if (secondsLeft == 0)
         {
-            timeOut = true;
             GameManager.OnTimeIsOver();
+
         }
     }
 
