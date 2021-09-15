@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        SetPageState(PageState.None);
+        SetPageState(PageState.Start);
             
         player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
         player2 = GameObject.FindWithTag("Player2").GetComponent<PlayerMovementScript>();
