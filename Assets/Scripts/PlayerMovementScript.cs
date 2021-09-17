@@ -19,6 +19,9 @@ public class PlayerMovementScript : MonoBehaviour
     private bool _p2IsPowerUpOn = false;
     private string _p2PowerUpType;
     public int tileEffectType = 3;
+
+    GameObject uiTilePowerup1;
+    GameObject uiTilePowerup2;
     
     
     Rigidbody rb;
@@ -80,6 +83,9 @@ public class PlayerMovementScript : MonoBehaviour
         rb2 = GameObject.Find("Player2").GetComponent<Rigidbody>();
         rb2.constraints = RigidbodyConstraints.FreezeRotation;
 
+        uiTilePowerup1 = GameObject.Find("TilePowerup1");
+        uiTilePowerup2 = GameObject.Find("TilePowerup2");
+
         resetPosition();
     }
 
@@ -110,7 +116,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
-    
+    // Resets movespeed to original movespeed
     public void ResetMovespeed()
     {
         moveSpeed = originalMoveSpeed;
@@ -127,10 +133,13 @@ public class PlayerMovementScript : MonoBehaviour
         transform.Find("PlayerCamera").transform.Find("Vision Impairment").gameObject.SetActive(false);
     }
 
+    // resets the the saved tile effect type to nothing
     public void ResetTileEffectType()
     {
         tileEffectType = 3;
     }
+
+    // Moves the player
     void Move()
     {
         float speedHorizontal = 0;
@@ -163,7 +172,7 @@ public class PlayerMovementScript : MonoBehaviour
         else if (playerNumber == 2)
         {
             //limits player movement 
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), -31.12f);
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), -31.77f);
             
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -286,6 +295,7 @@ public class PlayerMovementScript : MonoBehaviour
                 default:
                     break;
             }
+            uiTilePowerup1.GetComponent<uiTilePowerups>().SwitchImage(tileEffectType);
         }
         if (_p2IsPowerUpOn)
         {
@@ -320,9 +330,19 @@ public class PlayerMovementScript : MonoBehaviour
                     moveSpeed *= 2;
                     StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
+                case "Inhibitor TilePowerUp":
+                    tileEffectType = 0;
+                    break;
+                case "Slow TilePowerUp":
+                    tileEffectType = 1;
+                    break;
+                case "Clouded TilePowerUp":
+                    tileEffectType = 2;
+                    break;
                 default:
                     break;
             }
+            uiTilePowerup2.GetComponent<uiTilePowerups>().SwitchImage(tileEffectType);
         }
 
     }
@@ -352,7 +372,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
         else if (this.name == "Player2")
         {
-            this.gameObject.transform.position = new Vector3(0f,27.37f,-31.12f);
+            this.gameObject.transform.position = new Vector3(0f,27.37f,-31.77f);
         }
     }
     
