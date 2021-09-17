@@ -6,15 +6,21 @@ using UnityEngine.SceneManagement;
 public class mainMenu : MonoBehaviour
 {
     [SerializeField]
+    
     GameManager GameManager;
-
-    void Start()
+    public GameObject _mainMenu;
+    public GameObject _descriptionMenu;
+    public GameObject _scoreHistoryMenu;
+    public GameObject _nameMenu;
+    public GameObject _controleMenu;
+    
+    void Awake()
     {
-        if (GameManager == null)
-        {
-            
-            Debug.LogError("GameManager object missing");
-        }
+        _mainMenu.SetActive(true);
+        _descriptionMenu.SetActive(false);
+        _scoreHistoryMenu.SetActive(false);
+        _nameMenu.SetActive(false);
+        _controleMenu.SetActive(false);
     }
     // when pressing the button startPage will be deactivated
     public void PlayGame ()
