@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class mainMenu : MonoBehaviour
 {
-    [SerializeField]
-    
     GameManager GameManager;
+
+    [SerializeField]
     public GameObject _mainMenu;
     public GameObject _descriptionMenu;
     public GameObject _scoreHistoryMenu;
@@ -16,6 +16,7 @@ public class mainMenu : MonoBehaviour
     
     void Awake()
     {
+        GameManager = FindObjectOfType<GameManager>();
         _mainMenu.SetActive(true);
         _descriptionMenu.SetActive(false);
         _scoreHistoryMenu.SetActive(false);

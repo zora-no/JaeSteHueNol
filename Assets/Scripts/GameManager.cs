@@ -7,7 +7,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    
+   
     public GameObject startPage;
     public GameObject gameOverPageP1;
     public GameObject gameOverPageP2;
@@ -23,13 +23,25 @@ public class GameManager : MonoBehaviour
     public int scoreP2 = 0;
     public TextMeshPro scoreP1text;
     public TextMeshPro scoreP2text;
-    public TextMeshPro scoreText; // reference to UI score text component
 
     public int scorePointsP1 = 1; // how many points player scores when they hit the other player
     public int scorePointsP2 = 1;
 
     private PlayerMovementScript player1;
     private PlayerMovementScript player2;
+
+    private List<string> namesP1 = new List<string>();
+    private List<string> namesP2 = new List<string>();
+    
+    private List<string> scoresP1 = new List<string>();
+    private List<string> scoresP2 = new List<string>();
+    
+    public TextMeshProUGUI History1;
+    public TextMeshProUGUI History2;
+    public TextMeshProUGUI History3;
+    public TextMeshProUGUI History4;
+    public TextMeshProUGUI History5;
+    
     
     void Awake()
     {
@@ -77,20 +89,14 @@ public class GameManager : MonoBehaviour
         scoreP2text.text = scoreP2.ToString();
     }
     
-    public void OnReplay()
-        // activated when replay button is hit
-    {
-        SetPageState(PageState.Start);
-    }
-    
-    /// START COUNTDOWN 3 2 1 ///
+    /// START GAME TIMER ///
     public void StartTimer()
     {
         SetPageState(PageState.Timer);
     }
     
     /// GAME START FUNCTION ///
-    void OnCountdownFinished()
+    public void OnGameStart()
     {
         SetPageState(PageState.None);
         _gameOver = false;
@@ -146,8 +152,19 @@ public class GameManager : MonoBehaviour
         // deactivate active power ups and balls
         foreach (Transform child in spawnmanager.transform)
             child.gameObject.SetActive(false);
+        
+        // save scores
+        scoresP1.Insert(0, scoreP1.ToString());
+        scoresP2.Insert(0, scoreP2.ToString());
+        
+        // make sure the saved lists don't have more than 5 entries to avoid cluttering
+        restrictListSize();
+        
+        // update game history page
+        updateGameHistoryPage();
     }
 
+    
     public bool getGameOver()
     {
         return _gameOver;
@@ -168,7 +185,6 @@ public class GameManager : MonoBehaviour
     }
     
     
-
     void SetPageState(PageState state)
         // activate needed page and deactivate all others
     {
@@ -200,7 +216,66 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    
 
+    public void readNameP1(string input)
+    {
+        namesP1.Insert(0, input);
+        Debug.Log(input);
+    }
+    
+    public void readNameP2(string input)
+    {
+        namesP2.Insert(0, input);
+        Debug.Log(input);
+
+    }
+    
+    private void restrictListSize()
+    {
+        if (scoresP1.Count == 6)
+        {
+            scoresP1.RemoveAt(5);
+        }
+        if (scoresP2.Count == 6)
+        {
+            scoresP2.RemoveAt(5);
+        }
+        if (namesP1.Count == 6)
+        {
+            namesP1.RemoveAt(5);
+        }
+        if (namesP2.Count == 6)
+        {
+            namesP2.RemoveAt(5);
+        }
+    }
+
+    private void updateGameHistoryPage()
+    {
+        if (namesP1.Count > 0)
+        {
+            History1.text = namesP1[0] + "  " + scoresP1[0] + "  :  " + scoresP2[0] + "  " + namesP1[0];
+        }
+        if (namesP1.Count > 1)
+        {
+            History2.text = namesP1[1] + "  " + scoresP1[1] + "  :  " + scoresP2[1] + "  " + namesP1[1];
+        }
+        if (namesP1.Count > 2)
+        {
+            History3.text = namesP1[2] + "  " + scoresP1[2] + "  :  " + scoresP2[2] + "  " + namesP1[2];
+        }
+        if (namesP1.Count > 3)
+        {
+            History4.text = namesP1[3] + "  " + scoresP1[3] + "  :  " + scoresP2[3] + "  " + namesP1[3];
+        }
+        if (namesP1.Count > 4)
+        {
+            History5.text = namesP1[4] + "  " + scoresP1[4] + "  :  " + scoresP2[4] + "  " + namesP1[4];
+        }
+        
+    }
+
+    
+    
     
 }

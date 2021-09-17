@@ -43,7 +43,7 @@ public class BallThrowScript : MonoBehaviour
         {
             if ((playerNumber == 1) && Time.time > timeTillThrow)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.C))
                 {
                     ball = ObjectPool.SharedInstance.GetPooledObjects("Ball1");
                     if (ball != null)
@@ -57,7 +57,7 @@ public class BallThrowScript : MonoBehaviour
             }
             else if ((playerNumber == 2) && Time.time > timeTillThrow)
             {
-                if (Input.GetKeyDown(KeyCode.Keypad0))
+                if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.N))
                     //if (Input.GetKeyDown(KeyCode.P))
                 {
                     ball = ObjectPool.SharedInstance.GetPooledObjects("Ball2");
