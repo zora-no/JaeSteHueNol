@@ -2806,7 +2806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 5
+  secondsLeft: 100
   GameManager: {fileID: 1012935053}
 --- !u!4 &1944535385
 Transform:
@@ -3266,6 +3266,51 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 537555449}
     m_Modifications:
+    - target: {fileID: 4103498002230860141, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_Name
+      value: GameHistoryButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498002230860142, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 402.0539
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498002230860142, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 49.8099
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498002230860142, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1036.0576
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498002230860142, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 316.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003322205493, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 350.4473
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003322205493, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 51.5489
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003322205493, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1036.0576
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003322205493, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 395.27405
+      objectReference: {fileID: 0}
     - target: {fileID: 4103498003344108215, guid: 38ef1e6b4b10a3f4581a1b654148af37,
         type: 3}
       propertyPath: GameManager
@@ -3275,6 +3320,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StartPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003570726929, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4103498003570726930, guid: 38ef1e6b4b10a3f4581a1b654148af37,
         type: 3}
@@ -3380,6 +3430,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003687960354, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_text
+      value: '- game history -'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38ef1e6b4b10a3f4581a1b654148af37, type: 3}
