@@ -11,8 +11,9 @@ public class GameManager : MonoBehaviour
     public GameObject startPage;
     public GameObject gameOverPageP1;
     public GameObject gameOverPageP2;
-    public GameObject countdownPage;
+    public GameObject TimerPage;
     public GameObject spawnmanager;
+    public GameObject threeTwoOnePage;
     private TimerCountdown gameTimer;
     
     public static GameManager Instance;
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _gameOver = false;
-        SetPageState(PageState.None);
+        SetPageState(PageState.Start);
             
         player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
         player2 = GameObject.FindWithTag("Player2").GetComponent<PlayerMovementScript>();
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
         None,
         Start,
         GameOver,
-        Countdown
+        Timer
     }
 
     public void SetScoreText()
@@ -83,9 +84,9 @@ public class GameManager : MonoBehaviour
     }
     
     /// START COUNTDOWN 3 2 1 ///
-    public void OnCountdownStart()
+    public void StartTimer()
     {
-        SetPageState(PageState.Countdown);
+        SetPageState(PageState.Timer);
     }
     
     /// GAME START FUNCTION ///
@@ -177,25 +178,25 @@ public class GameManager : MonoBehaviour
                 startPage.SetActive(false);
                 gameOverPageP1.SetActive(false);
                 gameOverPageP2.SetActive(false);
-                countdownPage.SetActive(false);
+                TimerPage.SetActive(false);
                 break;
             case PageState.Start:
                 startPage.SetActive(true);
                 gameOverPageP1.SetActive(false);
                 gameOverPageP2.SetActive(false);
-                countdownPage.SetActive(false);
+                TimerPage.SetActive(false);
                 break;
             case PageState.GameOver:
                 startPage.SetActive(false);
                 gameOverPageP1.SetActive(true);
                 gameOverPageP2.SetActive(true);
-                countdownPage.SetActive(false);
+                TimerPage.SetActive(false);
                 break;
-            case PageState.Countdown:
+            case PageState.Timer:
                 startPage.SetActive(false);
                 gameOverPageP1.SetActive(false);
                 gameOverPageP2.SetActive(false);
-                countdownPage.SetActive(true);
+                TimerPage.SetActive(true);
                 break;
         }
     }
