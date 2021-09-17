@@ -3266,6 +3266,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 537555449}
     m_Modifications:
+    - target: {fileID: 4103498002131204702, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4103498002230860141, guid: 38ef1e6b4b10a3f4581a1b654148af37,
         type: 3}
       propertyPath: m_Name
@@ -3311,11 +3316,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 395.27405
       objectReference: {fileID: 0}
+    - target: {fileID: 4103498003344108214, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4103498003344108215, guid: 38ef1e6b4b10a3f4581a1b654148af37,
         type: 3}
       propertyPath: GameManager
       value: 
       objectReference: {fileID: 1012935053}
+    - target: {fileID: 4103498003346151396, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 375.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003346151397, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_text
+      value: 'Control Player 2 :
+
+
+        Arrows
+
+        Shoot: Enter'
+      objectReference: {fileID: 0}
     - target: {fileID: 4103498003570726929, guid: 38ef1e6b4b10a3f4581a1b654148af37,
         type: 3}
       propertyPath: m_Name
@@ -3435,6 +3460,52 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: '- game history -'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003693589838, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_text
+      value: "The year is 3096. Humans have long abandoned their frail physical bodies
+        and combined their consciousnesses \r\nin favour of forming the Awesome Super
+        Cool Hivemind\u2122.\r\nTo entertain it Space Tiles was invented, \r\na fierce
+        competition fought out on the moon between two remote controlled robots \r\nthat
+        has replaced all other sport events except for Candy Crush eSports.\r\nIt
+        is the age old story of red vs green (thankfully the hivemind is not colourblind),
+        locked in a never ending battle of skill.\r\n\r\nYou and a competitor will
+        each take control of one of the rocket powered robots. \r\nThe goal of the
+        game is to hit your opponent as often as possible before the timer runs out.\r\nTo
+        assist you a number of powerups will be spawned by the benevolent hivemind,
+        falling down in the middle of the arena.\r\nSome of these will directly affect
+        you or your opponent.\r\nOthers will be saved to your tile powerup slot.
+        \r\nWhen you hit a tile behind your opponent with such a tile powerup active,
+        \r\nit will be consumed and the tile in your opponents wall will be changed.\r\nThis
+        game has been built around the ability to screencheat. \r\nFeel free to look
+        at the opponents part of the screen to find out which tiles behind you have
+        been changed."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003693589838, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003693589838, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_margin.w
+      value: -252.24713
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003693589838, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_margin.y
+      value: -289.49078
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003693589838, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103498003788665803, guid: 38ef1e6b4b10a3f4581a1b654148af37,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38ef1e6b4b10a3f4581a1b654148af37, type: 3}
