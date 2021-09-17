@@ -42,6 +42,7 @@ public class Shield : MonoBehaviour
             if (other.gameObject.tag == otherBallName) // if a ball from the other player hits
             {
                 other.gameObject.SetActive(false);
+                FindObjectOfType<AudioManager>().Play("Barrier");
             }
         }
     }

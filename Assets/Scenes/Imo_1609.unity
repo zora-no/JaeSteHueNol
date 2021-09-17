@@ -242,6 +242,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 487751410}
     m_Modifications:
+    - target: {fileID: 3484753463874707371, guid: 1aa3ce38cbaf7de47b7f483748729a3f,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 125.88
+      objectReference: {fileID: 0}
     - target: {fileID: 3484753463874707372, guid: 1aa3ce38cbaf7de47b7f483748729a3f,
         type: 3}
       propertyPath: m_Name
@@ -255,7 +260,7 @@ PrefabInstance:
     - target: {fileID: 3484753463874707373, guid: 1aa3ce38cbaf7de47b7f483748729a3f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.81
+      value: -0.74
       objectReference: {fileID: 0}
     - target: {fileID: 3484753463874707373, guid: 1aa3ce38cbaf7de47b7f483748729a3f,
         type: 3}
@@ -782,6 +787,24 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Freeze
     clip: {fileID: 8300000, guid: 523fcdba34a410048aa7bd83ccc76a9a, type: 3}
+    volume: 0.555
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PowerUp
+    clip: {fileID: 8300000, guid: cbcc1c2c59eff0f498ce95025ba8b337, type: 3}
+    volume: 0.555
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Barrier
+    clip: {fileID: 8300000, guid: ecb7307dd3777d746882c468500bddc3, type: 3}
+    volume: 0.555
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Tile
+    clip: {fileID: 8300000, guid: 345c6152ca2356648aa2ed5d5ab55291, type: 3}
     volume: 0.555
     pitch: 1
     loop: 0
@@ -1680,6 +1703,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037586288392063791, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e,
+        type: 3}
+      propertyPath: throwVelocity
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c3e2267ab5626a4f9c86ea7ee576b4e, type: 3}
@@ -2978,7 +3006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 5
+  secondsLeft: 100
   GameManager: {fileID: 0}
 --- !u!4 &1944535385
 Transform:
