@@ -20,9 +20,12 @@ public class PlayerMovementScript : MonoBehaviour
     private string _p2PowerUpType;
     public int tileEffectType = 3;
 
+    private bool _frozenP1 = false;
+    private bool _frozenP2 = false;
+
+
     GameObject uiTilePowerup1;
     GameObject uiTilePowerup2;
-    
     
     Rigidbody rb;
     Rigidbody rb1;
@@ -99,6 +102,15 @@ public class PlayerMovementScript : MonoBehaviour
         if (game.getGameOver())
         {
             rb1.constraints = RigidbodyConstraints.FreezePosition;
+            rb2.constraints = RigidbodyConstraints.FreezePosition;
+        }
+
+        if (_frozenP1)
+        {
+            rb1.constraints = RigidbodyConstraints.FreezePosition;
+        }
+        if (_frozenP2)
+        {
             rb2.constraints = RigidbodyConstraints.FreezePosition;
         }
     }
@@ -205,10 +217,12 @@ public class PlayerMovementScript : MonoBehaviour
         
         if (player == 1)
         {
+            _frozenP1 = false;
             rb1.constraints = RigidbodyConstraints.None;
         }
         else if (player == 2)
         {
+            _frozenP2 = false;
             rb2.constraints = RigidbodyConstraints.None;
         }
     }
@@ -257,6 +271,7 @@ public class PlayerMovementScript : MonoBehaviour
                 case "Freeze PowerUp":
                     // fix position of other player
                     rb2.constraints = RigidbodyConstraints.FreezePosition;
+                    _frozenP2 = true;
                     _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(2, 5f));
                     break;
@@ -305,6 +320,7 @@ public class PlayerMovementScript : MonoBehaviour
                 case "Freeze PowerUp":
                     // freeze position of other player
                     rb1.constraints = RigidbodyConstraints.FreezePosition;
+                    _frozenP1 = true;
                     _audioManager.Play("Freeze");
                     StartCoroutine(Unfreeze(1, 5f));
                     break;

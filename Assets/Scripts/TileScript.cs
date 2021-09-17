@@ -6,7 +6,7 @@ public class TileScript : MonoBehaviour
 {
 
 
-    [SerializeField] private float effectDuration = 5f;
+    [SerializeField] private float effectDuration = 10f;
     [SerializeField] private int effectType = 3;
     private bool effectIsActive = false;
     GameObject affectedPlayerObject;
