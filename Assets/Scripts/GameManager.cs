@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI History3;
     public TextMeshProUGUI History4;
     public TextMeshProUGUI History5;
+
+    public bool startTimer = false;
     
     
     void Awake()
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Spawnmanager object not found!");
         }
         SetScoreText();
+        startTimer = false;
     }
     void Update()
     {
@@ -93,6 +96,7 @@ public class GameManager : MonoBehaviour
     public void StartTimer()
     {
         SetPageState(PageState.Timer);
+        startTimer = true;
     }
     
     /// GAME START FUNCTION ///
@@ -123,25 +127,7 @@ public class GameManager : MonoBehaviour
         SetPageState(PageState.GameOver);
         
         // state who won
-
-        TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
-        TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
-        
-        if (scoreP1 > scoreP2)
-        {
-            textP1.SetText("Game Over ! You won !");
-            textP2.SetText("<color=red>Game Over ! You lost !</color> ");
-        }
-        else if (scoreP1 == scoreP2)
-        {
-            textP1.SetText("Game Over ! It's a tie !");
-            textP2.SetText("Game Over ! It's a tie !");
-        }
-        else
-        {
-            textP1.SetText("<color=red>Game Over ! You lost !</color> ");
-            textP2.SetText("Game Over ! You won !");
-        }
+        stateWinner();
 
         player1.OnGameOverConfirmed();
         player2.OnGameOverConfirmed();
@@ -220,14 +206,11 @@ public class GameManager : MonoBehaviour
     public void readNameP1(string input)
     {
         namesP1.Insert(0, input);
-        Debug.Log(input);
     }
     
     public void readNameP2(string input)
     {
         namesP2.Insert(0, input);
-        Debug.Log(input);
-
     }
     
     private void restrictListSize()
@@ -254,25 +237,49 @@ public class GameManager : MonoBehaviour
     {
         if (namesP1.Count > 0)
         {
-            History1.text = namesP1[0] + "  " + scoresP1[0] + "  :  " + scoresP2[0] + "  " + namesP1[0];
+            History1.text = namesP1[0] + "  " + scoresP1[0] + "  :  " + scoresP2[0] + "  " + namesP2[0];
+            Debug.Log(namesP1[0] + "  " + scoresP1[0] + "  :  " + scoresP2[0] + "  " + namesP2[0]);
         }
         if (namesP1.Count > 1)
         {
-            History2.text = namesP1[1] + "  " + scoresP1[1] + "  :  " + scoresP2[1] + "  " + namesP1[1];
+            History2.text = namesP1[1] + "  " + scoresP1[1] + "  :  " + scoresP2[1] + "  " + namesP2[1];
         }
         if (namesP1.Count > 2)
         {
-            History3.text = namesP1[2] + "  " + scoresP1[2] + "  :  " + scoresP2[2] + "  " + namesP1[2];
+            History3.text = namesP1[2] + "  " + scoresP1[2] + "  :  " + scoresP2[2] + "  " + namesP2[2];
         }
         if (namesP1.Count > 3)
         {
-            History4.text = namesP1[3] + "  " + scoresP1[3] + "  :  " + scoresP2[3] + "  " + namesP1[3];
+            History4.text = namesP1[3] + "  " + scoresP1[3] + "  :  " + scoresP2[3] + "  " + namesP2[3];
         }
         if (namesP1.Count > 4)
         {
-            History5.text = namesP1[4] + "  " + scoresP1[4] + "  :  " + scoresP2[4] + "  " + namesP1[4];
+            History5.text = namesP1[4] + "  " + scoresP1[4] + "  :  " + scoresP2[4] + "  " + namesP2[4];
         }
         
+    }
+
+
+    private void stateWinner()
+    {
+        TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
+        TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
+        
+        if (scoreP1 > scoreP2)
+        {
+            textP1.SetText("Game Over ! You won !");
+            textP2.SetText("<color=red>Game Over ! You lost !</color> ");
+        }
+        else if (scoreP1 == scoreP2)
+        {
+            textP1.SetText("Game Over ! It's a tie !");
+            textP2.SetText("Game Over ! It's a tie !");
+        }
+        else
+        {
+            textP1.SetText("<color=red>Game Over ! You lost !</color> ");
+            textP2.SetText("Game Over ! You won !");
+        }
     }
 
     

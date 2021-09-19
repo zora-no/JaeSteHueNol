@@ -20,16 +20,19 @@ public class TimerCountdown : MonoBehaviour
 
     void Update()
     {
-        // counting down to 0
-        if (takingAway == false && secondsLeft > 0)
+        if (GameManager.startTimer)
         {
-            StartCoroutine(CountingDown());
-        }
-        // no time left anymore
-        if (secondsLeft == 0)
-        {
-            GameManager.OnTimeIsOver();
+            // counting down to 0
+            if (takingAway == false && secondsLeft > 0)
+            {
+                StartCoroutine(CountingDown());
+            }
+            // no time left anymore
+            if (secondsLeft == 0)
+            {
+                GameManager.OnTimeIsOver();
 
+            }
         }
     }
 
