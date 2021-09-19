@@ -28,6 +28,7 @@ public class mainMenu : MonoBehaviour
     public void PlayGame ()
     {
         GameManager.StartTimer();
+        GameManager.OnGameStart();
     }
 
     public void QuitGame ()
@@ -40,7 +41,6 @@ public class mainMenu : MonoBehaviour
         if (GameManager.nameP1 == "" || GameManager.nameP2 == "")
         {
             // if one of the input fields is empty
-            ;
         }
         else
         {

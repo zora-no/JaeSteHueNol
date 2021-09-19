@@ -9,6 +9,7 @@ public class TimerCountdown : MonoBehaviour
     public TMP_Text counter;
     public int secondsLeft;
     private bool takingAway = false;
+    public bool onetime = false;
     public GameManager GameManager;
     
     void Start()
@@ -28,9 +29,10 @@ public class TimerCountdown : MonoBehaviour
                 StartCoroutine(CountingDown());
             }
             // no time left anymore
-            if (secondsLeft == 0)
+            if (secondsLeft == 0 && !(onetime))
             {
                 GameManager.OnTimeIsOver();
+                onetime = true; // so that .OnTimeIsOver is only executed once
 
             }
         }
@@ -44,14 +46,5 @@ public class TimerCountdown : MonoBehaviour
         counter.SetText(secondsLeft.ToString());
         takingAway = false;
     }
-
-    public void TimeOver()
-    {
-         if (secondsLeft == 0)
-         {
-            Debug.Log("yes");
-         }
-    }
     
-   
 }

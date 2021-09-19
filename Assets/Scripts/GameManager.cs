@@ -4,6 +4,8 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.Build.Content;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,14 +32,9 @@ public class GameManager : MonoBehaviour
     private PlayerMovementScript player1;
     private PlayerMovementScript player2;
 
-    private List<string> namesP1 = new List<string>();
-    private List<string> namesP2 = new List<string>();
     public string nameP1;
     public string nameP2;
-    
-    private List<string> scoresP1 = new List<string>();
-    private List<string> scoresP2 = new List<string>();
-    
+
     public TextMeshProUGUI History1;
     public TextMeshProUGUI History2;
     public TextMeshProUGUI History3;
@@ -45,7 +42,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI History5;
 
     public bool startTimer = false;
-    
+
+    private StreamWriter writer;
     
     void Awake()
     {
@@ -68,18 +66,13 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Spawnmanager object not found!");
         }
         SetScoreText();
+        
         startTimer = false;
+        gameTimer = GameObject.Find("Timer").GetComponent<TimerCountdown>();
+        
+        UpdateScoreHistory();
+
     }
-    void Update()
-    {
-        //OnPlayerScored("P1");
-        //setScoreText();
-    }
-    
-    public bool GameOver { get { return _gameOver; } } 
-    
-    public int ScoreP1 { get { return scoreP1; } }
-    public int ScoreP2 { get { return scoreP2; } }
     
     enum PageState
         // the four page states
@@ -108,6 +101,8 @@ public class GameManager : MonoBehaviour
     {
         SetPageState(PageState.None);
         _gameOver = false;
+
+        gameTimer.onetime = false;
         
         // reset score
         scoreP1 = 0;
@@ -142,19 +137,39 @@ public class GameManager : MonoBehaviour
         // deactivate active power ups and balls
         foreach (Transform child in spawnmanager.transform)
             child.gameObject.SetActive(false);
+
+        // add game result to score history file
+        WriteToFile();
+
+        // update score history in menu
+        UpdateScoreHistory();
         
-        // save scores
-        scoresP1.Insert(0, scoreP1.ToString());
-        scoresP2.Insert(0, scoreP2.ToString());
-        
-        // make sure the saved lists don't have more than 5 entries to avoid cluttering
-        restrictListSize();
-        
-        // update game history page
-        updateGameHistoryPage();
-        
+        // reset names
         nameP1 = "";
         nameP2 = "";
+    }
+    
+    void WriteToFile()
+    {
+        string line = nameP1 + "  " + scoreP1 + "  :  " + scoreP2 + "  " + nameP2;
+        // + "\n"
+        
+        writer = new StreamWriter("GameHistory.txt", true);
+        writer.WriteLine(line);
+        writer.Close();
+    }
+    
+
+    void UpdateScoreHistory()
+    {
+        string[] records = File.ReadAllLines("GameHistory.txt");
+        
+        int N = records.Length;
+        if (N > 0) { History1.text = records[N-1]; }
+        if (N > 1) { History2.text = records[N-2]; }
+        if (N > 2) { History3.text = records[N-3]; }
+        if (N > 3) { History4.text = records[N-4]; }
+        if (N > 4) { History5.text = records[N-5]; }
     }
 
     
@@ -212,62 +227,14 @@ public class GameManager : MonoBehaviour
 
     public void readNameP1(string input)
     {
-        namesP1.Insert(0, input);
         nameP1 = input;
     }
     
     public void readNameP2(string input)
     {
-        namesP2.Insert(0, input);
         nameP2 = input;
     }
     
-    private void restrictListSize()
-    {
-        if (scoresP1.Count == 6)
-        {
-            scoresP1.RemoveAt(5);
-        }
-        if (scoresP2.Count == 6)
-        {
-            scoresP2.RemoveAt(5);
-        }
-        if (namesP1.Count == 6)
-        {
-            namesP1.RemoveAt(5);
-        }
-        if (namesP2.Count == 6)
-        {
-            namesP2.RemoveAt(5);
-        }
-    }
-
-    private void updateGameHistoryPage()
-    {
-        if (namesP1.Count > 0)
-        {
-            History1.text = namesP1[0] + "  " + scoresP1[0] + "  :  " + scoresP2[0] + "  " + namesP2[0];
-        }
-        if (namesP1.Count > 1)
-        {
-            History2.text = namesP1[1] + "  " + scoresP1[1] + "  :  " + scoresP2[1] + "  " + namesP2[1];
-        }
-        if (namesP1.Count > 2)
-        {
-            History3.text = namesP1[2] + "  " + scoresP1[2] + "  :  " + scoresP2[2] + "  " + namesP2[2];
-        }
-        if (namesP1.Count > 3)
-        {
-            History4.text = namesP1[3] + "  " + scoresP1[3] + "  :  " + scoresP2[3] + "  " + namesP2[3];
-        }
-        if (namesP1.Count > 4)
-        {
-            History5.text = namesP1[4] + "  " + scoresP1[4] + "  :  " + scoresP2[4] + "  " + namesP2[4];
-        }
-        
-    }
-
-
     private void stateWinner()
     {
         TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
@@ -289,8 +256,5 @@ public class GameManager : MonoBehaviour
             textP2.SetText("Game Over ! You won !");
         }
     }
-
-    
-    
     
 }
