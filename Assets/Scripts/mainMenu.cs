@@ -23,18 +23,29 @@ public class mainMenu : MonoBehaviour
         _nameMenu.SetActive(false);
         _controleMenu.SetActive(false);
     }
+    
     // when pressing the button startPage will be deactivated
     public void PlayGame ()
     {
         GameManager.StartTimer();
-        
-        Debug.Log("Play!");
-        
     }
-    
+
     public void QuitGame ()
     {
         Application.Quit();
-        Debug.Log("Quit!");
+    }
+
+    public void CheckIfNameEntered()
+    {
+        if (GameManager.nameP1 == "" || GameManager.nameP2 == "")
+        {
+            // if one of the input fields is empty
+            ;
+        }
+        else
+        {
+            _controleMenu.SetActive(true);
+            _nameMenu.SetActive(false);
+        }
     }
 }

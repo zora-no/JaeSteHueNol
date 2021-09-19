@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     private List<string> namesP1 = new List<string>();
     private List<string> namesP2 = new List<string>();
+    public string nameP1;
+    public string nameP2;
     
     private List<string> scoresP1 = new List<string>();
     private List<string> scoresP2 = new List<string>();
@@ -57,6 +59,8 @@ public class GameManager : MonoBehaviour
             
         player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
         player2 = GameObject.FindWithTag("Player2").GetComponent<PlayerMovementScript>();
+        nameP1 = "";
+        nameP2 = "";
 
         spawnmanager = GameObject.FindWithTag("SpawnManager");
         if (spawnmanager == null)
@@ -148,6 +152,9 @@ public class GameManager : MonoBehaviour
         
         // update game history page
         updateGameHistoryPage();
+        
+        nameP1 = "";
+        nameP2 = "";
     }
 
     
@@ -206,11 +213,13 @@ public class GameManager : MonoBehaviour
     public void readNameP1(string input)
     {
         namesP1.Insert(0, input);
+        nameP1 = input;
     }
     
     public void readNameP2(string input)
     {
         namesP2.Insert(0, input);
+        nameP2 = input;
     }
     
     private void restrictListSize()
@@ -238,7 +247,6 @@ public class GameManager : MonoBehaviour
         if (namesP1.Count > 0)
         {
             History1.text = namesP1[0] + "  " + scoresP1[0] + "  :  " + scoresP2[0] + "  " + namesP2[0];
-            Debug.Log(namesP1[0] + "  " + scoresP1[0] + "  :  " + scoresP2[0] + "  " + namesP2[0]);
         }
         if (namesP1.Count > 1)
         {
