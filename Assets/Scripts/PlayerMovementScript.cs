@@ -131,6 +131,8 @@ public class PlayerMovementScript : MonoBehaviour
     {
         tileEffectType = 3;
     }
+
+    //Player Movement controlled through key inputs
     void Move()
     {
         float speedHorizontal = 0;
@@ -257,7 +259,7 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(NormalizeShootFreq(5f));
                     break;
                 case "Shield PowerUp":
-                    // activate shield
+                    // activate shield - balls can not hit the player
                     GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield1");
                     shieldObject.SetActive(true);
                     shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
@@ -271,9 +273,11 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(NormalizeScoring(1, 5f));
                     break;
                 case "Speed PowerUp":
+                    // double player speed
                     moveSpeed *= 2;
                     StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
+                // activates corresponding power-up effects
                 case "Inhibitor TilePowerUp":
                     tileEffectType = 0;
                     break;
@@ -299,11 +303,12 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(Unfreeze(1, 5f));
                     break;
                 case "Frequency PowerUp":
+                    // increase shooting frequency
                     ballscript.throwCooldown /= 3f;
                     StartCoroutine(NormalizeShootFreq(5f));
                     break;
                 case "Shield PowerUp":
-                    // activate shield - lass bälle abprallen
+                    // activate shield - balls can not hit the player
                     GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield2");
                     shieldObject.SetActive(true);
                     shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
@@ -317,6 +322,7 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(NormalizeScoring(2, 5f));
                     break;
                 case "Speed PowerUp":
+                    // double player speed
                     moveSpeed *= 2;
                     StartCoroutine(NormalizeSpeed(1, 5f));
                     break;

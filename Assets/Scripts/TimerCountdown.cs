@@ -33,6 +33,7 @@ public class TimerCountdown : MonoBehaviour
         }
     }
 
+    //counts one down every second
     IEnumerator CountingDown()
     {
         takingAway = true;
