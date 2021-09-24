@@ -24,10 +24,12 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        // starts playing the theme at the beginning of the game
         Play("Theme");
     }
     public void Play (string name)
     {
+        // searches the sound in the list and plays it
         Sound s = System.Array.Find(sounds, sound => sound.name == name);
         s.source.Play();
     }
