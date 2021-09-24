@@ -24,6 +24,8 @@ public class Player2MovementScript : MonoBehaviour
     {
 
     }
+    
+    //Player Movement controlled through key inputs
     void Move()
     {
         float speedX = 0;
