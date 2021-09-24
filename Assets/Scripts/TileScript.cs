@@ -105,7 +105,7 @@ public class TileScript : MonoBehaviour
             case 2:
                 gameObject.transform.Find("CloudedViewField").gameObject.SetActive(false);
                 effectIsActive = false;
-                affectedPlayerObject.GetComponent<PlayerMovementScript>().ResetVision();
+                // affectedPlayerObject.GetComponent<PlayerMovementScript>().ResetVision();
                 break;
         }
     }

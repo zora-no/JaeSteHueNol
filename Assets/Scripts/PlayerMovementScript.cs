@@ -423,13 +423,13 @@ public class PlayerMovementScript : MonoBehaviour
         {
             moveSpeed = originalMoveSpeed * 0.6f;
         }
-
+        /*
         // if other object is a vision impairment field, player is visually impaired
         if (other.gameObject.tag == "cloudedviewfield")
         {
             ActivateVisionImpairment();
         }
-        
+        */
         // if other object is ball from the other player, other player scores and deactivate ball
         if (other.CompareTag(_otherBallName))
         {
