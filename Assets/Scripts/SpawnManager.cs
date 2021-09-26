@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     // list with the transforms of the ceiling hatches 
     private Transform[] hatches;
 
-    private bool _spawningOn = true;
+    private bool _spawningOn = false;
     [SerializeField] private int _powerUpRate = 2;
     [SerializeField] private int _firstWait = 5;
 

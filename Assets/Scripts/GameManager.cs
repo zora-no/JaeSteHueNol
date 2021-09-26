@@ -4,15 +4,18 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.Build.Content;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    
+   
     public GameObject startPage;
     public GameObject gameOverPageP1;
     public GameObject gameOverPageP2;
-    public GameObject countdownPage;
+    public GameObject TimerPage;
     public GameObject spawnmanager;
+    public GameObject threeTwoOnePage;
     private TimerCountdown gameTimer;
     
     public static GameManager Instance;
@@ -22,13 +25,25 @@ public class GameManager : MonoBehaviour
     public int scoreP2 = 0;
     public TextMeshPro scoreP1text;
     public TextMeshPro scoreP2text;
-    public TextMeshPro scoreText; // reference to UI score text component
 
     public int scorePointsP1 = 1; // how many points player scores when they hit the other player
     public int scorePointsP2 = 1;
 
     private PlayerMovementScript player1;
     private PlayerMovementScript player2;
+
+    public string nameP1;
+    public string nameP2;
+
+    public TextMeshProUGUI History1;
+    public TextMeshProUGUI History2;
+    public TextMeshProUGUI History3;
+    public TextMeshProUGUI History4;
+    public TextMeshProUGUI History5;
+
+    public bool startTimer = false;
+
+    private StreamWriter writer;
     
     void Awake()
     {
@@ -38,10 +53,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _gameOver = false;
-        SetPageState(PageState.None);
+        SetPageState(PageState.Start);
             
         player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
         player2 = GameObject.FindWithTag("Player2").GetComponent<PlayerMovementScript>();
+        nameP1 = "";
+        nameP2 = "";
 
         spawnmanager = GameObject.FindWithTag("SpawnManager");
         if (spawnmanager == null)
@@ -49,17 +66,13 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Spawnmanager object not found!");
         }
         SetScoreText();
+        
+        startTimer = false;
+        gameTimer = GameObject.Find("Timer").GetComponent<TimerCountdown>();
+        
+        UpdateScoreHistory();
+
     }
-    void Update()
-    {
-        //OnPlayerScored("P1");
-        //setScoreText();
-    }
-    
-    public bool GameOver { get { return _gameOver; } } 
-    
-    public int ScoreP1 { get { return scoreP1; } }
-    public int ScoreP2 { get { return scoreP2; } }
     
     enum PageState
         // the four page states
@@ -67,7 +80,7 @@ public class GameManager : MonoBehaviour
         None,
         Start,
         GameOver,
-        Countdown
+        Timer
     }
 
     public void SetScoreText()
@@ -76,23 +89,20 @@ public class GameManager : MonoBehaviour
         scoreP2text.text = scoreP2.ToString();
     }
     
-    public void OnReplay()
-        // activated when replay button is hit
+    /// START GAME TIMER ///
+    public void StartTimer()
     {
-        SetPageState(PageState.Start);
-    }
-    
-    /// START COUNTDOWN 3 2 1 ///
-    public void OnCountdownStart()
-    {
-        SetPageState(PageState.Countdown);
+        SetPageState(PageState.Timer);
+        startTimer = true;
     }
     
     /// GAME START FUNCTION ///
-    void OnCountdownFinished()
+    public void OnGameStart()
     {
         SetPageState(PageState.None);
         _gameOver = false;
+
+        gameTimer.onetime = false;
         
         // reset score
         scoreP1 = 0;
@@ -116,25 +126,7 @@ public class GameManager : MonoBehaviour
         SetPageState(PageState.GameOver);
         
         // state who won
-
-        TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
-        TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
-        
-        if (scoreP1 > scoreP2)
-        {
-            textP1.SetText("Game Over ! You won !");
-            textP2.SetText("<color=red>Game Over ! You lost !</color> ");
-        }
-        else if (scoreP1 == scoreP2)
-        {
-            textP1.SetText("Game Over ! It's a tie !");
-            textP2.SetText("Game Over ! It's a tie !");
-        }
-        else
-        {
-            textP1.SetText("<color=red>Game Over ! You lost !</color> ");
-            textP2.SetText("Game Over ! You won !");
-        }
+        stateWinner();
 
         player1.OnGameOverConfirmed();
         player2.OnGameOverConfirmed();
@@ -145,8 +137,42 @@ public class GameManager : MonoBehaviour
         // deactivate active power ups and balls
         foreach (Transform child in spawnmanager.transform)
             child.gameObject.SetActive(false);
+
+        // add game result to score history file
+        WriteToFile();
+
+        // update score history in menu
+        UpdateScoreHistory();
+        
+        // reset names
+        nameP1 = "";
+        nameP2 = "";
+    }
+    
+    void WriteToFile()
+    {
+        string line = nameP1 + "  " + scoreP1 + "  :  " + scoreP2 + "  " + nameP2;
+        // + "\n"
+        
+        writer = new StreamWriter("GameHistory.txt", true);
+        writer.WriteLine(line);
+        writer.Close();
+    }
+    
+
+    void UpdateScoreHistory()
+    {
+        string[] records = File.ReadAllLines("GameHistory.txt");
+        
+        int N = records.Length;
+        if (N > 0) { History1.text = records[N-1]; }
+        if (N > 1) { History2.text = records[N-2]; }
+        if (N > 2) { History3.text = records[N-3]; }
+        if (N > 3) { History4.text = records[N-4]; }
+        if (N > 4) { History5.text = records[N-5]; }
     }
 
+    
     public bool getGameOver()
     {
         return _gameOver;
@@ -167,7 +193,6 @@ public class GameManager : MonoBehaviour
     }
     
     
-
     void SetPageState(PageState state)
         // activate needed page and deactivate all others
     {
@@ -177,29 +202,59 @@ public class GameManager : MonoBehaviour
                 startPage.SetActive(false);
                 gameOverPageP1.SetActive(false);
                 gameOverPageP2.SetActive(false);
-                countdownPage.SetActive(false);
+                TimerPage.SetActive(false);
                 break;
             case PageState.Start:
                 startPage.SetActive(true);
                 gameOverPageP1.SetActive(false);
                 gameOverPageP2.SetActive(false);
-                countdownPage.SetActive(false);
+                TimerPage.SetActive(false);
                 break;
             case PageState.GameOver:
                 startPage.SetActive(false);
                 gameOverPageP1.SetActive(true);
                 gameOverPageP2.SetActive(true);
-                countdownPage.SetActive(false);
+                TimerPage.SetActive(false);
                 break;
-            case PageState.Countdown:
+            case PageState.Timer:
                 startPage.SetActive(false);
                 gameOverPageP1.SetActive(false);
                 gameOverPageP2.SetActive(false);
-                countdownPage.SetActive(true);
+                TimerPage.SetActive(true);
                 break;
         }
     }
-    
 
+    public void readNameP1(string input)
+    {
+        nameP1 = input;
+    }
+    
+    public void readNameP2(string input)
+    {
+        nameP2 = input;
+    }
+    
+    private void stateWinner()
+    {
+        TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
+        TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
+        
+        if (scoreP1 > scoreP2)
+        {
+            textP1.SetText("Game Over ! You won !");
+            textP2.SetText("<color=red>Game Over ! You lost !</color> ");
+        }
+        else if (scoreP1 == scoreP2)
+        {
+            textP1.SetText("Game Over ! It's a tie !");
+            textP2.SetText("Game Over ! It's a tie !");
+        }
+        else
+        {
+            textP1.SetText("<color=red>Game Over ! You lost !</color> ");
+            textP2.SetText("Game Over ! You won !");
+        }
+    }
     
 }

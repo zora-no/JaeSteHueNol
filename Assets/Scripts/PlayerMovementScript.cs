@@ -185,19 +185,19 @@ public class PlayerMovementScript : MonoBehaviour
             //limits player movement 
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), -31.77f);
             
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.J))
             {
                 speedHorizontal = -moveSpeed;
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.L))
             {
                 speedHorizontal = moveSpeed;
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.K))
             {
                 speedVertical = -moveSpeed;
             }
-            else if (Input.GetKey(KeyCode.UpArrow))
+            else if (Input.GetKey(KeyCode.I))
             {
                 speedVertical = moveSpeed;
             }
