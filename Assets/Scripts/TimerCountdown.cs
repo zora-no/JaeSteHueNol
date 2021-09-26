@@ -8,6 +8,7 @@ public class TimerCountdown : MonoBehaviour
 {
     public TMP_Text counter;
     public int secondsLeft;
+    public int intendedGameLength;
     private bool takingAway = false;
     public bool onetime = false;
     public GameManager GameManager;
@@ -16,6 +17,7 @@ public class TimerCountdown : MonoBehaviour
     {
         counter.SetText(secondsLeft.ToString());
         GameManager = GameManager.Instance;
+        intendedGameLength = secondsLeft;
     }
 
 
@@ -37,7 +39,7 @@ public class TimerCountdown : MonoBehaviour
             }
         }
     }
-
+    
     //counts one down every second
     IEnumerator CountingDown()
     {
@@ -46,6 +48,10 @@ public class TimerCountdown : MonoBehaviour
         secondsLeft -= 1;
         counter.SetText(secondsLeft.ToString());
         takingAway = false;
+    }
+    public void ResetTimer ()
+    {
+        secondsLeft = intendedGameLength;
     }
     
 }
