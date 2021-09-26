@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
 {
    
     public GameObject startPage;
-    public GameObject gameOverPageP1;
-    public GameObject gameOverPageP2;
+    public GameObject gameOverPage;
     public GameObject TimerPage;
+    //public GameObject Timer;
     public GameObject spawnmanager;
     public GameObject threeTwoOnePage;
     private TimerCountdown gameTimer;
@@ -101,8 +101,10 @@ public class GameManager : MonoBehaviour
     {
         SetPageState(PageState.None);
         _gameOver = false;
-
+        
+        gameTimer.ResetTimer();
         gameTimer.onetime = false;
+        
         
         // reset score
         scoreP1 = 0;
@@ -127,7 +129,7 @@ public class GameManager : MonoBehaviour
         
         // state who won
         stateWinner();
-
+        
         player1.OnGameOverConfirmed();
         player2.OnGameOverConfirmed();
         
@@ -148,7 +150,18 @@ public class GameManager : MonoBehaviour
         nameP1 = "";
         nameP2 = "";
     }
+
+    /// GAME OVER CONFIRMATION ///
+    public void OnBackToMainMenu()
+    {
+        _gameOver = false;
+        startTimer = false;
+        SetPageState(PageState.Start);
+        nameP1 = "";
+        nameP2 = "";
+    }
     
+
     void WriteToFile()
     {
         string line = nameP1 + "  " + scoreP1 + "  :  " + scoreP2 + "  " + nameP2;
@@ -200,26 +213,22 @@ public class GameManager : MonoBehaviour
         {
             case PageState.None:
                 startPage.SetActive(false);
-                gameOverPageP1.SetActive(false);
-                gameOverPageP2.SetActive(false);
+                gameOverPage.SetActive(false);
                 TimerPage.SetActive(false);
                 break;
             case PageState.Start:
                 startPage.SetActive(true);
-                gameOverPageP1.SetActive(false);
-                gameOverPageP2.SetActive(false);
+                gameOverPage.SetActive(false);
                 TimerPage.SetActive(false);
                 break;
             case PageState.GameOver:
                 startPage.SetActive(false);
-                gameOverPageP1.SetActive(true);
-                gameOverPageP2.SetActive(true);
+                gameOverPage.SetActive(true);
                 TimerPage.SetActive(false);
                 break;
             case PageState.Timer:
                 startPage.SetActive(false);
-                gameOverPageP1.SetActive(false);
-                gameOverPageP2.SetActive(false);
+                gameOverPage.SetActive(false);
                 TimerPage.SetActive(true);
                 break;
         }
@@ -237,23 +246,23 @@ public class GameManager : MonoBehaviour
     
     private void stateWinner()
     {
-        TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
-        TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
+        //TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
+        //TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
         
         if (scoreP1 > scoreP2)
         {
-            textP1.SetText("Game Over ! You won !");
-            textP2.SetText("<color=red>Game Over ! You lost !</color> ");
+            //textP1.SetText("Game Over ! You won !");
+            //textP2.SetText("<color=red>Game Over ! You lost !</color> ");
         }
         else if (scoreP1 == scoreP2)
         {
-            textP1.SetText("Game Over ! It's a tie !");
-            textP2.SetText("Game Over ! It's a tie !");
+            //textP1.SetText("Game Over ! It's a tie !");
+            //textP2.SetText("Game Over ! It's a tie !");
         }
         else
         {
-            textP1.SetText("<color=red>Game Over ! You lost !</color> ");
-            textP2.SetText("Game Over ! You won !");
+            //textP1.SetText("<color=red>Game Over ! You lost !</color> ");
+            //textP2.SetText("Game Over ! You won !");
         }
     }
     

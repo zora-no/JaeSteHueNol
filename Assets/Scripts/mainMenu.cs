@@ -31,6 +31,10 @@ public class mainMenu : MonoBehaviour
         GameManager.OnGameStart();
     }
 
+    public void ReactivateMainMenu()
+    {
+        _mainMenu.SetActive(true);
+    }
     public void QuitGame ()
     {
         Application.Quit();
