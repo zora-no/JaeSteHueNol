@@ -38,9 +38,11 @@ public class BallThrowScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        // Checks if player is able to shoot
         if (_canShoot)
-        {
+        {   
+            // checks for player and if enough time has passed since last throw
             if ((playerNumber == 1) && Time.time > timeTillThrow)
             {
                 if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.C))
@@ -55,13 +57,13 @@ public class BallThrowScript : MonoBehaviour
                     timeTillThrow = Time.time + throwCooldown;
                 }
             }
+            // checks for player and if enough time has passed since last throw
             else if ((playerNumber == 2) && Time.time > timeTillThrow)
             {
                 if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.N))
                     //if (Input.GetKeyDown(KeyCode.P))
                 {
                     ball = ObjectPool.SharedInstance.GetPooledObjects("Ball2");
-
                     if (ball != null)
                     {
                         ball.SetActive(true);

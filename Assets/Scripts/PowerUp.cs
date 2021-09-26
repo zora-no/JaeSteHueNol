@@ -41,6 +41,7 @@ public class PowerUp : MonoBehaviour
         {
             if (other.gameObject != null)
             {
+                FindObjectOfType<AudioManager>().Play("PowerUp");
                 player1.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 1);
                 gameObject.SetActive(false);
                 other.gameObject.SetActive(false);
@@ -51,6 +52,7 @@ public class PowerUp : MonoBehaviour
         {
             if (other.gameObject != null)
             {
+                FindObjectOfType<AudioManager>().Play("PowerUp");
                 player2.GetComponent<PlayerMovementScript>().ActivatePowerUp(_type, 2);
                 gameObject.SetActive(false);
                 other.gameObject.SetActive(false);

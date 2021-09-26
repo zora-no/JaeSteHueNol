@@ -23,6 +23,9 @@ public class PlayerMovementScript : MonoBehaviour
     private bool _frozenP1 = false;
     private bool _frozenP2 = false;
 
+
+    GameObject uiTilePowerup1;
+    GameObject uiTilePowerup2;
     
     Rigidbody rb;
     Rigidbody rb1;
@@ -83,6 +86,9 @@ public class PlayerMovementScript : MonoBehaviour
         rb2 = GameObject.Find("Player2").GetComponent<Rigidbody>();
         rb2.constraints = RigidbodyConstraints.FreezeRotation;
 
+        uiTilePowerup1 = GameObject.Find("TilePowerup1");
+        uiTilePowerup2 = GameObject.Find("TilePowerup2");
+
         resetPosition();
     }
 
@@ -122,7 +128,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
-    
+    // Resets movespeed to original movespeed
     public void ResetMovespeed()
     {
         moveSpeed = originalMoveSpeed;
@@ -139,10 +145,12 @@ public class PlayerMovementScript : MonoBehaviour
         transform.Find("PlayerCamera").transform.Find("Vision Impairment").gameObject.SetActive(false);
     }
 
+    // resets the the saved tile effect type to nothing
     public void ResetTileEffectType()
     {
         tileEffectType = 3;
     }
+    //Player Movement controlled through key inputs
     void Move()
     {
         float speedHorizontal = 0;
@@ -175,7 +183,7 @@ public class PlayerMovementScript : MonoBehaviour
         else if (playerNumber == 2)
         {
             //limits player movement 
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), -31.12f);
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -15f, 15f), Mathf.Clamp(transform.position.y, 17.5f, 37f), -31.77f);
             
             if (Input.GetKey(KeyCode.J))
             {
@@ -272,7 +280,7 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(NormalizeShootFreq(5f));
                     break;
                 case "Shield PowerUp":
-                    // activate shield
+                    // activate shield - balls can not hit the player
                     GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield1");
                     shieldObject.SetActive(true);
                     shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
@@ -286,6 +294,58 @@ public class PlayerMovementScript : MonoBehaviour
                     StartCoroutine(NormalizeScoring(1, 5f));
                     break;
                 case "Speed PowerUp":
+                    // double player speed
+                    moveSpeed *= 2;
+                    StartCoroutine(NormalizeSpeed(1, 5f));
+                    break;
+                // activates corresponding power-up effects
+                case "Inhibitor TilePowerUp":
+                    tileEffectType = 0;
+                    break;
+                case "Slow TilePowerUp":
+                    tileEffectType = 1;
+                    break;
+                case "Clouded TilePowerUp":
+                    tileEffectType = 2;
+                    break;
+                default:
+                    break;
+            }
+            uiTilePowerup1.GetComponent<uiTilePowerups>().SwitchImage(tileEffectType);
+        }
+        if (_p2IsPowerUpOn)
+        {
+            _p2IsPowerUpOn = false;
+            switch (_p2PowerUpType)
+            {
+                case "Freeze PowerUp":
+                    // freeze position of other player
+                    rb1.constraints = RigidbodyConstraints.FreezePosition;
+                    _frozenP1 = true;
+                    _audioManager.Play("Freeze");
+                    StartCoroutine(Unfreeze(1, 5f));
+                    break;
+                case "Frequency PowerUp":
+                    // increase shooting frequency
+                    ballscript.throwCooldown /= 3f;
+                    StartCoroutine(NormalizeShootFreq(5f));
+                    break;
+                case "Shield PowerUp":
+                    // activate shield - balls can not hit the player
+                    GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield2");
+                    shieldObject.SetActive(true);
+                    shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
+                        this.gameObject.transform.position.y,
+                        this.gameObject.transform.position.z + shieldObject.GetComponent<Shield>().zDiff);
+                    StartCoroutine(RemoveShield(1, 5f, shieldObject));
+                    break;
+                case "Score PowerUp":
+                    // player scores double for certain time
+                    game.scorePointsP2 *= 2;
+                    StartCoroutine(NormalizeScoring(2, 5f));
+                    break;
+                case "Speed PowerUp":
+                    // double player speed
                     moveSpeed *= 2;
                     StartCoroutine(NormalizeSpeed(1, 5f));
                     break;
@@ -301,44 +361,7 @@ public class PlayerMovementScript : MonoBehaviour
                 default:
                     break;
             }
-        }
-        if (_p2IsPowerUpOn)
-        {
-            _p2IsPowerUpOn = false;
-            switch (_p2PowerUpType)
-            {
-                case "Freeze PowerUp":
-                    // freeze position of other player
-                    rb1.constraints = RigidbodyConstraints.FreezePosition;
-                    _frozenP1 = true;
-                    _audioManager.Play("Freeze");
-                    StartCoroutine(Unfreeze(1, 5f));
-                    break;
-                case "Frequency PowerUp":
-                    ballscript.throwCooldown /= 3f;
-                    StartCoroutine(NormalizeShootFreq(5f));
-                    break;
-                case "Shield PowerUp":
-                    // activate shield - lass bälle abprallen
-                    GameObject shieldObject = ObjectPool.SharedInstance.GetPooledObjects("Shield2");
-                    shieldObject.SetActive(true);
-                    shieldObject.transform.position = new Vector3(this.gameObject.transform.position.x,
-                        this.gameObject.transform.position.y,
-                        this.gameObject.transform.position.z + shieldObject.GetComponent<Shield>().zDiff);
-                    StartCoroutine(RemoveShield(1, 5f, shieldObject));
-                    break;
-                case "Score PowerUp":
-                    // player scores double for certain time
-                    game.scorePointsP2 *= 2;
-                    StartCoroutine(NormalizeScoring(2, 5f));
-                    break;
-                case "Speed PowerUp":
-                    moveSpeed *= 2;
-                    StartCoroutine(NormalizeSpeed(1, 5f));
-                    break;
-                default:
-                    break;
-            }
+            uiTilePowerup2.GetComponent<uiTilePowerups>().SwitchImage(tileEffectType);
         }
 
     }
@@ -368,7 +391,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
         else if (this.name == "Player2")
         {
-            this.gameObject.transform.position = new Vector3(0f,27.37f,-31.12f);
+            this.gameObject.transform.position = new Vector3(0f,27.37f,-31.77f);
         }
     }
     
@@ -403,13 +426,13 @@ public class PlayerMovementScript : MonoBehaviour
         {
             moveSpeed = originalMoveSpeed * 0.6f;
         }
-
+        /*
         // if other object is a vision impairment field, player is visually impaired
         if (other.gameObject.tag == "cloudedviewfield")
         {
             ActivateVisionImpairment();
         }
-        
+        */
         // if other object is ball from the other player, other player scores and deactivate ball
         if (other.CompareTag(_otherBallName))
         {

@@ -13,12 +13,17 @@ public class TileScript : MonoBehaviour
     GameObject shootingPlayerObject;
     GameObject player1;
     GameObject player2;
+    GameObject uiTilePowerup1;
+    GameObject uiTilePowerup2;
 
     // Start is called before the first frame update
     void Start()
     {
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
+
+        uiTilePowerup1 = GameObject.Find("TilePowerup1");
+        uiTilePowerup2 = GameObject.Find("TilePowerup2");
     }
 
     // Update is called once per frame
@@ -41,12 +46,14 @@ public class TileScript : MonoBehaviour
                     affectedPlayerObject = player2;
                     shootingPlayerObject = player1;
                     effectType = shootingPlayerObject.GetComponent<PlayerMovementScript>().tileEffectType;
+                    uiTilePowerup1.GetComponent<uiTilePowerups>().SwitchImage(3);
                 }
                 else
                 {
                     affectedPlayerObject = player1;
                     shootingPlayerObject = player2;
                     effectType = shootingPlayerObject.GetComponent<PlayerMovementScript>().tileEffectType;
+                    uiTilePowerup2.GetComponent<uiTilePowerups>().SwitchImage(3);
                 }
                 
                 // activate effect
@@ -54,6 +61,7 @@ public class TileScript : MonoBehaviour
                 {   
                     // Movement inhibitor powerup active
                     case 0:
+                        FindObjectOfType<AudioManager>().Play("Tile");
                         gameObject.transform.Find("MovementInhibitor").gameObject.SetActive(true);
                         effectIsActive = true;
                         shootingPlayerObject.GetComponent<PlayerMovementScript>().ResetTileEffectType();
@@ -61,6 +69,7 @@ public class TileScript : MonoBehaviour
                         break;
                     // Slow field powerup active
                     case 1:
+                        FindObjectOfType<AudioManager>().Play("Tile");
                         gameObject.transform.Find("SlowField").gameObject.SetActive(true);
                         effectIsActive = true;
                         shootingPlayerObject.GetComponent<PlayerMovementScript>().ResetTileEffectType();
@@ -68,6 +77,7 @@ public class TileScript : MonoBehaviour
                         break;
                     // Vision impairment powerup active
                     case 2:
+                        FindObjectOfType<AudioManager>().Play("Tile");
                         gameObject.transform.Find("CloudedViewField").gameObject.SetActive(true);
                         effectIsActive = true;
                         shootingPlayerObject.GetComponent<PlayerMovementScript>().ResetTileEffectType();
@@ -91,7 +101,6 @@ public class TileScript : MonoBehaviour
                 effectIsActive = false;
                 break;
             case 1:
-                //Debug.Log("Deactivating slow...");
                 gameObject.transform.Find("SlowField").gameObject.SetActive(false);
                 effectIsActive = false;
                 affectedPlayerObject.GetComponent<PlayerMovementScript>().ResetMovespeed();
@@ -99,7 +108,7 @@ public class TileScript : MonoBehaviour
             case 2:
                 gameObject.transform.Find("CloudedViewField").gameObject.SetActive(false);
                 effectIsActive = false;
-                affectedPlayerObject.GetComponent<PlayerMovementScript>().ResetVision();
+                // affectedPlayerObject.GetComponent<PlayerMovementScript>().ResetVision();
                 break;
         }
     }

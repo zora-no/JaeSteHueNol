@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Sound {
 
+    //gives attributes to itmes of the list
     public string name;
     
     public AudioClip clip;
