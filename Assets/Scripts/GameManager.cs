@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEditor.Build.Content;
 using System.IO;
+using System.Threading;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,10 +14,10 @@ public class GameManager : MonoBehaviour
     public GameObject startPage;
     public GameObject gameOverPage;
     public GameObject TimerPage;
-    //public GameObject Timer;
     public GameObject spawnmanager;
-    public GameObject threeTwoOnePage;
+    public GameObject countDownPage;
     private TimerCountdown gameTimer;
+    private CountDownBeginning CountDownBeginning;
     
     public static GameManager Instance;
     
@@ -73,18 +74,20 @@ public class GameManager : MonoBehaviour
         
         startTimer = false;
         gameTimer = GameObject.Find("Timer").GetComponent<TimerCountdown>();
+        CountDownBeginning = GameObject.Find("CountDownPage").GetComponent<CountDownBeginning>();
         
         UpdateScoreHistory();
 
     }
     
     enum PageState
-        // the four page states
+        // the five page states
     {
         None,
         Start,
         GameOver,
-        Timer
+        Timer, 
+        ThreeTwoOne
     }
 
     public void SetScoreText()
@@ -92,7 +95,18 @@ public class GameManager : MonoBehaviour
         scoreP1text.text = scoreP1.ToString();
         scoreP2text.text = scoreP2.ToString();
     }
+
+    /// START COUNTDOWN ///
+
+    public void StartCountdown()
+    {
+       
+        CountDownBeginning.ShowCountdown();
+        
+    }
     
+
+
     /// START GAME TIMER ///
     public void StartTimer()
     {
@@ -234,6 +248,12 @@ public class GameManager : MonoBehaviour
                 gameOverPage.SetActive(false);
                 TimerPage.SetActive(true);
                 break;
+            case PageState.ThreeTwoOne:
+                startPage.SetActive(false);
+                gameOverPage.SetActive(false);
+                TimerPage.SetActive(false);
+                countDownPage.SetActive(true);
+                break;
         }
     }
 
@@ -249,11 +269,7 @@ public class GameManager : MonoBehaviour
     
     private void stateWinner()
     {
-
         
-        
-        //TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
-        //TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
         
         if (scoreP1 > scoreP2)
         {

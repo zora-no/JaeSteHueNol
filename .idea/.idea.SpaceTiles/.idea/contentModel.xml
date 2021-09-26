@@ -9,6 +9,7 @@
         <e p="Scripts" t="Include">
           <e p="AudioManager.cs" t="Include" />
           <e p="BallThrowScript.cs" t="Include" />
+          <e p="CountDownBeginning.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="GameOverMenu.cs" t="Include" />
           <e p="mainMenu.cs" t="Include" />

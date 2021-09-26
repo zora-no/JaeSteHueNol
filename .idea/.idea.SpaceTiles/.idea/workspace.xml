@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d53853b8-79bf-4c63-9624-c42b057e279c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GameOverPage.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GameOverPage.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/FinalScene24.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FinalScene24.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Timon's/Timon_copyOf_merged09_StartingPage_170921.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Timon's/Timon_copyOf_merged09_StartingPage_170921.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameOverMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameOverMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameHistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GameHistory.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +23,9 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/mainMenu.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/TimerCountdown.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameOverMenu.cs" />
+      <option value="$PROJECT_DIR$/Assets/CountDownBeginning.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/CountDownBeginning.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1yg7U3w7kvgpK2yYnKintjMCxgD" />
@@ -71,6 +72,7 @@
       <updated>1632661391851</updated>
       <workItem from="1632661403247" duration="1161000" />
       <workItem from="1632662933768" duration="8832000" />
+      <workItem from="1632673992692" duration="3451000" />
     </task>
     <servers />
   </component>
@@ -89,6 +91,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
