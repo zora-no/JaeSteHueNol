@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d53853b8-79bf-4c63-9624-c42b057e279c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GameOverPage.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GameOverPage.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TimerCountdown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TimerCountdown.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/mainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/mainMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameHistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GameHistory.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +34,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -67,7 +66,7 @@
       <option name="presentableId" value="Default" />
       <updated>1632661391851</updated>
       <workItem from="1632661403247" duration="1161000" />
-      <workItem from="1632662933768" duration="5590000" />
+      <workItem from="1632662933768" duration="5894000" />
     </task>
     <servers />
   </component>

@@ -440,7 +440,7 @@ PrefabInstance:
     - target: {fileID: 4031053054271835151, guid: 9e774c587d79d9d46b8e20925fa5946e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4031053054305923760, guid: 9e774c587d79d9d46b8e20925fa5946e,
         type: 3}
@@ -610,14 +610,15 @@ PrefabInstance:
     - target: {fileID: 4031053055240292338, guid: 9e774c587d79d9d46b8e20925fa5946e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4031053055408405833, guid: 9e774c587d79d9d46b8e20925fa5946e,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1440786795, guid: 9e774c587d79d9d46b8e20925fa5946e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9e774c587d79d9d46b8e20925fa5946e, type: 3}
 --- !u!114 &466984243 stripped
 MonoBehaviour:
@@ -3178,7 +3179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 3
+  secondsLeft: 10
   intendedGameLength: 0
   onetime: 0
   GameManager: {fileID: 1012935053}
@@ -3966,7 +3967,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 450203087763232812, guid: 39366a8de5b167446859e464c3ea6238, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 39366a8de5b167446859e464c3ea6238, type: 3}
 --- !u!1001 &902391099430467792
 PrefabInstance:
