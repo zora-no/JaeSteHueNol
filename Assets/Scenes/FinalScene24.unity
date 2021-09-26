@@ -124,12 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &34906 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6324989774422071592, guid: f42a3ca637988af4d99be4334475a3b7,
-    type: 3}
-  m_PrefabInstance: {fileID: 2106649353}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &34907 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6324989774422071593, guid: f42a3ca637988af4d99be4334475a3b7,
@@ -1142,12 +1136,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &923763118 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7150076081754769566, guid: 4de458bfb3b3cc44aa8646e3d3cf7d8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1785640751}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &923763119 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7150076081754769565, guid: 4de458bfb3b3cc44aa8646e3d3cf7d8c,
@@ -1185,17 +1173,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPage: {fileID: 529818146}
-  gameOverPageP1: {fileID: 34906}
-  gameOverPageP2: {fileID: 923763118}
-  countdownPage: {fileID: 1023096935}
+  gameOverPage: {fileID: 0}
+  TimerPage: {fileID: 0}
   spawnmanager: {fileID: 1861926923}
+  threeTwoOnePage: {fileID: 0}
   scoreP1: 1
   scoreP2: 0
   scoreP1text: {fileID: 1728065107}
   scoreP2text: {fileID: 1473424083}
-  scoreText: {fileID: 0}
   scorePointsP1: 1
   scorePointsP2: 1
+  nameP1: 
+  nameP2: 
+  History1: {fileID: 0}
+  History2: {fileID: 0}
+  History3: {fileID: 0}
+  History4: {fileID: 0}
+  History5: {fileID: 0}
+  startTimer: 0
 --- !u!4 &1012935054
 Transform:
   m_ObjectHideFlags: 0
@@ -2765,7 +2760,7 @@ PrefabInstance:
     - target: {fileID: 7150076081754769566, guid: 4de458bfb3b3cc44aa8646e3d3cf7d8c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4de458bfb3b3cc44aa8646e3d3cf7d8c, type: 3}
@@ -2894,6 +2889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
   secondsLeft: 300
+  intendedGameLength: 0
+  onetime: 0
   GameManager: {fileID: 1012935053}
 --- !u!4 &1944535385
 Transform:
@@ -2924,7 +2921,7 @@ PrefabInstance:
     - target: {fileID: 6324989774422071592, guid: f42a3ca637988af4d99be4334475a3b7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6324989774422071593, guid: f42a3ca637988af4d99be4334475a3b7,
         type: 3}

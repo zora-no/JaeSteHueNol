@@ -34,3 +34,21 @@ ewr  0  :  0  e
 df  0  :  0  df
 e  1  :  0  f
   0  :  0  
+wer  0  :  0  r
+  0  :  0  
+df  0  :  0  df
+ewr  0  :  0  wer
+gh  0  :  0  g
+  0  :  0  
+zt  0  :  0  g
+xf  0  :  0  x
+sef  0  :  0  f
+Ma  0  :  0  df
+Max  0  :  0  Tim
+Max  0  :  0  Tim
+lef  0  :  0  rig
+lef  0  :  0  rig
+lef  0  :  0  rig
+l1  1  :  0  r2
+  0  :  0  
+  0  :  1  

@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour
 
     private PlayerMovementScript player1;
     private PlayerMovementScript player2;
-
+    
+    
     public string nameP1;
     public string nameP2;
 
@@ -40,6 +41,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI History3;
     public TextMeshProUGUI History4;
     public TextMeshProUGUI History5;
+
+    public TextMeshProUGUI WinnerStatementP1;
+    public TextMeshProUGUI WinnerStatementP2;
 
     public bool startTimer = false;
 
@@ -129,7 +133,7 @@ public class GameManager : MonoBehaviour
         
         // state who won
         stateWinner();
-        
+
         player1.OnGameOverConfirmed();
         player2.OnGameOverConfirmed();
         
@@ -157,8 +161,7 @@ public class GameManager : MonoBehaviour
         _gameOver = false;
         startTimer = false;
         SetPageState(PageState.Start);
-        nameP1 = "";
-        nameP2 = "";
+        
     }
     
 
@@ -246,23 +249,26 @@ public class GameManager : MonoBehaviour
     
     private void stateWinner()
     {
+
+        
+        
         //TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
         //TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
         
         if (scoreP1 > scoreP2)
         {
-            //textP1.SetText("Game Over ! You won !");
-            //textP2.SetText("<color=red>Game Over ! You lost !</color> ");
+            WinnerStatementP1.text = nameP1 + " ,you won my friend!";
+            WinnerStatementP2.text = nameP2 + " ,you lost!";
         }
         else if (scoreP1 == scoreP2)
         {
-            //textP1.SetText("Game Over ! It's a tie !");
-            //textP2.SetText("Game Over ! It's a tie !");
+            WinnerStatementP1.text = "It's a Tie";
+            WinnerStatementP2.text = "It's a Tie";
         }
         else
         {
-            //textP1.SetText("<color=red>Game Over ! You lost !</color> ");
-            //textP2.SetText("Game Over ! You won !");
+            WinnerStatementP1.text = nameP1 + " ,you lost!";
+            WinnerStatementP2.text = nameP2 + " ,you won my friend!";
         }
     }
     
