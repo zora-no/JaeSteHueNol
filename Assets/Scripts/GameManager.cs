@@ -121,7 +121,8 @@ public class GameManager : MonoBehaviour
         
         // start spawning power ups
         spawnmanager.GetComponent<SpawnManager>().activateSpawning();
-        
+        spawnmanager.GetComponent<SpawnManager>().onGameStart();
+
     }
     
     
