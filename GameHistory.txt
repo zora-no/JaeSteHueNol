@@ -1,54 +1,5 @@
 csd  3  :  0  fre
 mjm  0  :  1  Ya3
 ert  0  :  0  ert
-f  0  :  0  f
-ert  0  :  0  ert
-dfg  0  :  0  e
-sdf  0  :  0  f
-fg  0  :  0  fgh
-drt  0  :  0  asd
-utz  0  :  0  tt
-oo  0  :  0  ppp
-453  0  :  0  3
-z  0  :  0  z
-dsf  0  :  0  sdf
-5  0  :  0  5
-6  0  :  0  6
-fg  0  :  0  f
-345  0  :  0  4
-gh  0  :  0  fgh
-g  0  :  0  g
-  0  :  0  
-g  0  :  0  f
-ad  0  :  0  awd
-sdf  0  :  0  s
-dfv  0  :  0  d
-  0  :  0  
-  0  :  0  
-wd  0  :  0  d
-54  0  :  0  345
-  0  :  0  
-ewr  0  :  0  e
-34  0  :  0  4
-  0  :  0  
-df  0  :  0  df
-e  1  :  0  f
-  0  :  0  
-wer  0  :  0  r
-  0  :  0  
-df  0  :  0  df
-ewr  0  :  0  wer
-gh  0  :  0  g
-  0  :  0  
-zt  0  :  0  g
-xf  0  :  0  x
-sef  0  :  0  f
-Ma  0  :  0  df
-Max  0  :  0  Tim
 Max  0  :  0  Tim
 lef  0  :  0  rig
-lef  0  :  0  rig
-lef  0  :  0  rig
-l1  1  :  0  r2
-  0  :  0  
-  0  :  1  
