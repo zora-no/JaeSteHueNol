@@ -20,6 +20,8 @@ public class BallThrowScript : MonoBehaviour
     
     void Start()
     {
+        // initialize the variables
+        
         _audioManager = FindObjectOfType<AudioManager>();
 
         if (this.name == "Player1")
@@ -36,7 +38,6 @@ public class BallThrowScript : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {   
         // Checks if player is able to shoot
@@ -76,7 +77,6 @@ public class BallThrowScript : MonoBehaviour
         }
         
         // set ball inactive once it left arena 
-
         if (this.name == "Player1")
         {
             List<GameObject> activeBalls1 = ObjectPool.SharedInstance.GetActivePooledObjects("Ball1");
@@ -87,8 +87,7 @@ public class BallThrowScript : MonoBehaviour
                 }
             }
         }
-
-        if (this.name == "Player2")
+        else if (this.name == "Player2")
         {
             List<GameObject> activeBalls2 = ObjectPool.SharedInstance.GetActivePooledObjects("Ball2");
                 
@@ -104,6 +103,7 @@ public class BallThrowScript : MonoBehaviour
 
     void Throw()
     {
+        // bring ball to appropriate position and set its velocity
         ball.transform.position = throwPoint.transform.position;
         rb.velocity = new Vector3(0.0f, speedUp, speedForward).normalized * throwVelocity;
         _audioManager.Play("Shot");
@@ -117,6 +117,11 @@ public class BallThrowScript : MonoBehaviour
     public void deactivateShooting()
     {
         _canShoot = false;
+    }
+
+    public void setTimeTillThrow(float time)
+    {
+        timeTillThrow = time;
     }
     
 }

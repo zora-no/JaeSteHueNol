@@ -10,10 +10,12 @@
           <e p="AudioManager.cs" t="Include" />
           <e p="BallThrowScript.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="GameOverMenu.cs" t="Include" />
           <e p="mainMenu.cs" t="Include" />
           <e p="ObjectPool.cs" t="Include" />
           <e p="PlayerMovementScript.cs" t="Include" />
           <e p="PowerUp.cs" t="Include" />
+          <e p="RotateObject.cs" t="Include" />
           <e p="Shield.cs" t="Include" />
           <e p="Sound.cs" t="Include" />
           <e p="SpawnManager.cs" t="Include" />
@@ -51,6 +53,7 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="uiTilePowerups.cs" t="Include" />
       </e>
       <e p="JaeSteHueNol.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

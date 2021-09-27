@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         SetScoreText();
         
         startTimer = false;
-        gameTimer = GameObject.Find("Timer").GetComponent<TimerCountdown>();
+        gameTimer = TimerPage.GetComponent<TimerCountdown>();
         
         UpdateScoreHistory();
 

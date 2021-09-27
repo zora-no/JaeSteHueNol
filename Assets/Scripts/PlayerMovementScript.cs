@@ -22,8 +22,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private bool _frozenP1 = false;
     private bool _frozenP2 = false;
-
-
+    
     GameObject uiTilePowerup1;
     GameObject uiTilePowerup2;
     
@@ -92,13 +91,13 @@ public class PlayerMovementScript : MonoBehaviour
         resetPosition();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Move();
         PowerUpEffect();
         rb1.constraints = RigidbodyConstraints.FreezeRotation;
         rb2.constraints = RigidbodyConstraints.FreezeRotation;
+        
         if (game.getGameOver())
         {
             rb1.constraints = RigidbodyConstraints.FreezePosition;
@@ -115,7 +114,7 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
-    // Executes when player leaves a field
+    // Executes when player leaves a field/ tile
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("slowfield"))
@@ -206,11 +205,11 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
     
+    
     ////////// PowerUp Stuff START //////////
-    
-    
+    /// 
     IEnumerator Unfreeze(int player, float delayTime)
-        // unfreeze player after X seconds
+        // unfreeze player after X seconds / deactivate freeze power up
     {
         yield return new WaitForSeconds(delayTime);
         
@@ -227,7 +226,7 @@ public class PlayerMovementScript : MonoBehaviour
     }
     
     IEnumerator NormalizeShootFreq(float delayTime) 
-        // reduce shooting frequency back to normal value after X seconds
+        // reduce shooting frequency back to normal value after X seconds / deactivate shoot freq power up
     {
         yield return new WaitForSeconds(delayTime);
 
@@ -237,6 +236,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     IEnumerator NormalizeScoring(int player, float delayTime)
     {
+        // deactivate double score power up after X seconds
         yield return new WaitForSeconds(delayTime);
         if (player == 1)
         {
@@ -250,21 +250,25 @@ public class PlayerMovementScript : MonoBehaviour
     
     IEnumerator NormalizeSpeed(int player, float delayTime)
     {
+        // normalize player movement speed after X seconds / deactivate speed power up
         yield return new WaitForSeconds(delayTime);
         moveSpeed = originalMoveSpeed;
     }
 
     IEnumerator RemoveShield(int player, float delayTime, GameObject shield)
     {
+        // remove the player's shield after X seconds
         yield return new WaitForSeconds(delayTime);
         shield.gameObject.SetActive(false);
     }
     
     void PowerUpEffect()
     {
+        // if a power up was collected
         if (_p1IsPowerUpOn)
         {
             _p1IsPowerUpOn = false;
+            
             switch (_p1PowerUpType)
             {
                 case "Freeze PowerUp":
@@ -277,6 +281,7 @@ public class PlayerMovementScript : MonoBehaviour
                 case "Frequency PowerUp":
                     // increase shooting frequency
                     ballscript.throwCooldown /= 3f;
+                    ballscript.setTimeTillThrow(0.0f);
                     StartCoroutine(NormalizeShootFreq(5f));
                     break;
                 case "Shield PowerUp":
@@ -328,6 +333,7 @@ public class PlayerMovementScript : MonoBehaviour
                 case "Frequency PowerUp":
                     // increase shooting frequency
                     ballscript.throwCooldown /= 3f;
+                    ballscript.setTimeTillThrow(0.0f);
                     StartCoroutine(NormalizeShootFreq(5f));
                     break;
                 case "Shield PowerUp":
@@ -361,6 +367,7 @@ public class PlayerMovementScript : MonoBehaviour
                 default:
                     break;
             }
+            // show image of the collected tile power up
             uiTilePowerup2.GetComponent<uiTilePowerups>().SwitchImage(tileEffectType);
         }
 
@@ -385,6 +392,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     void resetPosition()
     {
+        // reset player position to start
         if (this.name == "Player1")
         {
             this.gameObject.transform.position = new Vector3(0,27.37f,8.5f);

@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
 
     private bool _spawningOn = false;
     [SerializeField] private int _powerUpRate = 2;
-    [SerializeField] private int _firstWait = 5;
+    [SerializeField] private int _firstWait = 5; // how long until first power up spawns
 
     private int nTags = 8;
 
@@ -30,7 +30,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerup()
     {
-        // wait 10 seconds until first power up is spawned
+        // wait X seconds until first power up is spawned
         yield return new WaitForSeconds(_firstWait);
 
         // while spawning is active, spawn a random new power up according to spawn rate
