@@ -150,10 +150,7 @@ public class GameManager : MonoBehaviour
 
         // update score history in menu
         UpdateScoreHistory();
-        
-        // reset names
-        nameP1 = "";
-        nameP2 = "";
+
     }
 
     /// GAME OVER CONFIRMATION ///
