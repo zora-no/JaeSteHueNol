@@ -392,6 +392,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4570297245824960627, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823551377188473460, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.47
+      objectReference: {fileID: 0}
     - target: {fileID: 7969724957089896834, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
         type: 3}
       propertyPath: m_Name
@@ -465,6 +475,16 @@ PrefabInstance:
     - target: {fileID: 7969724957089896838, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969724958381201047, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969724958381201047, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1260,12 +1280,12 @@ PrefabInstance:
     - target: {fileID: 2583927801207216431, guid: 1e4fa8212af49ac4a8c3e392758c2de9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.89
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 5885618939879742571, guid: 1e4fa8212af49ac4a8c3e392758c2de9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.08
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 5885618939879742571, guid: 1e4fa8212af49ac4a8c3e392758c2de9,
         type: 3}
@@ -1350,7 +1370,7 @@ PrefabInstance:
     - target: {fileID: 8081101512797361067, guid: 1e4fa8212af49ac4a8c3e392758c2de9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.59
+      value: -0.19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e4fa8212af49ac4a8c3e392758c2de9, type: 3}
@@ -2866,6 +2886,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675224753199874867, guid: 9856d03474073924aa9d8964face92a3,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.36707902
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675224753199874867, guid: 9856d03474073924aa9d8964face92a3,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.52651167
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675224753199874867, guid: 9856d03474073924aa9d8964face92a3,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.6886792
       objectReference: {fileID: 0}
     - target: {fileID: 5150367200868682260, guid: 9856d03474073924aa9d8964face92a3,
         type: 3}
