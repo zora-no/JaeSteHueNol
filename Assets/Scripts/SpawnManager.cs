@@ -53,6 +53,7 @@ public class SpawnManager : MonoBehaviour
     public void activateSpawning()
     {
         _spawningOn = true;
+        Debug.Log("spawning is now on");
     }
 
     public void deactivateSpawning()
