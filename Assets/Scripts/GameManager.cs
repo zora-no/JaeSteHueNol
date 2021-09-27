@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
     /// GAME START FUNCTION ///
     public void OnGameStart()
     {
-        SetPageState(PageState.None);
+        SetPageState(PageState.Timer);
         _gameOver = false;
         
         gameTimer.ResetTimer();
