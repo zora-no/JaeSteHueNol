@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -24,15 +26,25 @@ public class SpawnManager : MonoBehaviour
     {
         // this array also includes the parent's transform at index 0 --> exclude it when spawning
         hatches = (Transform[]) GameObject.Find("ceiling_hatches").gameObject.GetComponentsInChildren<Transform>();
-
-        StartCoroutine(SpawnPowerup());
+        
     }
 
-    IEnumerator SpawnPowerup()
+    public void onGameStart()
+    {
+        StartCoroutine(waitBeforeSpawning());
+    }
+    
+    IEnumerator waitBeforeSpawning()
     {
         // wait X seconds until first power up is spawned
         yield return new WaitForSeconds(_firstWait);
-
+        
+        // start spawning
+        StartCoroutine(SpawnPowerup());
+    }
+    
+    IEnumerator SpawnPowerup()
+    {
         // while spawning is active, spawn a random new power up according to spawn rate
         while (_spawningOn)
         {
@@ -47,8 +59,8 @@ public class SpawnManager : MonoBehaviour
 
             yield return new WaitForSeconds(_powerUpRate);
         }
-
     }
+    
 
     public void activateSpawning()
     {

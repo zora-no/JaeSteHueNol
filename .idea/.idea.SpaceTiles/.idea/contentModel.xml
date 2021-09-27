@@ -13,7 +13,6 @@
           <e p="GameOverMenu.cs" t="Include" />
           <e p="mainMenu.cs" t="Include" />
           <e p="ObjectPool.cs" t="Include" />
-          <e p="Player2MovementScript.cs" t="Include" />
           <e p="PlayerMovementScript.cs" t="Include" />
           <e p="PowerUp.cs" t="Include" />
           <e p="RotateObject.cs" t="Include" />
