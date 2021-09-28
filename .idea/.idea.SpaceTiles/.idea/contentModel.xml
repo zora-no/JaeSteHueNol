@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Admin\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Admin\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_SpaceTiles.-28212982.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Admin\Downloads\Adv. Unity\Space Tiles\SpaceTiles" t="IncludeRecursive">
+    <e p="C:\Users\Admin\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_SpaceTiles.1178519995.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Admin\Downloads\Adv. Unity\SpaceTiles" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
@@ -16,6 +16,7 @@
           <e p="PlayerMovementScript.cs" t="Include" />
           <e p="PowerUp.cs" t="Include" />
           <e p="RotateObject.cs" t="Include" />
+          <e p="RotatePuInside.cs" t="Include" />
           <e p="Shield.cs" t="Include" />
           <e p="Sound.cs" t="Include" />
           <e p="SpawnManager.cs" t="Include" />
@@ -54,6 +55,10 @@
           </e>
         </e>
         <e p="uiTilePowerups.cs" t="Include" />
+        <e p="WorldMaterialsFree" t="Include">
+          <e p="WorldMatFree.shader" t="Include" />
+          <e p="WorldMatLiteFree.shader" t="Include" />
+        </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />

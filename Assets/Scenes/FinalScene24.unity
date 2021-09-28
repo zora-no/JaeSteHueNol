@@ -2666,10 +2666,10 @@ MonoBehaviour:
     objectToPool: {fileID: 7919494511106801767, guid: 213d72c3b89e7b947808dab7933be69a,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 7026444951835673381, guid: 180f3828dc9473940a417240df6ea390,
+    objectToPool: {fileID: 7919494511106801767, guid: 4e50aaa413061804da69f46c2a73449e,
       type: 3}
   - amountToPool: 10
-    objectToPool: {fileID: 7919494511106801767, guid: a8db89060d38aeb44b1dbcded63faede,
+    objectToPool: {fileID: 7919494511106801767, guid: b47db226a89fd4f4282c6ac593cee123,
       type: 3}
   - amountToPool: 10
     objectToPool: {fileID: 7919494511106801767, guid: 76ede19cefc1add409d284c3a008950e,
@@ -2772,8 +2772,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 5
-  intendedGameLength: 5
+  secondsLeft: 50
+  intendedGameLength: 50
   onetime: 0
   GameManager: {fileID: 1012935053}
 --- !u!4 &1944535385

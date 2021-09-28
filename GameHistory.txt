@@ -17,3 +17,14 @@ erf  0  :  0  sf
 ad  0  :  0  f
   1  :  0  
 we  1  :  0  rr
+wer  2  :  0  wew
+awd  0  :  0  sda
+awd  1  :  0  sda
+awd  0  :  0  sda
+awd  0  :  0  sda
+sdf  0  :  0  sdf
+sdf  0  :  0  sdf
+ER  0  :  0  E
+f  0  :  0  f
+ert  0  :  0  d
+ert  1  :  0  d
