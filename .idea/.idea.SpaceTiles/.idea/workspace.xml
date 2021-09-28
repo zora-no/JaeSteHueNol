@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d53853b8-79bf-4c63-9624-c42b057e279c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceTiles/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PowerUps/Power Ups filled/PowerUpDoublePoints_filled.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PowerUps/Power Ups filled/PowerUpDoublePoints_filled.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RotatePuInside.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RotatePuInside.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameHistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GameHistory.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +23,8 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/TimerCountdown.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameOverMenu.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/RotatePUInside1.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/RotatePuInside.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1yg7U3w7kvgpK2yYnKintjMCxgD" />
@@ -78,7 +80,10 @@
       <workItem from="1632661403247" duration="1161000" />
       <workItem from="1632662933768" duration="8832000" />
       <workItem from="1632757480469" duration="12000" />
-      <workItem from="1632818293064" duration="610000" />
+      <workItem from="1632818293064" duration="656000" />
+      <workItem from="1632821152634" duration="7000" />
+      <workItem from="1632821339116" duration="194000" />
+      <workItem from="1632821549514" duration="779000" />
     </task>
     <servers />
   </component>

@@ -12,7 +12,7 @@ public class RotatePuInside : MonoBehaviour
     // rotates inside of PU
     void Update()
     {
-        transform.Rotate(Vector3.up,-turnSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.forward,turnSpeed * Time.deltaTime);
         Debug.Log("rotation");
     }
 }
