@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Build.Content;
+//using UnityEditor.Build.Content;
 using System.IO;
 
 public class GameManager : MonoBehaviour
@@ -150,10 +150,7 @@ public class GameManager : MonoBehaviour
 
         // update score history in menu
         UpdateScoreHistory();
-        
-        // reset names
-        nameP1 = "";
-        nameP2 = "";
+
     }
 
     /// GAME OVER CONFIRMATION ///
