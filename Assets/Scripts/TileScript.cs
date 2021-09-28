@@ -34,15 +34,19 @@ public class TileScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Hit by anythin!");
         // If wall hit by any ball
         if (other.tag == "Ball1" || other.tag == "Ball2")
-        {   
+        {
+            Debug.Log("Wall hit!");
             // checks if no tile effect is active
             if (effectIsActive == false)
-            {   
+            {
+                Debug.Log("No effect active!");
                 // check to affect the correct player
                 if (other.tag == "Ball1")
                 {
+                    Debug.Log("affecting wall2!");
                     affectedPlayerObject = player2;
                     shootingPlayerObject = player1;
                     effectType = shootingPlayerObject.GetComponent<PlayerMovementScript>().tileEffectType;
@@ -50,6 +54,7 @@ public class TileScript : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("affecting wall1!");
                     affectedPlayerObject = player1;
                     shootingPlayerObject = player2;
                     effectType = shootingPlayerObject.GetComponent<PlayerMovementScript>().tileEffectType;
@@ -65,7 +70,7 @@ public class TileScript : MonoBehaviour
                         gameObject.transform.Find("MovementInhibitor").gameObject.SetActive(true);
                         effectIsActive = true;
                         shootingPlayerObject.GetComponent<PlayerMovementScript>().ResetTileEffectType();
-                        StartCoroutine(DeactivateEffect(effectType));
+                        // StartCoroutine(DeactivateEffect(effectType));
                         break;
                     // Slow field powerup active
                     case 1:
@@ -73,7 +78,7 @@ public class TileScript : MonoBehaviour
                         gameObject.transform.Find("SlowField").gameObject.SetActive(true);
                         effectIsActive = true;
                         shootingPlayerObject.GetComponent<PlayerMovementScript>().ResetTileEffectType();
-                        StartCoroutine(DeactivateEffect(effectType));
+                        // StartCoroutine(DeactivateEffect(effectType));
                         break;
                     // Vision impairment powerup active
                     case 2:
@@ -81,7 +86,7 @@ public class TileScript : MonoBehaviour
                         gameObject.transform.Find("CloudedViewField").gameObject.SetActive(true);
                         effectIsActive = true;
                         shootingPlayerObject.GetComponent<PlayerMovementScript>().ResetTileEffectType();
-                        StartCoroutine(DeactivateEffect(effectType));
+                        // StartCoroutine(DeactivateEffect(effectType));
                         break;
                     // No tile powerup active
                     case 3:
