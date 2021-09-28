@@ -29,3 +29,6 @@ f  0  :  0  f
 ert  0  :  0  d
 ert  1  :  0  d
 asd  5  :  0  asd
+dsa  1  :  0  dwa
+dwa  1  :  0  daw
+dwa  2  :  0  dwa

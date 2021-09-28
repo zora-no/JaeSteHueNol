@@ -91,6 +91,11 @@ public class PlayerMovementScript : MonoBehaviour
         resetPosition();
     }
 
+    void Update()
+    {
+        // Debug.Log(this.gameObject + " Powerup: " + tileEffectType);
+    }
+
     void FixedUpdate()
     {
         Move();

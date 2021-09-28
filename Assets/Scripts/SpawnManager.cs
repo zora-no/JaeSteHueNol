@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     {
         "Freeze PowerUp", "Frequency PowerUp", "Score PowerUp",
         "Shield PowerUp", "Speed PowerUp", "Inhibitor TilePowerUp",
-        "Slow TilePowerUp", "Cloud TilePowerUp"
+        "Slow TilePowerUp", "Clouded TilePowerUp"
     };
 
     void Start()
