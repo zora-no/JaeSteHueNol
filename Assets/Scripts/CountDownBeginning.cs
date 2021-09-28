@@ -12,22 +12,18 @@ public class CountDownBeginning : MonoBehaviour
     private GameObject threePage;
     [SerializeField]
     private GameObject goPage;
+    [SerializeField]
+    private GameManager gameManager;
 
     void Start()
     {
         SetPageState(PageState.None);
+        gameManager = FindObjectOfType<GameManager>();
+        
     }
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            Debug.Log("counting inst");
-            ShowCountdown();
-        }
-            
-    }
+    
     enum PageState
-        // the five page states
+        // the five countdown page states
     {
         None,
         Three,
@@ -37,14 +33,16 @@ public class CountDownBeginning : MonoBehaviour
         
     }
     
+    
+    // showing countdown with subsequent start of pages needed for actual game
     public void ShowCountdown()
     {
         StartCoroutine(CountingDown());
         Debug.Log("counting down function");
-        //SetPageState(PageState.Three);
+
     }
     
-    
+    // coroutine for showing the countdown and subsequent start of pages needed for actual game
     IEnumerator CountingDown()
     {
         Debug.Log("counting down Coroutine");
@@ -58,6 +56,9 @@ public class CountDownBeginning : MonoBehaviour
         SetPageState(PageState.Go);
         yield return new WaitForSeconds(2);
         SetPageState(PageState.None);
+        gameManager.StartTimer();
+        gameManager.OnGameStart();
+        Debug.Log("Game started");
         
         
     }

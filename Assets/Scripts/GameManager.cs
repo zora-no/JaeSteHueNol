@@ -100,11 +100,12 @@ public class GameManager : MonoBehaviour
 
     public void StartCountdown()
     {
-       
+        SetPageState(PageState.ThreeTwoOne);
         CountDownBeginning.ShowCountdown();
         
     }
-    
+
+
 
 
     /// START GAME TIMER ///
