@@ -32,3 +32,7 @@ asd  5  :  0  asd
 dsa  1  :  0  dwa
 dwa  1  :  0  daw
 dwa  2  :  0  dwa
+lia  21  :  4  fin
+am,  5  :  1  he
+d  10  :  4  e
+ame  0  :  7  hen
