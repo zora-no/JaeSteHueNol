@@ -11,18 +11,16 @@ public class uiTilePowerups : MonoBehaviour
     public Sprite CloudedImg;
     public Sprite NoPowerupImg;
 
-    private int player;
-
     // Start is called before the first frame update
     void Start()
     {
         if (this.name == "TilePowerup1")
         {
-            player = 1;
+
         }
         else if (this.name == "TilePowerup2")
             {
-            player = 2;
+
         }
         else
         {
