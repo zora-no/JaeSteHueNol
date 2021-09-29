@@ -32,3 +32,8 @@ asd  5  :  0  asd
 dsa  1  :  0  dwa
 dwa  1  :  0  daw
 dwa  2  :  0  dwa
+ad  0  :  0  d
+ad  0  :  0  d
+w  0  :  0  ew
+s  0  :  0  s
+df  0  :  0  d

@@ -2141,16 +2141,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 537555449}
     m_Modifications:
-    - target: {fileID: 2019790308968951258, guid: b79567f90c79fbc4b832990b7f52305d,
-        type: 3}
-      propertyPath: winnerStatementLeft
-      value: 
-      objectReference: {fileID: 41886429}
-    - target: {fileID: 2019790308968951258, guid: b79567f90c79fbc4b832990b7f52305d,
-        type: 3}
-      propertyPath: winnerStatementRight
-      value: 
-      objectReference: {fileID: 1898698216}
     - target: {fileID: 3870842635945323224, guid: b79567f90c79fbc4b832990b7f52305d,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2780,8 +2770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 500
-  intendedGameLength: 500
+  secondsLeft: 3
+  intendedGameLength: 3
   onetime: 0
   GameManager: {fileID: 1012935053}
 --- !u!4 &1944535385
@@ -2864,6 +2854,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: arena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581725006900109524, guid: 9856d03474073924aa9d8964face92a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729533171090954525, guid: 9856d03474073924aa9d8964face92a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9856d03474073924aa9d8964face92a3, type: 3}
