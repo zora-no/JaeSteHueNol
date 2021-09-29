@@ -49,7 +49,7 @@ public class TimerCountdown : MonoBehaviour
         counter.SetText(secondsLeft.ToString());
         takingAway = false;
     }
-    public void ResetTimer ()
+    public void ResetTimer()
     {
         secondsLeft = intendedGameLength;
     }
