@@ -37,3 +37,6 @@ ad  0  :  0  d
 w  0  :  0  ew
 s  0  :  0  s
 df  0  :  0  d
+s  0  :  0  d
+s  0  :  0  d
+s  1  :  0  d
