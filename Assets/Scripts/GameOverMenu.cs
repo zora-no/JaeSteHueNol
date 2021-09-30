@@ -26,7 +26,7 @@ public class GameOverMenu : MonoBehaviour
     // after game over start new round
     public void StartAgain()
     {
-        GameManager.OnGameStart();
+        GameManager.StartCountDown();
     }
     
     

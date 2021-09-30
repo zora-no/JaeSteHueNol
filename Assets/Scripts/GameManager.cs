@@ -13,10 +13,10 @@ public class GameManager : MonoBehaviour
     public GameObject startPage;
     public GameObject gameOverPage;
     public GameObject TimerPage;
-    //public GameObject Timer;
     public GameObject spawnmanager;
     public GameObject threeTwoOnePage;
     private TimerCountdown gameTimer;
+    private CountDownBeginning countDownBeginning;
 
     public static GameManager Instance;
 
@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     private PlayerMovementScript player1;
     private PlayerMovementScript player2;
 
+    private BallThrowScript throwingP1;
+    private BallThrowScript throwingP2;
 
     public string nameP1;
     public string nameP2;
@@ -61,6 +63,10 @@ public class GameManager : MonoBehaviour
 
         player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
         player2 = GameObject.FindWithTag("Player2").GetComponent<PlayerMovementScript>();
+        
+        throwingP1 = GameObject.FindWithTag("Player1").GetComponent<BallThrowScript>();
+        throwingP2 = GameObject.FindWithTag("Player2").GetComponent<BallThrowScript>(); 
+        
         nameP1 = "";
         nameP2 = "";
 
@@ -73,6 +79,8 @@ public class GameManager : MonoBehaviour
 
         startTimer = false;
         gameTimer = TimerPage.GetComponent<TimerCountdown>();
+        countDownBeginning = threeTwoOnePage.GetComponent<CountDownBeginning>();
+
 
         UpdateScoreHistory();
 
@@ -97,7 +105,11 @@ public class GameManager : MonoBehaviour
     /// START GAME COUNTDOWN ///
     public void StartCountDown()
     {
+        disablePowerUpsUsed();
+        throwingP1.deactivateShooting();
+        throwingP2.deactivateShooting();
         SetPageState(PageState.ThreeTwoOneGo);
+        countDownBeginning.ShowCountdown();
         
     }
     /// START GAME TIMER ///
@@ -112,60 +124,19 @@ public class GameManager : MonoBehaviour
     {
         SetPageState(PageState.Timer);
         _gameOver = false;
-
-        gameTimer.ResetTimer();
+        
         gameTimer.onetime = false;
+        gameTimer.ResetTimer();
+        
 
 
         // reset score
         scoreP1 = 0;
         scoreP2 = 0;
         SetScoreText();
+
+        disablePowerUpsUsed();
         
-        // Disable movement inhibitors
-        GameObject move = GameObject.FindWithTag("movementinhibitorfield");
-        if (move != null)
-        {
-            do
-            {
-                move.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
-                move.transform.parent.GetComponent<TileScript>().effectIsActive = false;
-                move = GameObject.FindWithTag("movementinhibitorfield");
-            } while (move != null);
-        }
-
-        // Disable slow fields
-        GameObject slow = GameObject.FindWithTag("slowfield");
-        if (slow != null)
-        {
-            do
-            {
-                slow.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
-                slow.transform.parent.GetComponent<TileScript>().effectIsActive = false;
-                slow = GameObject.FindWithTag("slowfield");
-            } while (slow != null);
-        }
-
-        // Disable clouded fields
-        GameObject cloud = GameObject.FindWithTag("cloudedviewfield");
-        if (cloud != null)
-        {
-            do
-            {
-                cloud.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
-                cloud.transform.parent.GetComponent<TileScript>().effectIsActive = false;
-                cloud = GameObject.FindWithTag("cloudedviewfield");
-            } while (cloud != null);
-        }
-
-        // Unload saved powerups
-        player1.GetComponent<PlayerMovementScript>().ResetTileEffectType();
-        player2.GetComponent<PlayerMovementScript>().ResetTileEffectType();
-        GameObject.Find("TilePowerup2").GetComponent<uiTilePowerups>().SwitchImage(3);
-        GameObject.Find("TilePowerup1").GetComponent<uiTilePowerups>().SwitchImage(3);
-
-
-
         // unfreeze player & enable shooting
         player1.OnGameStarted();
         player2.OnGameStarted();
@@ -213,6 +184,50 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void disablePowerUpsUsed()
+    {
+        // Disable movement inhibitors
+        GameObject move = GameObject.FindWithTag("movementinhibitorfield");
+        if (move != null)
+        {
+            do
+            {
+                move.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
+                move.transform.parent.GetComponent<TileScript>().effectIsActive = false;
+                move = GameObject.FindWithTag("movementinhibitorfield");
+            } while (move != null);
+        }
+
+        // Disable slow fields
+        GameObject slow = GameObject.FindWithTag("slowfield");
+        if (slow != null)
+        {
+            do
+            {
+                slow.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
+                slow.transform.parent.GetComponent<TileScript>().effectIsActive = false;
+                slow = GameObject.FindWithTag("slowfield");
+            } while (slow != null);
+        }
+
+        // Disable clouded fields
+        GameObject cloud = GameObject.FindWithTag("cloudedviewfield");
+        if (cloud != null)
+        {
+            do
+            {
+                cloud.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
+                cloud.transform.parent.GetComponent<TileScript>().effectIsActive = false;
+                cloud = GameObject.FindWithTag("cloudedviewfield");
+            } while (cloud != null);
+        }
+        
+        // Unload saved powerups
+        player1.GetComponent<PlayerMovementScript>().ResetTileEffectType();
+        player2.GetComponent<PlayerMovementScript>().ResetTileEffectType();
+        GameObject.Find("TilePowerup2").GetComponent<uiTilePowerups>().SwitchImage(3);
+        GameObject.Find("TilePowerup1").GetComponent<uiTilePowerups>().SwitchImage(3);
+    }
 
     void WriteToFile()
     {
@@ -243,8 +258,8 @@ public class GameManager : MonoBehaviour
         return _gameOver;
     }
 
-    public void OnPlayerScored(string player)
     // manages score on screen
+    public void OnPlayerScored(string player)
     {
         if (player == "Player1")
         {
@@ -305,14 +320,10 @@ public class GameManager : MonoBehaviour
     {
         nameP2 = input;
     }
-
+    
+    // states tie or winner as indicated by score 
     private void stateWinner()
     {
-
-
-
-        //TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
-        //TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
 
         if (scoreP1 > scoreP2)
         {
