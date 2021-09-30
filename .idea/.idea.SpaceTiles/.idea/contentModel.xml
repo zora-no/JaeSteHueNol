@@ -6,9 +6,16 @@
     <e p="C:\Users\Admin\Downloads\Adv. Unity\SpaceTiles" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Materials" t="Include">
+          <e p="WorldMaterialsFree" t="Include">
+            <e p="WorldMatFree.shader" t="Include" />
+            <e p="WorldMatLiteFree.shader" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="AudioManager.cs" t="Include" />
           <e p="BallThrowScript.cs" t="Include" />
+          <e p="CountDownBeginning.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="GameOverMenu.cs" t="Include" />
           <e p="mainMenu.cs" t="Include" />
@@ -54,10 +61,6 @@
           <e p="Sprites" t="Include">
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
-        </e>
-        <e p="WorldMaterialsFree" t="Include">
-          <e p="WorldMatFree.shader" t="Include" />
-          <e p="WorldMatLiteFree.shader" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
