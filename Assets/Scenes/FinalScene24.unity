@@ -3949,8 +3949,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 30
-  intendedGameLength: 30
+  secondsLeft: 180
+  intendedGameLength: 180
   onetime: 0
   GameManager: {fileID: 1012935053}
 --- !u!4 &1944535385

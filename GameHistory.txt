@@ -98,3 +98,6 @@ d  2  :  0  a
 a  1  :  1  d
 w  2  :  2  e
 w  0  :  0  e
+cyx  1  :  0  <yx
+cyx  1  :  0  dd
+cyx  1  :  0  dd

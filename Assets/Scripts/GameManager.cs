@@ -69,6 +69,9 @@ public class GameManager : MonoBehaviour
         
         nameP1 = "";
         nameP2 = "";
+        
+        throwingP1.deactivateShooting();
+        throwingP2.deactivateShooting();
 
         spawnmanager = GameObject.FindWithTag("SpawnManager");
         if (spawnmanager == null)
