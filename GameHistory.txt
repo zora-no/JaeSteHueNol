@@ -101,3 +101,4 @@ w  0  :  0  e
 cyx  1  :  0  <yx
 cyx  1  :  0  dd
 cyx  1  :  0  dd
+d  5  :  0  e
