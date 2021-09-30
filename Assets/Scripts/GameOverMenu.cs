@@ -17,7 +17,7 @@ public class GameOverMenu : MonoBehaviour
         GameManager = FindObjectOfType<GameManager>();
         
     }
-
+    
     // after game over go back to main menu 
     public void GoBackToMainMenu()
     {

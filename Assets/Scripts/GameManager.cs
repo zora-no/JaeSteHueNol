@@ -89,6 +89,15 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
+        } 
+    }
+    
+
     enum PageState
     // the five page states
     {

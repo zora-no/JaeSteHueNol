@@ -34,9 +34,9 @@ public class mainMenu : MonoBehaviour
     // when pressing the button startPage will be deactivated
     public void PlayGame ()
     {
-        //GameManager.StartTimer();
-        //GameManager.OnGameStart();
+        
         GameManager.StartCountDown();
+        
     }
 
     public void ReactivateMainMenu()

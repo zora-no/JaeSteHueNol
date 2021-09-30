@@ -35,9 +35,9 @@ public class TimerCountdown : MonoBehaviour
             {
                 GameManager.OnTimeIsOver();
                 onetime = true; // so that .OnTimeIsOver is only executed once
-
             }
         }
+        
     }
     
     //counts one down every second
