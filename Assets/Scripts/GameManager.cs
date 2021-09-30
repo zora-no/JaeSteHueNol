@@ -79,12 +79,13 @@ public class GameManager : MonoBehaviour
     }
 
     enum PageState
-    // the four page states
+    // the five page states
     {
         None,
         Start,
         GameOver,
-        Timer
+        Timer,
+        ThreeTwoOneGo
     }
 
     public void SetScoreText()
@@ -93,6 +94,12 @@ public class GameManager : MonoBehaviour
         scoreP2text.text = scoreP2.ToString();
     }
 
+    /// START GAME COUNTDOWN ///
+    public void StartCountDown()
+    {
+        SetPageState(PageState.ThreeTwoOneGo);
+        
+    }
     /// START GAME TIMER ///
     public void StartTimer()
     {
@@ -260,21 +267,31 @@ public class GameManager : MonoBehaviour
                 startPage.SetActive(false);
                 gameOverPage.SetActive(false);
                 TimerPage.SetActive(false);
+                threeTwoOnePage.SetActive(false);
                 break;
             case PageState.Start:
                 startPage.SetActive(true);
                 gameOverPage.SetActive(false);
                 TimerPage.SetActive(false);
+                threeTwoOnePage.SetActive(false);
                 break;
             case PageState.GameOver:
                 startPage.SetActive(false);
                 gameOverPage.SetActive(true);
                 TimerPage.SetActive(false);
+                threeTwoOnePage.SetActive(false);
                 break;
             case PageState.Timer:
                 startPage.SetActive(false);
                 gameOverPage.SetActive(false);
                 TimerPage.SetActive(true);
+                threeTwoOnePage.SetActive(false);
+                break;
+            case PageState.ThreeTwoOneGo:
+                startPage.SetActive(false);
+                gameOverPage.SetActive(false);
+                TimerPage.SetActive(false);
+                threeTwoOnePage.SetActive(true);
                 break;
         }
     }

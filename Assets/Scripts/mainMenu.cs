@@ -36,6 +36,7 @@ public class mainMenu : MonoBehaviour
     {
         GameManager.StartTimer();
         GameManager.OnGameStart();
+        GameManager.StartCountDown();
     }
 
     public void ReactivateMainMenu()
