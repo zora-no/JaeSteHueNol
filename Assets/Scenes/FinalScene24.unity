@@ -3577,6 +3577,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 537555449}
     m_Modifications:
+    - target: {fileID: 150945083, guid: 9e774c587d79d9d46b8e20925fa5946e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1823975410, guid: 9e774c587d79d9d46b8e20925fa5946e, type: 3}
+      propertyPath: m_text
+      value: "This game was created by:\n\nImogen H\xFCsing\nHenning Stegemann\nZora
+        Nolte\nTimon J\xE4ger\n\nThird party assets:\n\nMoon picture provided by
+        Nasa\n\nNebula picture from unsplash.com\n\nBrick and sand textures from
+        Unity Asset Store and ambientcg.com\n\nSoundeffects taken from freesound.org\n\n\nMusic
+        by:\n\nImogen H\xFCsing\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1823975410, guid: 9e774c587d79d9d46b8e20925fa5946e, type: 3}
+      propertyPath: m_margin.w
+      value: -94.45569
+      objectReference: {fileID: 0}
     - target: {fileID: 2030004844, guid: 9e774c587d79d9d46b8e20925fa5946e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3712,6 +3728,11 @@ PrefabInstance:
       value: StartPage
       objectReference: {fileID: 0}
     - target: {fileID: 4031053054540257986, guid: 9e774c587d79d9d46b8e20925fa5946e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031053055240292338, guid: 9e774c587d79d9d46b8e20925fa5946e,
         type: 3}
       propertyPath: m_IsActive
       value: 0
