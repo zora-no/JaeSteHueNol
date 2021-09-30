@@ -8,7 +8,7 @@ public class TileScript : MonoBehaviour
 
     [SerializeField] private float effectDuration = 10f;
     [SerializeField] private int effectType = 3;
-    private bool effectIsActive = false;
+    [SerializeField] public bool effectIsActive = false;
     GameObject affectedPlayerObject;
     GameObject shootingPlayerObject;
     GameObject player1;
@@ -34,19 +34,15 @@ public class TileScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit by anythin!");
         // If wall hit by any ball
         if (other.tag == "Ball1" || other.tag == "Ball2")
         {
-            Debug.Log("Wall hit!");
             // checks if no tile effect is active
             if (effectIsActive == false)
             {
-                Debug.Log("No effect active!");
                 // check to affect the correct player
                 if (other.tag == "Ball1")
                 {
-                    Debug.Log("affecting wall2!");
                     affectedPlayerObject = player2;
                     shootingPlayerObject = player1;
                     effectType = shootingPlayerObject.GetComponent<PlayerMovementScript>().tileEffectType;
@@ -54,7 +50,6 @@ public class TileScript : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("affecting wall1!");
                     affectedPlayerObject = player1;
                     shootingPlayerObject = player2;
                     effectType = shootingPlayerObject.GetComponent<PlayerMovementScript>().tileEffectType;
@@ -95,6 +90,28 @@ public class TileScript : MonoBehaviour
             }
         }
     }
+
+    
+    public void DeactivateOnGameStart()
+    {
+        switch (effectType)
+        {
+            case 0:
+                gameObject.transform.Find("MovementInhibitor").gameObject.SetActive(false);
+                effectIsActive = false;
+                break;
+            case 1:
+                gameObject.transform.Find("SlowField").gameObject.SetActive(false);
+                effectIsActive = false;
+                break;
+            case 2:
+                gameObject.transform.Find("CloudedViewField").gameObject.SetActive(false);
+                effectIsActive = false;
+                break;
+        }
+    }
+    
+
     // Deactivates powerup effect
     IEnumerator DeactivateEffect(int type)
     {

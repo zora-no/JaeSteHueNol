@@ -9,7 +9,7 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-   
+
     public GameObject startPage;
     public GameObject gameOverPage;
     public GameObject TimerPage;
@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
     public GameObject spawnmanager;
     public GameObject threeTwoOnePage;
     private TimerCountdown gameTimer;
-    
+
     public static GameManager Instance;
-    
+
     private bool _gameOver = false;
     public int scoreP1 = 0;
     public int scoreP2 = 0;
@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
 
     private PlayerMovementScript player1;
     private PlayerMovementScript player2;
-    
-    
+
+
     public string nameP1;
     public string nameP2;
 
@@ -48,17 +48,17 @@ public class GameManager : MonoBehaviour
     public bool startTimer = false;
 
     private StreamWriter writer;
-    
+
     void Awake()
     {
         Instance = this;
     }
-    
+
     void Start()
     {
         _gameOver = false;
         SetPageState(PageState.Start);
-            
+
         player1 = GameObject.FindWithTag("Player1").GetComponent<PlayerMovementScript>();
         player2 = GameObject.FindWithTag("Player2").GetComponent<PlayerMovementScript>();
         nameP1 = "";
@@ -70,16 +70,16 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Spawnmanager object not found!");
         }
         SetScoreText();
-        
+
         startTimer = false;
         gameTimer = TimerPage.GetComponent<TimerCountdown>();
-        
+
         UpdateScoreHistory();
 
     }
-    
+
     enum PageState
-        // the four page states
+    // the four page states
     {
         None,
         Start,
@@ -92,55 +92,99 @@ public class GameManager : MonoBehaviour
         scoreP1text.text = scoreP1.ToString();
         scoreP2text.text = scoreP2.ToString();
     }
-    
+
     /// START GAME TIMER ///
     public void StartTimer()
     {
         SetPageState(PageState.Timer);
         startTimer = true;
     }
-    
+
     /// GAME START FUNCTION ///
     public void OnGameStart()
     {
         SetPageState(PageState.Timer);
         _gameOver = false;
-        
+
         gameTimer.ResetTimer();
         gameTimer.onetime = false;
-        
-        
+
+
         // reset score
         scoreP1 = 0;
         scoreP2 = 0;
         SetScoreText();
         
+        // Disable movement inhibitors
+        GameObject move = GameObject.FindWithTag("movementinhibitorfield");
+        if (move != null)
+        {
+            do
+            {
+                move.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
+                move.transform.parent.GetComponent<TileScript>().effectIsActive = false;
+                move = GameObject.FindWithTag("movementinhibitorfield");
+            } while (move != null);
+        }
+
+        // Disable slow fields
+        GameObject slow = GameObject.FindWithTag("slowfield");
+        if (slow != null)
+        {
+            do
+            {
+                slow.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
+                slow.transform.parent.GetComponent<TileScript>().effectIsActive = false;
+                slow = GameObject.FindWithTag("slowfield");
+            } while (slow != null);
+        }
+
+        // Disable clouded fields
+        GameObject cloud = GameObject.FindWithTag("cloudedviewfield");
+        if (cloud != null)
+        {
+            do
+            {
+                cloud.transform.parent.GetComponent<TileScript>().DeactivateOnGameStart();
+                cloud.transform.parent.GetComponent<TileScript>().effectIsActive = false;
+                cloud = GameObject.FindWithTag("cloudedviewfield");
+            } while (cloud != null);
+        }
+
+        // Unload saved powerups
+        player1.GetComponent<PlayerMovementScript>().ResetTileEffectType();
+        player2.GetComponent<PlayerMovementScript>().ResetTileEffectType();
+        GameObject.Find("TilePowerup2").GetComponent<uiTilePowerups>().SwitchImage(3);
+        GameObject.Find("TilePowerup1").GetComponent<uiTilePowerups>().SwitchImage(3);
+
+
+
         // unfreeze player & enable shooting
         player1.OnGameStarted();
         player2.OnGameStarted();
-        
+
         // start spawning power ups
         spawnmanager.GetComponent<SpawnManager>().activateSpawning();
         spawnmanager.GetComponent<SpawnManager>().onGameStart();
 
     }
-    
-    
+
+
     /// GAME OVER FUNCTION ///
     public void OnTimeIsOver()
     {
         _gameOver = true;
         SetPageState(PageState.GameOver);
-        
+
         // state who won
         stateWinner();
 
         player1.OnGameOverConfirmed();
         player2.OnGameOverConfirmed();
-        
+
         // stop spawning power ups
         spawnmanager.GetComponent<SpawnManager>().deactivateSpawning();
-        
+
         // deactivate active power ups and balls
         foreach (Transform child in spawnmanager.transform)
             child.gameObject.SetActive(false);
@@ -159,41 +203,41 @@ public class GameManager : MonoBehaviour
         _gameOver = false;
         startTimer = false;
         SetPageState(PageState.Start);
-        
+
     }
-    
+
 
     void WriteToFile()
     {
         string line = nameP1 + "  " + scoreP1 + "  :  " + scoreP2 + "  " + nameP2;
         // + "\n"
-        
+
         writer = new StreamWriter("GameHistory.txt", true);
         writer.WriteLine(line);
         writer.Close();
     }
-    
+
 
     void UpdateScoreHistory()
     {
         string[] records = File.ReadAllLines("GameHistory.txt");
-        
+
         int N = records.Length;
-        if (N > 0) { History1.text = records[N-1]; }
-        if (N > 1) { History2.text = records[N-2]; }
-        if (N > 2) { History3.text = records[N-3]; }
-        if (N > 3) { History4.text = records[N-4]; }
-        if (N > 4) { History5.text = records[N-5]; }
+        if (N > 0) { History1.text = records[N - 1]; }
+        if (N > 1) { History2.text = records[N - 2]; }
+        if (N > 2) { History3.text = records[N - 3]; }
+        if (N > 3) { History4.text = records[N - 4]; }
+        if (N > 4) { History5.text = records[N - 5]; }
     }
 
-    
+
     public bool getGameOver()
     {
         return _gameOver;
     }
 
     public void OnPlayerScored(string player)
-        // manages score on screen
+    // manages score on screen
     {
         if (player == "Player1")
         {
@@ -205,10 +249,10 @@ public class GameManager : MonoBehaviour
         }
         SetScoreText();
     }
-    
-    
+
+
     void SetPageState(PageState state)
-        // activate needed page and deactivate all others
+    // activate needed page and deactivate all others
     {
         switch (state)
         {
@@ -239,24 +283,24 @@ public class GameManager : MonoBehaviour
     {
         nameP1 = input;
     }
-    
+
     public void readNameP2(string input)
     {
         nameP2 = input;
     }
-    
+
     private void stateWinner()
     {
 
-        
-        
+
+
         //TMP_Text textP1 = gameOverPageP1.GetComponent<TMP_Text>();
         //TMP_Text textP2 = gameOverPageP2.GetComponent<TMP_Text>();
-        
+
         if (scoreP1 > scoreP2)
         {
-            WinnerStatementP1.text = nameP1 + " ,you won my friend!";
-            WinnerStatementP2.text = nameP2 + " ,you lost!";
+            WinnerStatementP1.text = nameP1 + ", you won my friend!";
+            WinnerStatementP2.text = nameP2 + ", you lost!";
         }
         else if (scoreP1 == scoreP2)
         {
@@ -265,9 +309,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            WinnerStatementP1.text = nameP1 + " ,you lost!";
-            WinnerStatementP2.text = nameP2 + " ,you won my friend!";
+            WinnerStatementP1.text = nameP1 + ", you lost!";
+            WinnerStatementP2.text = nameP2 + ", you won my friend!";
         }
     }
-    
+
 }

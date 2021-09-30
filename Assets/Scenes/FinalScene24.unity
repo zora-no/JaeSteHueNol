@@ -248,6 +248,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 537555449}
     m_Modifications:
+    - target: {fileID: 1145216899, guid: fc9b6b38e57cc764cb0fc9062d22a406, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145216899, guid: fc9b6b38e57cc764cb0fc9062d22a406, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -375
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132752988, guid: fc9b6b38e57cc764cb0fc9062d22a406, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -840
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132752988, guid: fc9b6b38e57cc764cb0fc9062d22a406, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -375
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596200945871349673, guid: fc9b6b38e57cc764cb0fc9062d22a406,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -840
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596200945871349673, guid: fc9b6b38e57cc764cb0fc9062d22a406,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -375
+      objectReference: {fileID: 0}
     - target: {fileID: 7596200945871349674, guid: fc9b6b38e57cc764cb0fc9062d22a406,
         type: 3}
       propertyPath: m_Type
@@ -378,6 +404,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7596200946970776865, guid: fc9b6b38e57cc764cb0fc9062d22a406,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596200946970776865, guid: fc9b6b38e57cc764cb0fc9062d22a406,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -375
+      objectReference: {fileID: 0}
     - target: {fileID: 7596200946970776866, guid: fc9b6b38e57cc764cb0fc9062d22a406,
         type: 3}
       propertyPath: m_Type
@@ -475,6 +511,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969724957089896843, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
+        type: 3}
+      propertyPath: throwVelocity
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 7969724958381201047, guid: 6c6b082e71aa0b74c8c08b10a16f545b,
         type: 3}
@@ -650,7 +691,7 @@ MonoBehaviour:
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: 6742837df099ed2439576d3c20e5644f, type: 3}
-    volume: 0.214
+    volume: 0.133
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -1344,6 +1385,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885618941280908663, guid: 1e4fa8212af49ac4a8c3e392758c2de9,
+        type: 3}
+      propertyPath: throwVelocity
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e4fa8212af49ac4a8c3e392758c2de9, type: 3}
@@ -2540,6 +2586,27 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitGame
       objectReference: {fileID: 0}
+    - target: {fileID: 4031053055169121900, guid: 9e774c587d79d9d46b8e20925fa5946e,
+        type: 3}
+      propertyPath: m_text
+      value: "The year is 3096. Humans have long abandoned their frail physical bodies
+        and combined their consciousnesses in favour of forming the Awesome Super
+        Cool Hivemind\u2122.\n\nTo entertain it Space Tiles was invented, a fierce
+        competition fought out on the moon between two remote controlled robots.
+        Space Tiles has replaced all other sport events except for Candy Crush eSports.
+        It represents the age old story of red vs green (thankfully the hivemind
+        is not colourblind), locked in a never ending battle of skill.\n\nYou and
+        a competitor will each take control of one of the rocket powered robots.
+        The goal of the game is to hit your opponent as often as possible before
+        the timer runs out. To assist you a number of powerups will be spawned by
+        the benevolent hivemind, falling down in the middle of the arena. Some of
+        these will directly affect you or your opponent. Others will be saved to
+        your tile powerup slot. \r\nWhen you hit a tile behind your opponent with
+        such a tile powerup active, it will be consumed and the tile in your opponents
+        wall will permanently be changed.\n\nThis game has been built around the
+        ability to screencheat. Feel free to look at the opponents part of the screen
+        to find out which tiles behind you have been changed.\n\n "
+      objectReference: {fileID: 0}
     - target: {fileID: 4031053055408405833, guid: 9e774c587d79d9d46b8e20925fa5946e,
         type: 3}
       propertyPath: m_IsActive
@@ -2711,8 +2778,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10fad9d3ebaae5d428be86df2fbbef47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerUpRate: 1
-  _firstWait: 1
+  _powerUpRate: 2
+  _firstWait: 2
 --- !u!4 &1861926926
 Transform:
   m_ObjectHideFlags: 0
@@ -2775,8 +2842,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1023096937}
-  secondsLeft: 3
-  intendedGameLength: 3
+  secondsLeft: 180
+  intendedGameLength: 180
   onetime: 0
   GameManager: {fileID: 1012935053}
 --- !u!4 &1944535385
