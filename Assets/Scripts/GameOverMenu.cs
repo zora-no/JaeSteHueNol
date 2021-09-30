@@ -18,21 +18,17 @@ public class GameOverMenu : MonoBehaviour
         
     }
 
+    // after game over go back to main menu 
     public void GoBackToMainMenu()
     {
         GameManager.OnBackToMainMenu();
     }
-    
+    // after game over start new round
     public void StartAgain()
     {
         GameManager.OnGameStart();
     }
     
-    //public void StateWinner()
-    //{
-    //    winnerStatementLeft.text = "winner";
-    //    winnerStatementRight.text = "looser";
-    // }
     
 
 }

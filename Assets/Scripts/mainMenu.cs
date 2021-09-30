@@ -8,13 +8,19 @@ public class mainMenu : MonoBehaviour
     GameManager GameManager;
 
     [SerializeField]
-    public GameObject _mainMenu;
-    public GameObject _descriptionMenu;
-    public GameObject _scoreHistoryMenu;
-    public GameObject _nameMenu;
-    public GameObject _controleMenu;
+    private GameObject _mainMenu;
+    [SerializeField]
+    private GameObject _descriptionMenu;
+    [SerializeField]
+    private GameObject _scoreHistoryMenu;
+    [SerializeField]
+    private GameObject _nameMenu;
+    [SerializeField]
+    private GameObject _controleMenu;
+    [SerializeField]
+    private GameObject _cMenu;
     
-    void Awake()
+    void Start()
     {
         GameManager = FindObjectOfType<GameManager>();
         _mainMenu.SetActive(true);
@@ -22,6 +28,7 @@ public class mainMenu : MonoBehaviour
         _scoreHistoryMenu.SetActive(false);
         _nameMenu.SetActive(false);
         _controleMenu.SetActive(false);
+        
     }
     
     // when pressing the button startPage will be deactivated
